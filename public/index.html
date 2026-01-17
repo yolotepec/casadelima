@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa de Lima - Abarrotes</title>
+    
+    <!-- Cargar Fuentes: Inter (texto), Poppins (títulos) y Playfair Display (Marca) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Cargar Tailwind CSS y Configuración de Colores -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#008000',  /* Tu verde protagonista */
+                            yellow: '#FFDE21', /* Tu amarillo secundario */
+                            dark: '#004d00',   /* Un verde más oscuro para contrastes */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                        brand: ['Playfair Display', 'serif'], /* Fuente especial para el logo */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Cargar Iconos Feather -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        /* Estilos base */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Carrusel */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más suave */
+        }
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        /* Gradiente para mejorar lectura de texto en slides */
+        .slide-overlay {
+            background: linear-gradient(to top, rgba(0, 50, 0, 0.8), rgba(0, 0, 0, 0.2));
+        }
+
+        /* Puntos del carrusel */
+        .carousel-dots {
+            position: absolute;
+            bottom: 2rem; /* Posición ajustada */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 20;
+        }
+        .carousel-dot {
+            width: 14px;
+            height: 14px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .carousel-dot.active {
+            background-color: #FFDE21; /* Amarillo activo */
+            transform: scale(1.3);
+            border-color: rgba(0,0,0,0.1);
+        }
+        
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-brand-yellow selection:text-brand-green overflow-x-hidden">
+
+    <!-- =========== Encabezado =========== -->
+    <header class="bg-white shadow-lg sticky top-0 z-40 border-b-4 border-brand-green">
+        <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <!-- Logo - Sin contorno -->
+            <a href="#inicio" class="flex items-center space-x-3 group">
+                <div class="relative overflow-hidden rounded-full">
+                    <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-14 w-14 object-cover rounded-full shadow-sm">
+                </div>
+                <span class="text-3xl font-bold text-brand-green tracking-tight group-hover:text-brand-dark transition-colors brand-text">Casa de Lima</span>
+            </a>
+            
+            <!-- Navegación de Escritorio -->
+            <div class="hidden md:flex space-x-1 items-center">
+                <a href="#inicio" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Inicio</a>
+                <a href="#productos" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Productos</a>
+                <a href="#sobre-nosotros" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Nosotros</a>
+                <a href="#ubicacion" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Ubicación</a>
+                <!-- Botón CTA destacado -->
+                <a href="#contacto" class="ml-4 px-6 py-2.5 bg-brand-green text-white font-bold rounded-full shadow-md hover:bg-brand-dark hover:shadow-lg transform active:scale-95 transition-all">
+                    Contacto
+                </a>
+            </div>
+            
+            <!-- Botón de Menú Móvil -->
+            <button id="menu-btn" class="md:hidden p-2 rounded-lg text-brand-green hover:bg-green-50 focus:outline-none">
+                <i data-feather="menu" class="h-7 w-7"></i>
+            </button>
+        </nav>
+        
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#inicio" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Inicio</a>
+                <a href="#productos" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Productos</a>
+                <a href="#sobre-nosotros" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Sobre Nosotros</a>
+                <a href="#ubicacion" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Ubicación</a>
+                <a href="#contacto" class="block px-3 py-3 rounded-md text-base font-bold text-brand-green bg-green-50">Contacto</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- =========== Hero Section (Carrusel) =========== -->
+        <section id="inicio" class="relative h-[85vh] min-h-[500px] carousel-container bg-gray-900">
+            <div class="carousel-slides h-full">
+                <!-- Slide 1 -->
+                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://tiendatek.info/wp-content/uploads/3-productos-basicos.jpg');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <span class="bg-brand-yellow text-brand-dark px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 shadow-lg animate-pulse">¡Bienvenidos!</span>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Todo lo que necesitas <br><span class="text-brand-yellow">en un solo lugar</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100 drop-shadow-md">
+                            Tu tienda de abarrotes de confianza con productos de primera calidad.
+                        </p>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://i.blogs.es/5fa31b/supermercado/500_333.jpeg');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <span class="bg-brand-green text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 border border-brand-yellow">Calidad Premium</span>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Frescura y Calidad <br><span class="text-brand-yellow">a tu Alcance</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
+                            Desde tu despensa básica hasta productos de limpieza.
+                        </p>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://elahorro.net/images/Departaments/Abarrotes/001-Abarrotes.jpg');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Precios Justos <br><span class="text-brand-yellow">Sonrisas Seguras</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
+                            Comprometidos con tu economía y satisfacción familiar.
+                        </p>
+                    </div>
+                </div>
+                 <!-- Slide 4 -->
+                 <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://i0.wp.com/chemfluid.com.co/wp-content/uploads/2024/10/Desafios-en-la-Cadena-de-Suministro-de-Materias-Primas-Quimicas-Estrategias-para-la-Resiliencia-La-cadena-de-suministro-de-materias-primas-quimicas-enfrenta-desafios-significativos-en-el-entorno-g-2.png?fit=1200%2C700&ssl=1');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Hogar Limpio <br><span class="text-brand-yellow">Familia Feliz</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
+                            Detergentes, suavizantes y todo para el cuidado de tu hogar.
+                        </p>
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                 <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://d1ih8jugeo2m5m.cloudfront.net/2025/08/como_poner_una_tienda_de_abarrotes.webp');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Tu Tienda de <br><span class="text-brand-yellow">Confianza</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
+                            Atención personalizada que nos caracteriza.
+                        </p>
+                    </div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://vilmanunez.com/wp-content/uploads/2018/06/tiendas-online.png');">
+                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
+                            Visítanos Pronto
+                        </h1>
+                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
+                            Te esperamos en Carretera Juquila, kilómetro 6.
+                        </p>
+                        <a href="#ubicacion" class="mt-8 px-8 py-3 bg-brand-yellow text-brand-dark font-bold rounded-full shadow-lg hover:bg-white transition-colors">
+                            Ver Ubicación
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Paginación -->
+            <div class="carousel-dots"></div>
+        </section>
+
+        <!-- =========== Características (Highlight) =========== -->
+        <section class="relative z-10 py-16 px-4">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-green">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-green">
+                            <i data-feather="shopping-cart" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Gran Variedad</h3>
+                        <p class="text-center text-gray-600">Encuentra todo lo esencial para tu canasta básica, limpieza e higiene en un mismo sitio.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-yellow">
+                        <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-yellow-600">
+                            <i data-feather="dollar-sign" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Precios Justos</h3>
+                        <p class="text-center text-gray-600">Calidad y buen precio en todos nuestros productos, pensados para la economía familiar.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-green">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-green">
+                            <i data-feather="smile" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Atención y Confianza</h3>
+                        <p class="text-center text-gray-600">Te ofrecemos la atención y confianza que nos caracteriza, ¡somos parte de tu comunidad!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Sección de Productos =========== -->
+        <section id="productos" class="py-20 bg-gray-50">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="text-brand-green font-bold uppercase tracking-wider text-sm">Nuestro Catálogo</span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-2">Productos Destacados</h2>
+                    <div class="w-24 h-1 bg-brand-yellow mx-auto mt-4 rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+                    <!-- Categoría 1: Canasta Básica -->
+                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7w9BjrCogp3Kap-bUnxDJx2de_HgDQiy4RQ&s" alt="Productos de la canasta básica" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-brand-green text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">Esenciales</div>
+                        </div>
+                        <div class="p-8 flex-1">
+                            <h3 class="text-2xl font-bold text-brand-green mb-4 flex items-center gap-2">
+                                <i data-feather="shopping-bag" class="h-6 w-6"></i> Canasta Básica
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Azúcar y Cereales</li>
+                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Aceites y Especias</li>
+                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Sopas, Pastas y Enlatados</li>
+                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Lácteos, Huevos y Bebidas</li>
+                                <li class="flex items-center text-gray-700 font-semibold p-2"><i data-feather="plus" class="h-4 w-4 text-brand-yellow mr-3"></i>¡Y mucho más!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Categoría 2: Limpieza e Higiene -->
+                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9UwCV70JsEZA6W9EskP1d3-zDlfa45nL3qA&s" alt="Productos de limpieza" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-brand-yellow text-brand-dark px-4 py-1 rounded-full text-sm font-bold shadow-md">Hogar</div>
+                        </div>
+                        <div class="p-8 flex-1">
+                            <h3 class="text-2xl font-bold text-yellow-600 mb-4 flex items-center gap-2">
+                                <i data-feather="droplet" class="h-6 w-6"></i> Limpieza e Higiene
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Detergentes líquidos y en polvo</li>
+                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Suavizantes y blanqueadores</li>
+                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Higiene personal completa</li>
+                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Artículos de limpieza doméstica</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Sección Sobre Nosotros =========== -->
+        <section id="sobre-nosotros" class="py-20 bg-white">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                    <!-- Columna de Imagen -->
+                    <div class="w-full md:w-1/2 relative group">
+                        <!-- Ajuste para móviles: -inset-2 en vez de -inset-4 para evitar overflow -->
+                        <div class="absolute -inset-2 md:-inset-4 bg-brand-yellow rounded-2xl transform rotate-3 opacity-30 group-hover:rotate-6 transition-transform"></div>
+                        <div class="absolute -inset-2 md:-inset-4 bg-brand-green rounded-2xl transform -rotate-3 opacity-20 group-hover:-rotate-6 transition-transform"></div>
+                        <img src="https://i.blogs.es/c630d6/imprint-418593_640/450_1000.jpg" alt="Interior de la tienda Casa de Lima" class="relative rounded-2xl shadow-2xl w-full object-cover h-[400px]">
+                    </div>
+                    <!-- Columna de Texto -->
+                    <div class="w-full md:w-1/2">
+                        <span class="text-brand-green font-bold uppercase tracking-wider text-sm">Nuestra Historia</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Más que una tienda, <span class="text-brand-green">tu vecino de confianza</span></h2>
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            En <strong class="text-brand-green">Casa de Lima</strong>, somos parte de tu día a día. Nos enorgullece ofrecerte una amplia selección de productos esenciales para tu hogar, siempre con la garantía de precios justos y una atención personalizada que nos distingue.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            Nuestra misión es llevar hasta tu mesa productos de calidad, facilitando tus compras en un ambiente familiar y de confianza.
+                        </p>
+                        <a href="#contacto" class="inline-flex items-center font-bold text-brand-green hover:text-brand-yellow transition-colors">
+                            Contáctanos para saber más <i data-feather="arrow-right" class="ml-2 h-5 w-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========== Sección de Ubicación =========== -->
+        <section id="ubicacion" class="py-20 bg-gray-50">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <!-- Columna de Texto -->
+                        <div class="p-10 lg:p-14 flex flex-col justify-center bg-brand-green text-white relative overflow-hidden">
+                            <!-- Círculos decorativos -->
+                            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10"></div>
+                            <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-40 h-40 rounded-full bg-brand-yellow opacity-20"></div>
+
+                            <h2 class="text-3xl md:text-4xl font-extrabold mb-6 relative z-10">Ven a Conocernos</h2>
+                            <p class="text-lg text-green-100 mb-8 relative z-10">
+                                ¡Te esperamos! Ven y conoce la calidad y el buen servicio que Casa de Lima tiene para ti.
+                            </p>
+                            
+                            <div class="space-y-6 relative z-10">
+                                <!-- Dirección -->
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-white/20 p-2 rounded-lg">
+                                        <i data-feather="map-pin" class="h-6 w-6 text-brand-yellow"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-white">Ubicación</h4>
+                                        <p class="text-green-100 mt-1">6RX7+F8 Santa María Yolotepec,<br>Oaxaca, Mexico</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Horario -->
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-white/20 p-2 rounded-lg">
+                                        <i data-feather="clock" class="h-6 w-6 text-brand-yellow"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-white">Horario de Atención</h4>
+                                        <ul class="text-green-100 mt-1 space-y-1">
+                                            <li>Lunes - Sábado: <span class="font-semibold text-white">8:00 AM - 9:00 PM</span></li>
+                                            <li>Domingo: <span class="font-semibold text-white">9:00 AM - 3:00 PM</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna de Mapa -->
+                        <div class="h-[400px] md:h-auto">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1956.126438076615!2d-97.18664175109038!3d16.24869509653063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c0000000000000%3A0x8677c376161a0f8!2s6RX7%2BF8%20Santa%20Mar%C3%ADa%20Yolotepec%2C%20Oaxaca%2C%20Mexico!5e0!3m2!1ses-419!2sus!4v1729578294203!5m2!1ses-419!2sus" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="w-full h-full grayscale hover:grayscale-0 transition-all duration-500">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Sección de Contacto =========== -->
+        <section id="contacto" class="py-20 bg-white">
+            <div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Contáctanos</h2>
+                    <p class="text-lg text-gray-600">
+                        ¿Tienes alguna duda o sugerencia? ¡Nos encantaría escucharte!
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100">
+                    <form id="contact-form" class="space-y-6" action="https://formsubmit.co/smy42325@gmail.com" method="POST">
+                        
+                        <!-- Configuración de FormSubmit -->
+                        <input type="hidden" name="_subject" value="Nuevo Mensaje desde Casa de Lima">
+                        <input type="hidden" name="_next" value="https://tiendacasadelima.web.app/#contacto">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="text" name="_honey" style="display:none">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nombre Completo</label>
+                                <input type="text" id="name" name="name" required placeholder="Tu Nombre Completo"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required placeholder="nombre@correo.com"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-bold text-gray-700 mb-2">Asunto</label>
+                            <input type="text" id="subject" name="subject" required placeholder="Consulta sobre productos..."
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-bold text-gray-700 mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Escribe tu mensaje aquí..."
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit"
+                                class="w-full py-4 px-6 bg-brand-green text-white font-bold text-lg rounded-xl shadow-lg hover:bg-brand-dark hover:shadow-xl transform active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2">
+                            <span>Enviar Mensaje</span>
+                            <i data-feather="send" class="h-5 w-5"></i>
+                        </button>
+                    </form> 
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Sección de Portafolio Web =========== -->
+        <section class="py-20 bg-gradient-to-br from-brand-yellow/10 to-orange-50 border-t border-brand-yellow/30">
+            <div class="container mx-auto max-w-6xl px-4 text-center">
+                <div class="inline-block p-4 rounded-full bg-white shadow-md mb-6">
+                    <i data-feather="code" class="h-10 w-10 text-brand-green"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">¿Te gusta esta página web?</h2>
+                <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+                    ¡Tú también puedes tener una! Ofrezco servicios de diseño y desarrollo web modernos. Mira algunos de mis trabajos:
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://comidachinayolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="globe" class="h-4 w-4"></i> Comida China
+                    </a>
+                    <a href="https://tiendayolotepec.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="shopping-cart" class="h-4 w-4"></i> Tienda Yolo
+                    </a>
+                    <a href="https://eliteconstruction1.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="tool" class="h-4 w-4"></i> Construcción
+                    </a>
+                    <a href="https://fuegoyharina1.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="pie-chart" class="h-4 w-4"></i> Pizzería
+                    </a>
+                    <a href="https://pasteldeyolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="gift" class="h-4 w-4"></i> Pasteles/Donas
+                    </a>
+                    <a href="https://abarrotesyolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
+                        <i data-feather="shopping-bag" class="h-4 w-4"></i> Abarrotes Yolo
+                    </a>
+                    
+                    <a href="#contacto" class="px-8 py-3 bg-brand-green text-white font-bold rounded-lg shadow-lg hover:bg-brand-dark transition-all ml-2 flex items-center gap-2">
+                         Solicitar Cotización <i data-feather="chevron-right" class="h-4 w-4"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========== Footer =========== -->
+    <footer class="bg-gray-900 text-gray-300 py-16 border-t-8 border-brand-yellow">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center text-center">
+                <!-- Logo Footer -->
+                <div class="mb-6 p-2 bg-white rounded-full">
+                     <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-16 w-auto rounded-full">
+                </div>
+                
+                <h3 class="text-3xl font-bold text-white mb-2 brand-text">Casa de Lima</h3>
+                <p class="text-gray-400 mb-8 max-w-md">Todos tus productos esenciales en un solo lugar, con la confianza y calidad que mereces.</p>
+                
+                <!-- Redes Sociales -->
+                <div class="flex space-x-6 mb-10">
+                    <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" 
+                       class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#1877F2] hover:scale-110 transition-all duration-300" 
+                       aria-label="Facebook">
+                        <i data-feather="facebook" class="h-6 w-6"></i>
+                    </a>
+                    <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" 
+                       class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300" 
+                       aria-label="WhatsApp">
+                        <i data-feather="message-circle" class="h-6 w-6"></i>
+                    </a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="pt-8 border-t border-gray-800 w-full text-center">
+                    <p class="text-sm text-gray-500">&copy; <span id="current-year"></span> Casa de Lima. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========== JavaScript =========== -->
+    <script>
+        // Inicializar iconos
+        feather.replace();
+
+        // Año actual
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Menú Móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuBtn.querySelector('i').setAttribute('data-feather', 'x');
+                menuBtn.classList.add('bg-green-50');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuBtn.querySelector('i').setAttribute('data-feather', 'menu');
+                menuBtn.classList.remove('bg-green-50');
+            }
+            feather.replace();
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                menuBtn.querySelector('i').setAttribute('data-feather', 'menu');
+                menuBtn.classList.remove('bg-green-50');
+                feather.replace();
+            });
+        });
+        
+        // Scroll Suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Carrusel Automático Robusto
+        const carouselSlides = document.querySelector('.carousel-slides');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        // Crear Dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetInterval();
+            });
+            dotsContainer.appendChild(dot);
+        });
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function updateCarousel() {
+            carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                if(index === currentSlide) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        // Pausar al pasar el mouse
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        carouselContainer.addEventListener('mouseleave', startInterval);
+
+        // Iniciar
+        startInterval();
+    </script>
+
+</body>
+</html>
