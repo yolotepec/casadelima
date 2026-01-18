@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f9fafb;
+            background: #008000;
             color: #1f2937;
             line-height: 1.7;
             padding: 40px 20px;
@@ -18,7 +18,7 @@
             background: #ffffff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 25px #FFDE21;
         }
         h1 {
             text-align: center;
@@ -28,7 +28,7 @@
         h2 {
             margin-top: 30px;
             font-size: 18px;
-            color: #374151;
+            color: #017201;
         }
         p {
             margin-top: 12px;
@@ -48,8 +48,7 @@
     <h1>Aviso de Privacidad</h1>
 
     <p>
-        Casa de Lima, con domicilio en carretera Juquila, kilómetro 6, antes de llegar
-        al crucero con dirección a Oaxaca, es responsable del uso y protección de los
+        Casa de Lima, con domicilio en carretera Juquila, es responsable del uso y protección de los
         datos personales proporcionados a través de este sitio web.
     </p>
 
@@ -80,10 +79,21 @@
         para cumplir con disposiciones legales o mejorar el servicio.
     </p>
 
-    <footer>
-        Última actualización: 2026<br>
-        Casa de Lima – Todos los derechos reservados
-    </footer>
+ <footer>
+    Última actualización: <span id="current-year">2026</span><br>
+    Casa de Lima – Todos los derechos reservados
+</footer>
+
+<script>
+    // Intentar actualizar el año dinámicamente
+    try {
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    } catch (e) {
+        // Si hay algún error, no hace nada y se queda el 2026
+        console.error("No se pudo actualizar el año automáticamente:", e);
+    }
+</script>
+
 </div>
 
 </body>
