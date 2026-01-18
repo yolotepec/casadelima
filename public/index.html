@@ -491,46 +491,54 @@
     </main>
 
     <!-- =========== Footer =========== -->
-    <footer class="bg-gray-900 text-gray-300 py-16 border-t-8 border-brand-yellow">
-        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col items-center text-center">
-                <!-- Logo Footer -->
-                <div class="mb-6 p-2 bg-white rounded-full">
-                     <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-16 w-auto rounded-full">
-                </div>
-                
-                <h3 class="text-3xl font-bold text-white mb-2 brand-text">Casa de Lima</h3>
-                <p class="text-gray-400 mb-8 max-w-md">Todos tus productos esenciales en un solo lugar, con la confianza y calidad que mereces.</p>
-                
-                <!-- Redes Sociales -->
-                <div class="flex space-x-6 mb-10">
-                    <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" 
-                       class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#1877F2] hover:scale-110 transition-all duration-300" 
-                       aria-label="Facebook">
-                        <i data-feather="facebook" class="h-6 w-6"></i>
-                    </a>
-                    <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" 
-                       class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300" 
-                       aria-label="WhatsApp">
-                        <i data-feather="message-circle" class="h-6 w-6"></i>
-                    </a>
-                </div>
+<footer class="bg-gray-900 text-gray-300 py-16 border-t-8 border-brand-yellow">
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center text-center">
+            <!-- Logo Footer -->
+            <div class="mb-6 p-2 bg-white rounded-full">
+                <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-16 w-auto rounded-full">
+            </div>
+            
+            <h3 class="text-3xl font-bold text-white mb-2 brand-text">Casa de Lima</h3>
+            <p class="text-gray-400 mb-8 max-w-md">Todos tus productos esenciales en un solo lugar, con la confianza y calidad que mereces.</p>
+            
+            <!-- Redes Sociales -->
+            <div class="flex space-x-6 mb-6">
+                <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" 
+                   class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#1877F2] hover:scale-110 transition-all duration-300" 
+                   aria-label="Facebook">
+                    <i data-feather="facebook" class="h-6 w-6"></i>
+                </a>
+                <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" 
+                   class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300" 
+                   aria-label="WhatsApp">
+                    <i data-feather="message-circle" class="h-6 w-6"></i>
+                </a>
+            </div>
 
-                <!-- Copyright -->
-                <div class="pt-8 border-t border-gray-800 w-full text-center">
-                    <p class="text-sm text-gray-500">&copy; <span id="current-year"></span> Casa de Lima. Todos los derechos reservados.</p>
-                </div>
+            <!-- Aviso de Privacidad -->
+            <a href="/aviso-de-privacidad.html" 
+               class="text-gray-400 hover:text-white transition-colors duration-300 mb-6 block"
+               target="_blank" rel="noopener noreferrer">
+               Aviso de Privacidad
+            </a>
+
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-gray-800 w-full text-center">
+                <p class="text-sm text-gray-500">&copy; <span id="current-year"></span> Casa de Lima. Todos los derechos reservados.</p>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- =========== JavaScript =========== -->
-    <script>
-        // Inicializar iconos
-        feather.replace();
+<!-- =========== JavaScript =========== -->
+<script>
+    // Inicializar iconos
+    feather.replace();
 
-        // Año actual
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+    // Año actual
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
 
         // Menú Móvil
         const menuBtn = document.getElementById('menu-btn');
