@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tienda de Abarrotes Casa de Lima</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración de Tailwind con tus Colores y Fuentes de Marca -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#008000',  /* Tu verde protagonista */
+                            yellow: '#FFDE21', /* Tu amarillo secundario */
+                            dark: '#004d00',   /* Un verde más oscuro para contrastes */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                        brand: ['Playfair Display', 'serif'], /* Fuente especial para el logo */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React y Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts: Inter, Poppins y Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* FUENTES Y SCROLLBAR PERSONALIZADO */
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #008000; border-radius: 10px; } /* brand-green */
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #004d00; } /* brand-dark */
+
+        /* CORRECCIÓN RESPONSIVE */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+        #root {
+            width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+       const { useState, useMemo, useEffect } = React;
+
+        // --- DATOS DEL PRODUCTO ---
+        const PRODUCTS = [
+            // --- ABARROTES ---
+            { id: 1, name: 'Aceite Nutrioli', category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjo7ztVg4kUhpmLo1d0_Tp9rDuJQgvWWoIVw&s', variants: [{ label: '850ml', price: 42.00 }, { label: '1.9L', price: 89.00 }] },
+            { id: 2, name: 'Huevo Blanco 12pzas', price: 39.00, category: 'Abarrotes', image: 'https://hebmx.vtexassets.com/arquivos/ids/609441/seleccionado_huevo_12pz_47847.jpg?v=638521588295300000' },
+            { id: 3, name: 'Arroz Extra 1kg', price: 23.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-Msg1Us8z_mNCp_H1V51ODZryg2kij0asA&s' },
+            { id: 4, name: 'Frijol Negro 1kg', price: 36.00, category: 'Abarrotes', image: 'https://convy.mx/cdn/shop/files/FrijolNegro1200.png?v=1692036307' },
+            { id: 5, name: 'Pan Bimbo', price: 48.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ52BXl3QUr42UVXUY3yPAborNUboauxgBHCg&s' },
+            { id: 6, name: 'Mayonesa 390g', price: 35.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyw3qFc7FppVTf2XarYPYODGrCv9-XCFCcsA&s' },
+            { id: 7, name: 'pag de prueba okc', price: 4000.00, category: 'Abarrotes', description: '+17048349539', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-vwyc1CL6tFoTeYIahtHJZjbgDLhMUmZUA&s' },
+
+            // --- LÁCTEOS ---
+            { id: 21, name: 'Leche Entera LALA 1L', price: 26.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2l7C-xteC-LXvTtOWP2aILYqE8xhQMvKPGg&s' },
+
+            // --- SABRITAS ---
+            { id: 41, name: 'Sabritas Sal', category: 'Sabritas', image: 'https://i.pinimg.com/736x/3b/4b/cc/3b4bcc084f4e8997faf3c43f4409e674.jpg', variants: [{ label: 'Chica (42g)', price: 18.00 }, { label: 'Grande (170g)', price: 52.00 }] },
+
+            // --- REFRESCOS ---
+            { id: 61, name: 'Coca-Cola', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-niA-K67btPKDp9SD8G4VaA_aRtdhIqXAw&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
+            { id: 62, name: 'pepsi', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuyG69ScdWuHaqDQOEhddHPZZOcE1eHHhU2w&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
+            
+            // --- LIMPIEZA ---
+            { id: 81, name: 'Detergente Polvo 2kg', price: 82.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJGnOAcO4VQ0tLychuIxtQqbSQX4yTYyoeWg&s' },
+            { id: 82, name: 'Jabón Zote Blanco', price: 19.50, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNm2K_yV2kj7ShJGSYiugA5N3ApzyCjulX1w&s' },
+            { id: 83, name: 'Papel Higiénico 4pzas', price: 32.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQRS0lPhJf9aWwB-1iqV7lNsQtaptC5xPVQ&s' },
+        ];
+
+        const CATEGORIES = ['Todos', 'Abarrotes', 'Lácteos', 'Sabritas', 'Refrescos', 'Limpieza'];
+        const SHIPPING_THRESHOLD = 200; 
+        const SHIPPING_FEE = 10;
+
+        function App() {
+            const [cart, setCart] = useState([]);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('Todos');
+            const [activeModal, setActiveModal] = useState(null);
+            const [variantModalProduct, setVariantModalProduct] = useState(null);
+            const [toasts, setToasts] = useState([]);
+            const [formData, setFormData] = useState({ name: '', address: '' });
+
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [activeModal, cart, searchTerm, selectedCategory]);
+
+            const filteredProducts = useMemo(() => {
+                return PRODUCTS.filter(p => {
+                    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesCategory = selectedCategory === 'Todos' || p.category === selectedCategory;
+                    return matchesSearch && matchesCategory;
+                });
+            }, [searchTerm, selectedCategory]);
+
+            const addToast = (message) => {
+                const id = Date.now();
+                setToasts(prev => [...prev, { id, message }]);
+                setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 2500);
+            };
+
+            const addToCart = (product, price, variantLabel = null) => {
+                const cartId = variantLabel ? `${product.id}-${variantLabel}` : product.id;
+                const finalName = variantLabel ? `${product.name} (${variantLabel})` : product.name;
+                setCart(prev => {
+                    const existing = prev.find(item => item.cartId === cartId);
+                    if (existing) return prev.map(item => item.cartId === cartId ? { ...item, quantity: item.quantity + 1 } : item);
+                    return [...prev, { ...product, cartId, name: finalName, price, quantity: 1 }];
+                });
+                addToast(`${finalName} agregado`);
+                setActiveModal(null);
+            };
+
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const shippingCost = subtotal >= SHIPPING_THRESHOLD ? 0 : (cart.length > 0 ? SHIPPING_FEE : 0);
+            const total = subtotal + shippingCost;
+
+            const sendWhatsApp = (e) => {
+                e.preventDefault();
+                const phoneNumber = "17048349539"; 
+                // ACTUALIZACIÓN DE NOMBRE EN EL MENSAJE
+                let message = `🛒 *CASA DE LIMA - PEDIDO*\n\n*CLIENTE:* ${formData.name}\n*DIRECCIÓN:* ${formData.address}\n\n*PRODUCTOS:*\n`;
+                cart.forEach(item => message += `• ${item.quantity}x ${item.name} ($${(item.price * item.quantity).toFixed(2)})\n`);
+                message += `\n*TOTAL A PAGAR: $${total.toFixed(2)}*`;
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col w-full overflow-hidden bg-slate-50 font-sans">
+                    
+                    {/* BARRA SUPERIOR - Usando brand-dark */}
+                    <a href="/" className="block bg-brand-dark text-white w-full hover:bg-black transition-colors cursor-pointer text-decoration-none z-50">
+                        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex items-center gap-2">
+                            <i data-lucide="arrow-left" style={{width: 16, height: 16}}></i>
+                            <span className="text-xs sm:text-sm font-semibold font-sans">Volver al inicio</span>
+                        </div>
+                    </a>
+
+                    {/* HEADER PEGAJOSO (STICKY) */}
+                    {/* Se cambió h-14/h-16 por py-2 para que la altura se ajuste automáticamente al logo más grande */}
+                    <header className="sticky top-0 z-40 bg-white border-b-4 border-brand-yellow px-3 sm:px-4 py-2 flex justify-between items-center max-w-6xl mx-auto w-full shadow-sm">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            {/* --- SECCIÓN DEL LOGO (MODIFICADA) --- */}
+                            {/* Reemplaza el src de abajo con la URL de tu propio logo */}
+                            {/* CAMBIOS: 'object-contain' asegura que el logo se vea completo sin cortarse, ideal para logos sin fondo */}
+                            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-lg overflow-hidden bg-white flex items-center justify-center">
+                                <img 
+                                    src="https://i.ibb.co/SYd43f0/lgo-de-lima.jpg" 
+                                    alt="Logo Casa de Lima" 
+                                    className="w-full h-full object-contain"
+                                />
+                            </div>
+                            
+                            <div>
+                                {/* USANDO FUENTE 'BRAND' (Playfair Display) */}
+                                <h1 className="text-lg sm:text-xl font-bold font-brand text-brand-dark tracking-tight leading-none">Casa de Lima</h1>
+                                <p className="text-[9px] sm:text-[10px] font-bold font-display text-brand-green uppercase tracking-widest mt-0.5">Calidad • Frescura • Ahorro</p>
+                            </div>
+                        </div>
+                        {/* Botón de Carrito con Colores de Marca */}
+                        <button onClick={() => setActiveModal('cart')} className="relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-green text-white rounded-xl shadow-md hover:bg-brand-dark hover:shadow-lg hover:translate-y-0.5 transition-all">
+                            <i data-lucide="shopping-cart" style={{width: 16, height: 16}} className="sm:w-[18px] sm:h-[18px]"></i>
+                            <span className="font-bold text-[10px] sm:text-xs uppercase hidden xs:inline font-display">Carrito</span>
+                            {cart.length > 0 && <span className="absolute -top-1 sm:-top-2 -right-1 sm:-right-2 bg-brand-yellow text-brand-dark text-[10px] sm:text-[11px] font-black h-5 w-5 sm:h-6 sm:w-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm font-sans">{cart.reduce((s,i) => s+i.quantity, 0)}</span>}
+                        </button>
+                    </header>
+
+                    {/* BARRA DE BÚSQUEDA */}
+                    <div className="bg-white p-3 sm:p-4 border-b border-slate-100 shadow-sm">
+                        <div className="max-w-xl mx-auto relative">
+                            <input 
+                                type="text" 
+                                placeholder="¿Qué se te antoja hoy?..." 
+                                className="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-100 outline-none focus:ring-2 focus:ring-brand-green focus:bg-white transition-all font-medium text-sm sm:text-base text-slate-700 placeholder-slate-400 font-sans" 
+                                value={searchTerm} 
+                                onChange={e => setSearchTerm(e.target.value)} 
+                            />
+                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-green">
+                                <i data-lucide="search" style={{width: 20, height: 20}}></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <main className="max-w-6xl mx-auto p-3 sm:p-4 flex-1 w-full">
+                        {/* FILTROS / CATEGORÍAS */}
+                        <div className="flex gap-2 overflow-x-auto pb-4 pt-2 no-scrollbar">
+                            {CATEGORIES.map(cat => (
+                                <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold font-display uppercase whitespace-nowrap border-2 transition-all ${selectedCategory === cat ? 'bg-brand-green border-brand-green text-white shadow-md transform scale-105' : 'bg-white border-slate-200 text-slate-400 hover:border-brand-green hover:text-brand-green'}`}>{cat}</button>
+                            ))}
+                        </div>
+
+                        {/* GRID DE PRODUCTOS */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                            {filteredProducts.map(p => (
+                                <div key={p.id} className="bg-white rounded-2xl border border-slate-100 p-2.5 flex flex-col hover:border-brand-yellow hover:shadow-lg transition-all group duration-300">
+                                    <div className="overflow-hidden rounded-xl mb-2 aspect-square relative bg-white">
+                                        <img src={p.image} className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-300" />
+                                    </div>
+                                    <h3 className="font-bold text-[11px] sm:text-[12px] uppercase h-9 line-clamp-2 text-slate-800 leading-tight font-display">{p.name}</h3>
+                                    <div className="mt-auto flex justify-between items-end pt-2">
+                                        <div className="flex flex-col">
+                                            <span className="text-[9px] text-slate-400 font-bold uppercase font-sans">Precio</span>
+                                            <span className="font-bold text-brand-green text-sm sm:text-base font-display">${(p.variants ? p.variants[0].price : p.price).toFixed(2)}</span>
+                                        </div>
+                                        <button onClick={() => { if(p.variants){ setVariantModalProduct(p); setActiveModal('variants'); } else { addToCart(p, p.price); } }} className="bg-brand-yellow text-brand-dark p-1.5 sm:p-2 rounded-lg hover:bg-yellow-300 shadow-sm active:scale-95 transition-transform">
+                                            <i data-lucide="plus" style={{width: 16, height: 16}}></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </main>
+
+                    {/* Footer - Usando brand-dark */}
+                    <footer className="bg-brand-dark text-slate-200 py-10 px-4 mt-12 border-t-8 border-brand-green w-full">
+                        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center text-center gap-8">
+                            
+                            {/* Info Tienda Centrada */}
+                            <div className="max-w-md text-center">
+                                <div className="flex items-center justify-center gap-2 mb-3">
+                                    <i data-lucide="map-pin" className="text-brand-yellow" style={{width: 24, height: 24}}></i>
+                                    <h4 className="text-white font-bold font-brand uppercase italic text-2xl">Casa de Lima</h4>
+                                </div>
+                                <p className="text-sm leading-relaxed text-slate-300 font-sans">
+                                    Llevando lo mejor del mandado a la puerta de tu hogar con rapidez y confianza aquí en <strong>Yolotepec</strong>.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-brand-green/30 text-center">
+                            <p className="text-[10px] uppercase font-bold tracking-widest text-brand-yellow font-display">
+                                &copy; {new Date().getFullYear()} Casa de Lima. okc
+                            </p>
+                        </div>
+                    </footer>
+
+                    {/* Modal Carrito */}
+                    {activeModal === 'cart' && (
+                        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-brand-dark/80 backdrop-blur-sm">
+                            <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh] shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-300">
+                                <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-white">
+                                    <div className="flex items-center gap-2">
+                                        <div className="bg-brand-yellow p-1.5 rounded-lg text-brand-dark">
+                                            <i data-lucide="shopping-bag" style={{width: 18, height: 18}}></i>
+                                        </div>
+                                        <h2 className="font-bold font-display uppercase tracking-tight text-slate-800">Tu Carrito</h2>
+                                    </div>
+                                    <button onClick={() => setActiveModal(null)} className="p-2 bg-slate-100 rounded-full hover:bg-red-100 hover:text-red-600 transition-colors"><i data-lucide="x" style={{width: 18, height: 18}}></i></button>
+                                </div>
+                                <div className="p-4 overflow-y-auto flex-1 custom-scrollbar bg-slate-50">
+                                    {cart.length === 0 ? (
+                                        <div className="flex flex-col items-center justify-center py-12 text-slate-400 gap-4">
+                                            <i data-lucide="shopping-cart" style={{width: 48, height: 48}} className="opacity-20"></i>
+                                            <p className="font-bold font-display">Tu carrito está vacío</p>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                                <div className="flex justify-between items-end mb-2">
+                                                     <p className={`text-[10px] font-bold font-display uppercase ${subtotal >= SHIPPING_THRESHOLD ? 'text-brand-green' : 'text-slate-500'}`}>
+                                                        {subtotal >= SHIPPING_THRESHOLD ? '¡Envío GRATIS conseguido! 🎉' : 'Meta para envío gratis'}
+                                                    </p>
+                                                    {subtotal < SHIPPING_THRESHOLD && <span className="text-[10px] font-bold font-display text-brand-green">Faltan ${ (SHIPPING_THRESHOLD - subtotal).toFixed(2) }</span>}
+                                                </div>
+                                                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                                                    <div className={`h-full transition-all duration-500 ${subtotal >= SHIPPING_THRESHOLD ? 'bg-brand-green' : 'bg-brand-yellow'}`} style={{ width: `${Math.min(100, (subtotal/SHIPPING_THRESHOLD)*100)}%` }}></div>
+                                                </div>
+                                            </div>
+
+                                            {cart.map(item => (
+                                                <div key={item.cartId} className="flex gap-3 items-center bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
+                                                    <img src={item.image} className="w-14 h-14 rounded-lg object-cover bg-slate-50" />
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className="text-[11px] font-bold font-display uppercase leading-tight truncate text-slate-800">{item.name}</h4>
+                                                        <p className="text-brand-green font-bold text-sm font-display">${(item.price * item.quantity).toFixed(2)}</p>
+                                                    </div>
+                                                    <div className="flex items-center gap-2 bg-slate-100 rounded-lg px-2 py-1">
+                                                        <button onClick={() => setCart(prev => prev.map(i => i.cartId === item.cartId ? {...i, quantity: Math.max(1, i.quantity - 1)} : i))} className="hover:text-red-600 w-6 h-6 flex items-center justify-center"><i data-lucide="minus" style={{width: 12, height: 12}}></i></button>
+                                                        <span className="font-bold text-xs w-4 text-center font-sans">{item.quantity}</span>
+                                                        <button onClick={() => setCart(prev => prev.map(i => i.cartId === item.cartId ? {...i, quantity: i.quantity + 1} : i))} className="hover:text-brand-green w-6 h-6 flex items-center justify-center"><i data-lucide="plus" style={{width: 12, height: 12}}></i></button>
+                                                    </div>
+                                                    <button onClick={() => setCart(prev => prev.filter(i => i.cartId !== item.cartId))} className="text-slate-300 hover:text-red-500 p-2"><i data-lucide="trash-2" style={{width: 16, height: 16}}></i></button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                {cart.length > 0 && (
+                                    <div className="p-5 bg-white border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-10">
+                                        <div className="flex justify-between text-xs mb-2 font-medium text-slate-500 font-sans"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
+                                        <div className="flex justify-between text-xs mb-4 font-medium text-slate-500 font-sans">
+                                            <span>Envío</span>
+                                            <span className={shippingCost === 0 ? 'text-brand-green font-bold' : ''}>{shippingCost === 0 ? 'GRATIS' : `$${shippingCost.toFixed(2)}`}</span>
+                                        </div>
+                                        <div className="flex justify-between font-bold text-2xl mb-4 text-brand-dark font-display"><span>Total</span><span>${total.toFixed(2)}</span></div>
+                                        <button onClick={() => setActiveModal('checkout')} className="w-full bg-brand-green text-white py-4 rounded-xl font-bold font-display uppercase text-base shadow-lg shadow-green-200 hover:bg-brand-dark hover:shadow-xl transition-all active:translate-y-0.5 flex justify-center gap-2 items-center">
+                                            <span>Confirmar Pedido</span>
+                                            <i data-lucide="arrow-right" style={{width: 18, height: 18}}></i>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal Variantes */}
+                    {activeModal === 'variants' && (
+                        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
+                            <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
+                                <h3 className="font-bold font-display uppercase mb-6 text-center text-slate-800 text-lg">Selecciona Presentación</h3>
+                                <div className="grid gap-3">
+                                    {variantModalProduct.variants.map((v, i) => (
+                                        <button key={i} onClick={() => addToCart(variantModalProduct, v.price, v.label)} className="w-full p-4 border-2 border-slate-100 rounded-2xl flex justify-between items-center font-bold hover:border-brand-green hover:bg-green-50 transition-all group text-sm">
+                                            <span className="group-hover:text-brand-dark uppercase tracking-wide font-display">{v.label}</span>
+                                            <span className="text-brand-green bg-green-100 px-3 py-1 rounded-full text-xs font-display">${v.price.toFixed(2)}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                                <button onClick={() => setActiveModal(null)} className="w-full mt-6 text-slate-400 font-bold uppercase text-xs tracking-widest hover:text-slate-600 font-display">Cancelar</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Modal Checkout (Formulario) */}
+                    {activeModal === 'checkout' && (
+                        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
+                            <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="bg-brand-yellow p-2 rounded-full text-brand-dark">
+                                        <i data-lucide="truck" style={{width: 20, height: 20}}></i>
+                                    </div>
+                                    <h3 className="font-bold font-display uppercase italic text-brand-dark text-lg">Datos de Entrega</h3>
+                                </div>
+                                <form onSubmit={sendWhatsApp} className="space-y-4">
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-bold font-display uppercase text-slate-400 ml-1 tracking-wider">Nombre del cliente</label>
+                                        <input required className="w-full p-3 bg-slate-50 rounded-xl outline-none border-2 border-slate-100 focus:border-brand-green focus:bg-white transition-colors font-medium text-slate-800 font-sans" placeholder="Nombre completo del quien recibe" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-bold font-display uppercase text-slate-400 ml-1 tracking-wider">Dirección de entrega</label>
+                                        <textarea required className="w-full p-3 bg-slate-50 rounded-xl outline-none border-2 border-slate-100 focus:border-brand-green focus:bg-white transition-colors font-medium text-slate-800 resize-none font-sans" placeholder="Calle, número, referencias..." rows="3" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} />
+                                    </div>
+                                    <button className="w-full bg-brand-green text-white py-4 rounded-xl font-bold font-display uppercase shadow-lg shadow-green-200 hover:bg-brand-dark transition-all flex items-center justify-center gap-2 mt-2">
+                                        <i data-lucide="message-circle" style={{width: 18, height: 18}}></i>
+                                        Enviar Pedido
+                                    </button>
+                                    <button type="button" onClick={() => setActiveModal('cart')} className="w-full text-slate-400 font-bold uppercase text-[10px] tracking-widest mt-4 hover:text-slate-600 font-display">Regresar al carrito</button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Toasts (Notificaciones) */}
+                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 space-y-2 z-[100] w-[90%] max-w-xs pointer-events-none">
+                        {toasts.map(t => (
+                            <div key={t.id} className="bg-brand-green/95 backdrop-blur text-white px-4 py-3 rounded-xl shadow-xl shadow-green-900/20 text-xs font-bold font-display uppercase border border-white/10 text-center animate-bounce pointer-events-auto flex items-center justify-center gap-2">
+                                <i data-lucide="check-circle" style={{width: 14, height: 14}}></i>
+                                {t.message}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
