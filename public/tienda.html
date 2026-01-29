@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tienda de Abarrotes Casa de Lima</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuración de Tailwind con tus Colores y Fuentes de Marca -->
     <script>
         tailwind.config = {
             theme: {
@@ -30,14 +28,11 @@
         }
     </script>
 
-    <!-- React y Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Google Fonts: Inter, Poppins y Playfair Display -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -74,7 +69,7 @@
 
         // --- DATOS DEL PRODUCTO ---
         const PRODUCTS = [
-            // --- ABARROTES ---
+            // --- PRODUCTOS ORIGINALES ---
             { id: 1, name: 'Aceite Nutrioli', category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjo7ztVg4kUhpmLo1d0_Tp9rDuJQgvWWoIVw&s', variants: [{ label: '850ml', price: 42.00 }, { label: '1.9L', price: 89.00 }] },
             { id: 2, name: 'Huevo Blanco 12pzas', price: 39.00, category: 'Abarrotes', image: 'https://hebmx.vtexassets.com/arquivos/ids/609441/seleccionado_huevo_12pz_47847.jpg?v=638521588295300000' },
             { id: 3, name: 'Arroz Extra 1kg', price: 23.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-Msg1Us8z_mNCp_H1V51ODZryg2kij0asA&s' },
@@ -82,21 +77,73 @@
             { id: 5, name: 'Pan Bimbo', price: 48.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ52BXl3QUr42UVXUY3yPAborNUboauxgBHCg&s' },
             { id: 6, name: 'Mayonesa 390g', price: 35.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyw3qFc7FppVTf2XarYPYODGrCv9-XCFCcsA&s' },
             { id: 7, name: 'pag de prueba okc', price: 4000.00, category: 'Abarrotes', description: '+17048349539', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-vwyc1CL6tFoTeYIahtHJZjbgDLhMUmZUA&s' },
-
-            // --- LÁCTEOS ---
             { id: 21, name: 'Leche Entera LALA 1L', price: 26.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2l7C-xteC-LXvTtOWP2aILYqE8xhQMvKPGg&s' },
-
-            // --- SABRITAS ---
             { id: 41, name: 'Sabritas Sal', category: 'Sabritas', image: 'https://i.pinimg.com/736x/3b/4b/cc/3b4bcc084f4e8997faf3c43f4409e674.jpg', variants: [{ label: 'Chica (42g)', price: 18.00 }, { label: 'Grande (170g)', price: 52.00 }] },
-
-            // --- REFRESCOS ---
             { id: 61, name: 'Coca-Cola', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-niA-K67btPKDp9SD8G4VaA_aRtdhIqXAw&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
             { id: 62, name: 'pepsi', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuyG69ScdWuHaqDQOEhddHPZZOcE1eHHhU2w&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
-            
-            // --- LIMPIEZA ---
             { id: 81, name: 'Detergente Polvo 2kg', price: 82.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJGnOAcO4VQ0tLychuIxtQqbSQX4yTYyoeWg&s' },
             { id: 82, name: 'Jabón Zote Blanco', price: 19.50, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNm2K_yV2kj7ShJGSYiugA5N3ApzyCjulX1w&s' },
             { id: 83, name: 'Papel Higiénico 4pzas', price: 32.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQRS0lPhJf9aWwB-1iqV7lNsQtaptC5xPVQ&s' },
+
+            // --- NUEVOS PRODUCTOS AGREGADOS (ABARROTES) ---
+            { id: 100, name: 'Azúcar ', price: 28.00, category: 'Abarrotes', image: 'https://th.bing.com/th/id/OIP.kkrGUM1MWLzlhdl6JB5giQHaHa?w=188&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3',  variants: [{ label: 'Chica (1Kg)', price: 18.00 }, { label: 'Grande (2Kg)', price: 52.00 }] },
+            { id: 101, name: 'Sal La Fina 1kg', price: 18.00, category: 'Abarrotes', image: 'https://super.walmart.com.mx/ip/walmart-grocery-mx/sal-yodada-y-fluorurada-la-fina-1-kg/00000000003290' },
+            { id: 102, name: 'Atún Dolores Agua', price: 21.50, category: 'Abarrotes', image: 'https://res.cloudinary.com/walmart-labs/image/upload/w_960,dpr_auto,f_auto,q_auto:best/gr/images/product-images/img_large/00750104540139L.jpg' },
+            { id: 103, name: 'Atún Dolores Aceite', price: 21.50, category: 'Abarrotes', image: 'https://res.cloudinary.com/walmart-labs/image/upload/w_960,dpr_auto,f_auto,q_auto:best/gr/images/product-images/img_large/00750104540138L.jpg' },
+            { id: 104, name: 'Café Nescafé 225g', price: 115.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt-vW4wE4Q2ZlC8Vp4B6Q8o9Q5b6x5y4z5g&s' },
+            { id: 105, name: 'Galletas Marías 170g', price: 15.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_x1r1o9c7z8k3h5n6t8v2m4l5j8q9w5e7r&s' },
+            { id: 106, name: 'Galletas Emperador', price: 22.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 107, name: 'Harina de Trigo 1kg', price: 24.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7z6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 108, name: 'Harina Hotcakes 800g', price: 38.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8z7x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 109, name: 'Puré de Tomate 210g', price: 9.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9z8x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 110, name: 'Sopa La Moderna Fideo', price: 8.50, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0z9x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 111, name: 'Sopa La Moderna Codo', price: 8.50, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1z0x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 112, name: 'Chiles Jalapeños Lata', price: 18.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2z1x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 113, name: 'Salsa Catsup 340g', price: 19.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3z2x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 114, name: 'Salsa Valentina', price: 16.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcU4z3x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 115, name: 'Consomé Knorr 8 cubos', price: 14.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcV5z4x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 116, name: 'Lentejas 500g', price: 28.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcW6z5x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 117, name: 'Cereal Corn Flakes', price: 45.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcX7z6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 118, name: 'Mole Doña María', price: 38.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcY8z7x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 119, name: 'Media Crema Nestle', price: 15.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcZ9z8x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+
+            // --- NUEVOS LÁCTEOS ---
+            { id: 120, name: 'Leche Deslactosada 1L', price: 27.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gca1z9x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 121, name: 'Yogurt Fresa 1kg', price: 34.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcb2z0x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 122, name: 'Yogurt Bebible Fresa', price: 14.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcc3z1x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 123, name: 'Queso Panela 400g', price: 55.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcd4z2x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 124, name: 'Queso Manchego 200g', price: 60.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gce5z3x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 125, name: 'Margarina Primavera', price: 22.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcf6z4x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 126, name: 'Mantequilla Barra', price: 25.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcg7z5x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 127, name: 'Crema Ácida 450ml', price: 32.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gch8z6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 128, name: 'Leche Evaporada', price: 20.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gci9z7x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 129, name: 'Leche Condensada', price: 26.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcj0z8x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+
+            // --- NUEVAS SABRITAS ---
+            { id: 130, name: 'Doritos Nacho 58g', price: 18.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gck1z9x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 131, name: 'Cheetos Torciditos', price: 17.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcl2z0x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 132, name: 'Ruffles Queso', price: 18.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcm3z1x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 133, name: 'Tostitos Salsa Verde', price: 19.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcn4z2x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 134, name: 'Takis Fuego', price: 18.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gco5z3x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 135, name: 'Churrumais', price: 14.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcp6z4x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 136, name: 'Rancheritos', price: 16.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcq7z5x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 137, name: 'Paketaxo Mezcladito', price: 48.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcr8z6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+
+            // --- NUEVOS REFRESCOS ---
+            { id: 138, name: 'Sprite 600ml', price: 17.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcs9z7x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 139, name: 'Fanta Naranja 600ml', price: 17.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gct0z8x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 140, name: 'Manzanita Sol 600ml', price: 17.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcu1z9x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 141, name: 'Agua Mineral Peñafiel', price: 19.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcv2z0x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 142, name: 'Jugo Valle Manzana', price: 21.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcw3z1x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 143, name: 'Agua Ciel 1L', price: 14.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcx4z2x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 144, name: 'Squirt 600ml', price: 17.00, category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcy5z3x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+
+            // --- NUEVA LIMPIEZA ---
+            { id: 145, name: 'Cloro 1L', price: 18.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gcz6z4x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 146, name: 'Suavitel 850ml', price: 28.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gd07z5x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 147, name: 'Jabón Palmolive', price: 16.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gd18z6x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 148, name: 'Lavatrastes Axion', price: 32.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gd29z7x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' },
+            { id: 149, name: 'Servitoallas Rollo', price: 22.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9Gd30z8x5c8v3b4n7m9l2k5j8h4g6f8d2s5a7q9w&s' }
         ];
 
         const CATEGORIES = ['Todos', 'Abarrotes', 'Lácteos', 'Sabritas', 'Refrescos', 'Limpieza'];
