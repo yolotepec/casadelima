@@ -1,689 +1,1084 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth overflow-x-hidden">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de abarrotes en Yolotepec - Casa de Lima</title>
-        <meta name="description" content="Casa de Lima es tu tienda de abarrotes en Santa Maria Yolotepec. Encuentra productos de la canasta básica, limpieza, 
-        higiene y todo para tu despensa en un solo lugar. Te esperamos" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de Lima — Tienda de Abarrotes · Yolotepec</title>
+<meta name="description" content="Casa de Lima es tu tienda de abarrotes en Santa Maria Yolotepec. Encuentra productos de la canasta básica, limpieza, higiene y todo para tu despensa en un solo lugar.">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
 
-    <link rel="icon" href="/favicon.png" type="image/png">
-
-    <!-- Cargar Fuentes: Inter (texto), Poppins (títulos) y Playfair Display (Marca) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- Cargar Tailwind CSS y Configuración de Colores -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            green: '#008000',  /* Tu verde protagonista */
-                            yellow: '#FFDE21', /* Tu amarillo secundario */
-                            dark: '#004d00',   /* Un verde más oscuro para contrastes */
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Poppins', 'sans-serif'],
-                        brand: ['Playfair Display', 'serif'], /* Fuente especial para el logo */
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Cargar Iconos Feather -->
-    <script src="https://unpkg.com/feather-icons"></script>
-    
-    <style>
-        /* Estilos base */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        /* Carrusel */
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-        }
-        .carousel-slides {
-            display: flex;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más suave */
-        }
-        .carousel-slide {
-            min-width: 100%;
-            position: relative;
-        }
-        /* Gradiente para mejorar lectura de texto en slides */
-        .slide-overlay {
-            background: linear-gradient(to top, rgba(0, 50, 0, 0.8), rgba(0, 0, 0, 0.2));
-        }
-
-        /* Puntos del carrusel */
-        .carousel-dots {
-            position: absolute;
-            bottom: 2rem; /* Posición ajustada */
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.75rem;
-            z-index: 20;
-        }
-        .carousel-dot {
-            width: 14px;
-            height: 14px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .carousel-dot.active {
-            background-color: #FFDE21; /* Amarillo activo */
-            transform: scale(1.3);
-            border-color: rgba(0,0,0,0.1);
-        }
-        
-        .brand-text {
-            font-family: 'Playfair Display', serif;
-        }
-    </style>
-
-
-
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased selection:bg-brand-yellow selection:text-brand-green overflow-x-hidden">
-
-    <!-- =========== Encabezado =========== -->
-    <header class="bg-white shadow-lg sticky top-0 z-40 border-b-4 border-brand-green">
-        <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
-            <!-- Logo - Sin contorno -->
-            <a href="#inicio" class="flex items-center space-x-3 group">
-                <div class="relative overflow-hidden rounded-full">
-                    <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-14 w-14 object-cover rounded-full shadow-sm">
-                </div>
-                <span class="text-3xl font-bold text-brand-green tracking-tight group-hover:text-brand-dark transition-colors brand-text">Casa de Lima</span>
-            </a>
-           
-<!-- 1. BOTÓN FLOTANTE WHATSAPP -->
-<!-- Las clases 'fixed bottom-6 right-6' son las que lo mantienen flotando abajo a la derecha -->
-<a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" 
-   class="fixed bottom-6 right-6 w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#20b858] hover:scale-110 transition-all duration-300 z-50 animate-bounce-slow"
-   aria-label="Chat en WhatsApp">
-    
-    <!-- Icono de WhatsApp (SVG Oficial) -->
-    <!-- Reemplazamos el icono de feather por el SVG real de la marca -->
-    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    
-    <!-- Punto rojo de notificación (Opcional,) -->
-    <span class="absolute top-0 right-0 flex h-4 w-4">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
-    </span>
-</a>
-
-<!-- 3. ESTILOS DE ANIMACIÓN  -->
-<!-- Esto hace que el botón rebote suavemente. Puedes borrarlo si lo prefieres estático -->
 <style>
-    .animate-bounce-slow {
-        animation: bounce-subtle 2s infinite;
-    }
-    @keyframes bounce-subtle {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-    }
-</style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
 
-            <!-- Navegación de Escritorio -->
-            <div class="hidden md:flex space-x-1 items-center">
-                <a href="#inicio" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Inicio</a>
-                <a href="#productos" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Productos</a>
-                <a href="#sobre-nosotros" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Nosotros</a>
-                <a href="#ubicacion" class="px-4 py-2 font-semibold text-gray-600 hover:text-brand-green hover:bg-green-50 rounded-lg transition-all">Ubicación</a>
-                <!-- Botón CTA destacado -->
-                <a href="#contacto" class="ml-4 px-6 py-2.5 bg-brand-green text-white font-bold rounded-full shadow-md hover:bg-brand-dark hover:shadow-lg transform active:scale-95 transition-all">
-                    Contacto
-                </a>
-                <a href="tienda.html" class="ml-4 px-6 py-2.5 bg-blue-500 text-white font-bold rounded-full shadow-md hover:bg-blue-600 hover:shadow-lg transform active:scale-95 transition-all">
-                    tienda
-                </a>
-            </div>
-            
-            <!-- Botón de Menú Móvil -->
-            <button id="menu-btn" class="md:hidden p-2 rounded-lg text-brand-green hover:bg-green-50 focus:outline-none">
-                <i data-feather="menu" class="h-7 w-7"></i>
-            </button>
-        </nav>
-        
-        <!-- Menú Móvil -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#inicio" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Inicio</a>
-                <a href="#productos" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Productos</a>
-                <a href="#sobre-nosotros" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Sobre Nosotros</a>
-                <a href="#ubicacion" class="block px-3 py-3 rounded-md text-base font-semibold text-gray-700 hover:text-brand-green hover:bg-green-50">Ubicación</a>
-                <a href="#contacto" class="block px-3 py-3 rounded-md text-base font-bold text-brand-green bg-green-50">Contacto</a>
-                <a href="tienda.html"
-class="block mt-4 px-4 py-3 bg-green-800 text-white text-center font-bold rounded-lg hover:bg-green-700 transition">
-    Tienda
+:root{
+  --ink:    #0f0e0b;
+  --soil:   #1e1a14;
+  --bark:   #2e2418;
+  --moss:   #2d5a1b;
+  --fern:   #3d7a25;
+  --lime:   #7ec94a;
+  --honey:  #d4820a;
+  --gold:   #f0b429;
+  --cream:  #f7f2e8;
+  --paper:  #faf7f0;
+  --fog:    #e8e0d0;
+  --white:  #ffffff;
+}
+
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  pointer-events:none;z-index:9999;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── TYPOGRAPHY ── */
+.serif{font-family:'Instrument Serif',serif}
+.serif-i{font-family:'Instrument Serif',serif;font-style:italic}
+
+/* ── DRAWER ── */
+#overlay{position:fixed;inset:0;background:rgba(15,14,11,.7);backdrop-filter:blur(4px);z-index:200;opacity:0;pointer-events:none;transition:opacity .4s}
+#overlay.on{opacity:1;pointer-events:all}
+
+#drawer{
+  position:fixed;top:0;right:0;height:100vh;
+  width:min(340px,88vw);
+  background:var(--soil);
+  z-index:201;
+  transform:translateX(105%);
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  padding:0;
+  overflow:hidden;
+}
+#drawer.on{transform:translateX(0)}
+
+.drawer-top{
+  padding:1.5rem 1.75rem;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.drawer-body{padding:1.25rem 1rem;flex:1;display:flex;flex-direction:column;gap:4px}
+.drawer-footer{padding:1.25rem 1.75rem;border-top:1px solid rgba(255,255,255,.07)}
+
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;
+  border-radius:12px;
+  color:rgba(255,255,255,.65);
+  text-decoration:none;
+  font-weight:500;font-size:1rem;
+  transition:all .2s;
+  position:relative;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-item .num{
+  font-size:.65rem;font-weight:700;
+  color:var(--gold);
+  letter-spacing:.05em;
+  position:absolute;right:16px;
+}
+
+/* ── HEADER ── */
+#hdr{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:.9rem 1.75rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,backdrop-filter .4s,box-shadow .4s;
+}
+#hdr.solid{
+  background:rgba(15,14,11,.92);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(255,255,255,.06);
+}
+
+.hdr-logo img{height:46px;width:auto;filter:drop-shadow(0 2px 8px rgb(30, 255, 0, 0.89))}
+
+#burger{
+  width:42px;height:42px;
+  border:1.5px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  background:rgba(238, 4, 4, 0.05);
+  cursor:pointer;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:5px;
+  transition:background .2s,border-color .2s;
+}
+#burger:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+#burger span{display:block;width:18px;height:1.5px;background:#fff;border-radius:2px;transition:all .35s}
+#burger.on span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#burger.on span:nth-child(2){opacity:0;transform:scaleX(0)}
+#burger.on span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  background:var(--soil);
+  position:relative;
+  display:grid;
+  grid-template-rows:1fr;
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://img.freepik.com/fotos-premium/lima-limon-limas-verdes-arbol-citricos-lima-fresca-granja-jardin-agricola-naturaleza-verde-fondo-borroso-verano_73523-8384.jpg');
+  background-size:cover;background-position:center;
+  opacity:.18;
+  transition:opacity 1s;
+}
+
+.hero-grid{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+
+.hero-left{
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:7rem 3rem 5rem 3.5rem;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+
+.hero-right{
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:7rem 3rem 5rem;
+  gap:1.5rem;
+}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(240,180,41,.12);
+  border:1px solid rgba(240,180,41,.3);
+  color:var(--gold);
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 14px;border-radius:99px;
+  margin-bottom:1.5rem;
+  width:fit-content;
+}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  line-height:1.0;
+  color:#fff;
+  margin-bottom:1.5rem;
+}
+.hero-h1 em{
+  font-style:italic;
+  color:var(--lime);
+}
+
+.hero-sub{
+  color:rgba(255,255,255,.5);
+  font-size:1rem;line-height:1.7;
+  max-width:360px;
+  margin-bottom:2.5rem;
+}
+
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--lime);
+  color:var(--ink);
+  font-weight:700;font-size:.9rem;
+  padding:14px 26px;
+  border-radius:99px;
+  text-decoration:none;
+  width:fit-content;
+  transition:all .25s;
+  box-shadow:0 0 40px rgba(126,201,74,.25);
+}
+.hero-cta:hover{background:#fff;box-shadow:0 0 50px rgba(126,201,74,.4);transform:translateY(-2px)}
+
+.hero-stat{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:1.25rem 1.5rem;
+  backdrop-filter:blur(8px);
+}
+.hero-stat-num{
+  font-family:'Instrument Serif',serif;
+  font-size:2.5rem;color:var(--gold);
+  line-height:1;
+}
+.hero-stat-label{color:rgba(255,255,255,.45);font-size:.8rem;margin-top:.25rem}
+
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;
+  transform:translateX(-50%);
+  z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(255,255,255,.3);
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);animation:scrollline 1.8s ease-in-out infinite}
+@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ── TICKER ── */
+.ticker-wrap{
+  background:var(--moss);
+  overflow:hidden;
+  padding:.65rem 0;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.ticker-track{
+  display:flex;gap:0;
+  animation:ticker 22s linear infinite;
+  width:max-content;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  display:flex;align-items:center;gap:8px;
+  padding:0 2.5rem;
+  font-size:.78rem;font-weight:600;
+  color:rgba(255,255,255,.75);
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.ticker-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* ── SECTION BASE ── */
+.sec{padding:6rem 0}
+.container{max-width:1240px;margin:0 auto;padding:0 2rem}
+
+.sec-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:.7rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--honey);
+  margin-bottom:1rem;
+}
+.sec-label::before{content:'';flex-shrink:0;width:24px;height:1.5px;background:var(--honey)}
+
+/* ── NOSOTROS ── */
+#nosotros{background:var(--paper)}
+
+.nosotros-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  align-items:center;
+}
+
+.nosotros-img-stack{position:relative;height:520px}
+.nosotros-img-main{
+  position:absolute;
+  top:0;left:0;right:4rem;bottom:4rem;
+  border-radius:4px 20px 4px 20px;
+  object-fit:cover;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+}
+.nosotros-img-accent{
+  position:absolute;
+  bottom:0;right:0;
+  width:55%;height:55%;
+  border-radius:20px 4px 20px 4px;
+  object-fit:cover;
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  border:4px solid var(--paper);
+}
+.nosotros-badge{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--moss);
+  color:#fff;
+  width:90px;height:90px;
+  border-radius:50%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(45,90,27,.5);
+  border:3px solid var(--paper);
+  z-index:2;
+}
+.nosotros-badge span:first-child{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--gold);line-height:1}
+.nosotros-badge span:last-child{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+
+.nosotros-text h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,3.5vw,3.2rem);
+  line-height:1.15;
+  color:var(--ink);
+  margin-bottom:1.5rem;
+}
+.nosotros-text h2 em{font-style:italic;color:var(--moss)}
+.nosotros-text p{color:#5a5040;font-size:1.02rem;line-height:1.8;margin-bottom:1rem}
+
+.pill-list{display:flex;flex-wrap:wrap;gap:8px;margin:1.5rem 0 2rem}
+.pill{
+  background:var(--fog);
+  color:var(--bark);
+  padding:6px 14px;border-radius:99px;
+  font-size:.8rem;font-weight:600;
+  border:1px solid rgba(46,36,24,.1);
+}
+
+.btn-dark{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--ink);color:var(--cream);
+  font-weight:600;font-size:.9rem;
+  padding:13px 24px;border-radius:99px;
+  text-decoration:none;
+  transition:all .25s;
+  border:1.5px solid transparent;
+}
+.btn-dark:hover{background:transparent;color:var(--ink);border-color:var(--ink)}
+
+/* ── PRODUCTOS ── */
+#productos{background:var(--ink)}
+
+#productos .sec-label{color:var(--lime)}
+#productos .sec-label::before{background:var(--lime)}
+
+.prod-h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.5rem,4vw,4rem);
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:.5rem;
+}
+.prod-h2 em{font-style:italic;color:var(--lime)}
+
+.prod-sub{color:rgba(255,255,255,.4);font-size:.95rem;margin-bottom:3.5rem}
+
+.prod-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5px;
+  background:rgba(255,255,255,.06);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.prod-card{
+  background:var(--bark);
+  padding:2.5rem;
+  transition:background .3s;
+  position:relative;
+  overflow:hidden;
+}
+.prod-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:3px;
+  opacity:0;
+  transition:opacity .3s;
+}
+.prod-card:nth-child(1)::before{background:linear-gradient(90deg,var(--lime),var(--moss))}
+.prod-card:nth-child(2)::before{background:linear-gradient(90deg,var(--gold),var(--honey))}
+.prod-card:hover{background:#2a2015}
+.prod-card:hover::before{opacity:1}
+
+.prod-card-icon{
+  width:56px;height:56px;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
+}
+.prod-card:nth-child(1) .prod-card-icon{background:rgba(126,201,74,.12);color:var(--lime)}
+.prod-card:nth-child(2) .prod-card-icon{background:rgba(240,180,41,.12);color:var(--gold)}
+
+.prod-card h3{
+  font-family:'Instrument Serif',serif;
+  font-size:1.6rem;color:#fff;
+  margin-bottom:1rem;
+}
+.prod-card h3 em{font-style:italic}
+
+.prod-items{list-style:none;display:flex;flex-direction:column;gap:8px}
+.prod-items li{
+  display:flex;align-items:center;gap:10px;
+  font-size:.9rem;color:rgba(255,255,255,.55);
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.prod-items li:last-child{border:none}
+.prod-items li::before{
+  content:'';flex-shrink:0;
+  width:5px;height:5px;border-radius:50%;
+}
+.prod-card:nth-child(1) .prod-items li::before{background:var(--lime)}
+.prod-card:nth-child(2) .prod-items li::before{background:var(--gold)}
+
+/* ── HORARIO / DATOS ── */
+#datos{background:var(--cream)}
+
+.datos-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:1.5rem;
+}
+
+.dato-card{
+  background:#fff;
+  border-radius:20px;
+  padding:2rem;
+  border:1.5px solid var(--fog);
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.dato-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.08);border-color:var(--moss)}
+
+.dato-icon{
+  width:48px;height:48px;
+  background:var(--moss);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;margin-bottom:1.25rem;
+}
+.dato-card h4{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.6rem}
+.dato-card p,.dato-card a{color:#6b5d48;font-size:.92rem;line-height:1.7;text-decoration:none}
+.dato-card a:hover{color:var(--moss)}
+
+.horario-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px dashed var(--fog)}
+.horario-row:last-child{border:none}
+.horario-row span:first-child{font-size:.85rem;color:#6b5d48}
+.horario-row span:last-child{font-size:.85rem;font-weight:700;color:var(--moss)}
+
+/* ── MAPA ── */
+#ubicacion{background:var(--ink);padding:0}
+
+.mapa-wrap{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  min-height:500px;
+}
+
+.mapa-info{
+  background:var(--bark);
+  padding:4rem 3rem;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.mapa-info::after{
+  content:'';
+  position:absolute;bottom:-60px;right:-60px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(126,201,74,.15),transparent 70%);
+  pointer-events:none;
+}
+
+.mapa-info .sec-label{color:var(--lime)}
+.mapa-info .sec-label::before{background:var(--lime)}
+
+.mapa-info h2{
+  font-family:'Instrument Serif',serif;
+  font-size:2.4rem;color:#fff;
+  margin-bottom:1rem;line-height:1.15;
+}
+.mapa-info p{color:rgba(255,255,255,.5);font-size:.93rem;line-height:1.7;margin-bottom:2rem}
+
+.mapa-detail{
+  display:flex;align-items:flex-start;gap:14px;
+  margin-bottom:1.25rem;
+}
+.mapa-detail-icon{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(255,255,255,.07);
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);
+}
+.mapa-detail h5{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.mapa-detail p,.mapa-detail a{font-size:.92rem;color:rgba(255,255,255,.75);line-height:1.5;text-decoration:none}
+.mapa-detail a:hover{color:var(--lime)}
+
+.mapa-frame iframe{width:100%;height:100%;min-height:500px;border:none;filter:saturate(.7) contrast(1.1)}
+
+/* ── CONTACTO ── */
+#contacto{background:var(--paper)}
+
+.contacto-grid{
+  display:grid;
+  grid-template-columns:1fr 480px;
+  gap:5rem;
+  align-items:start;
+}
+
+.contacto-left h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.2rem,3.5vw,3.2rem);
+  line-height:1.15;color:var(--ink);
+  margin-bottom:1rem;
+}
+.contacto-left h2 em{font-style:italic;color:var(--moss)}
+.contacto-left p{color:#5a5040;font-size:1rem;line-height:1.8;margin-bottom:2rem}
+
+.contacto-methods{display:flex;flex-direction:column;gap:12px}
+.cmethod{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;
+  background:#fff;
+  border:1.5px solid var(--fog);
+  border-radius:14px;
+  text-decoration:none;
+  transition:border-color .2s,transform .2s;
+}
+.cmethod:hover{border-color:var(--moss);transform:translateX(4px)}
+.cmethod-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cmethod p{font-size:.75rem;color:#8a7860;margin-bottom:1px}
+.cmethod strong{font-size:.93rem;color:var(--ink)}
+
+.form-box{
+  background:#fff;
+  border-radius:24px;
+  padding:2.5rem;
+  border:1.5px solid var(--fog);
+  box-shadow:0 8px 40px rgba(0,0,0,.05);
+}
+.form-box h3{
+  font-family:'Instrument Serif',serif;
+  font-size:1.5rem;color:var(--ink);
+  margin-bottom:1.5rem;
+}
+
+.fgroup{margin-bottom:1.1rem}
+.flabel{display:block;font-size:.78rem;font-weight:700;color:var(--bark);letter-spacing:.04em;margin-bottom:.4rem}
+.finput{
+  width:100%;
+  padding:11px 14px;
+  border:1.5px solid var(--fog);
+  border-radius:10px;
+  font-family:'Outfit',sans-serif;
+  font-size:.92rem;color:var(--ink);
+  background:var(--paper);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.finput:focus{border-color:var(--moss);box-shadow:0 0 0 3px rgba(45,90,27,.1)}
+textarea.finput{resize:vertical;min-height:100px}
+
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.btn-submit{
+  width:100%;
+  background:var(--moss);
+  color:#fff;
+  font-family:'Outfit',sans-serif;
+  font-weight:700;font-size:.95rem;
+  padding:14px;border-radius:12px;
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(45,90,27,.3);
+  margin-top:.5rem;
+}
+.btn-submit:hover{background:var(--fern);transform:translateY(-1px);box-shadow:0 8px 28px rgba(45,90,27,.4)}
+
+/* ── PORTAFOLIO ── */
+#portafolio{
+  background:var(--cream);
+  border-top:1px solid var(--fog);
+  padding:4rem 0;
+}
+
+.port-head{text-align:center;margin-bottom:2.5rem}
+.port-head h2{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--ink);margin-bottom:.4rem}
+.port-head p{color:#8a7860;font-size:.9rem}
+
+.port-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+
+.port-chip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 18px;
+  background:#fff;
+  border:1.5px solid var(--fog);
+  border-radius:99px;
+  color:var(--bark);
+  font-size:.84rem;font-weight:600;
+  text-decoration:none;
+  transition:all .2s;
+}
+.port-chip:hover{background:var(--moss);color:#fff;border-color:var(--moss);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,90,27,.2)}
+.port-chip svg{width:13px;height:13px}
+
+.port-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 22px;
+  background:var(--ink);color:#fff;
+  border-radius:99px;
+  font-size:.84rem;font-weight:700;
+  text-decoration:none;
+  transition:all .2s;
+  border:1.5px solid var(--ink);
+}
+.port-cta:hover{background:transparent;color:var(--ink)}
+
+/* ── FOOTER ── */
+#footer{background:var(--soil);padding:3rem 0 2rem}
+
+.footer-inner{
+  max-width:1240px;margin:0 auto;padding:0 2rem;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:1.25rem;
+}
+
+.footer-logo img{height:56px;width:auto;filter:drop-shadow(0 2px 10px rgba(30, 255, 0, 0.89))}
+
+.footer-tagline{color:rgba(255,255,255,.35);font-size:.85rem;max-width:320px;line-height:1.6}
+
+.footer-links{display:flex;gap:8px}
+.footer-social{
+  width:38px;height:38px;
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.5);
+  text-decoration:none;
+  transition:all .2s;
+}
+.footer-social:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)}
+
+.footer-divider{width:100%;height:1px;background:rgba(255,255,255,.07)}
+
+.footer-bottom{
+  width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.5rem;
+}
+.footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
+.footer-privacy{font-size:.75rem;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s}
+.footer-privacy:hover{color:rgba(255,255,255,.6)}
+
+/* ── WA ── */
+.wa{
+  position:fixed;bottom:24px;right:24px;z-index:90;
+  width:54px;height:54px;
+  background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  box-shadow:0 8px 24px rgba(37,211,102,.4);
+  animation:wapulse 3s ease-in-out infinite;
+}
+@keyframes wapulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.wa::after{
+  content:'';position:absolute;inset:-6px;
+  border-radius:50%;
+  border:2px solid rgba(37,211,102,.35);
+  animation:waring 2s ease-out infinite;
+}
+@keyframes waring{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.4);opacity:0}}
+
+/* ── REVEAL ── */
+[data-r]{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+[data-r].vis{opacity:1;transform:none}
+[data-r="l"]{transform:translateX(-32px)}
+[data-r="r"]{transform:translateX(32px)}
+[data-r="l"].vis,[data-r="r"].vis{transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:7rem 2rem 3rem}
+  .hero-right{padding:2rem;flex-direction:row;flex-wrap:wrap;gap:1rem}
+  .hero-stat{flex:1;min-width:140px}
+  .nosotros-grid,.prod-grid,.datos-grid,.contacto-grid{grid-template-columns:1fr}
+  .mapa-wrap{grid-template-columns:1fr}
+  .mapa-frame iframe{min-height:300px}
+  .nosotros-img-stack{height:380px}
+  .sec{padding:4rem 0}
+  .frow{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero-left{padding:6rem 1.5rem 3rem}
+  .container{padding:0 1.25rem}
+  .prod-grid{grid-template-columns:1fr}
+  .hero-stat{min-width:calc(50% - .5rem)}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY & DRAWER -->
+<div id="overlay"></div>
+<div id="drawer">
+  <div class="drawer-top">
+    <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima" style="height:38px;width:auto;filter:drop-shadow(0 1px 6px rgba(0,0,0,.4))">
+    <button id="drawer-close" style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);border:none;cursor:pointer;color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.14)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.6)'">
+      <i data-feather="x" style="width:16px;height:16px"></i>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <a href="#inicio"         class="nav-item"><i data-feather="home"         style="width:16px;height:16px"></i> Inicio         <span class="num">01</span></a>
+    <a href="#nosotros"       class="nav-item"><i data-feather="users"        style="width:16px;height:16px"></i> Nosotros       <span class="num">02</span></a>
+    <a href="#productos"      class="nav-item"><i data-feather="shopping-bag" style="width:16px;height:16px"></i> Productos      <span class="num">03</span></a>
+    <a href="#datos"          class="nav-item"><i data-feather="clock"        style="width:16px;height:16px"></i> Horario        <span class="num">04</span></a>
+    <a href="#ubicacion"      class="nav-item"><i data-feather="map-pin"      style="width:16px;height:16px"></i> Ubicación      <span class="num">05</span></a>
+    <a href="#contacto"       class="nav-item"><i data-feather="mail"         style="width:16px;height:16px"></i> Contacto       <span class="num">06</span></a>
+    <div style="height:1px;background:rgba(255,255,255,.07);margin:.5rem 0"></div>
+    <a href="tienda.html" style="display:flex;align-items:center;justify-content:center;gap:9px;background:var(--lime);color:var(--ink);font-weight:700;font-size:.9rem;padding:13px;border-radius:12px;text-decoration:none;margin-top:.25rem;transition:all .2s" onmouseover="this.style.background='#fff'" onmouseout="this.style.background='var(--lime)'">
+      <i data-feather="shopping-cart" style="width:15px;height:15px"></i> Ir a la Tienda
+    </a>
+  </div>
+  <div class="drawer-footer">
+    <p style="font-size:.72rem;color:rgb(255, 255, 255);text-align:center">© <span class="yr"></span> Casa de Lima · Yolotepec, Oaxaca</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <a href="#inicio" class="hdr-logo">
+    <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima">
+  </a>
+  <button id="burger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- WA -->
+<a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" class="wa" aria-label="WhatsApp">
+  <svg style="width:26px;height:26px;fill:#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-            </div>
+<!-- ═══ HERO ═══ -->
+<section id="inicio">
+  <div id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span>Abierto Hoy</span>
         </div>
-    </header>
-
-    <main>
-
-        <!-- =========== Hero Section (Carrusel) =========== -->
-        <section id="inicio" class="relative h-[85vh] min-h-[500px] carousel-container bg-gray-900">
-            <div class="carousel-slides h-full">
-                <!-- Slide 1 -->
-                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://tiendatek.info/wp-content/uploads/3-productos-basicos.jpg');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <span class="bg-brand-yellow text-brand-dark px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 shadow-lg animate-pulse">¡Bienvenidos!</span>
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Todo lo que necesitas <br><span class="text-brand-yellow">en un solo lugar</span>
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100 drop-shadow-md">
-                            Tu tienda de abarrotes de confianza con productos de primera calidad.
-                        </p>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://i.blogs.es/5fa31b/supermercado/500_333.jpeg');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <span class="bg-brand-green text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4 border border-brand-yellow">Calidad Premium</span>
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Frescura y Calidad <br><span class="text-brand-yellow">a tu Alcance</span>
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
-                            Desde tu despensa básica hasta productos de limpieza.
-                        </p>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://elahorro.net/images/Departaments/Abarrotes/001-Abarrotes.jpg');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Precios Justos <br><span class="text-brand-yellow">Sonrisas Seguras</span>
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
-                            Comprometidos con tu economía y satisfacción familiar.
-                        </p>
-                    </div>
-                </div>
-                 <!-- Slide 4 -->
-                 <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://i0.wp.com/chemfluid.com.co/wp-content/uploads/2024/10/Desafios-en-la-Cadena-de-Suministro-de-Materias-Primas-Quimicas-Estrategias-para-la-Resiliencia-La-cadena-de-suministro-de-materias-primas-quimicas-enfrenta-desafios-significativos-en-el-entorno-g-2.png?fit=1200%2C700&ssl=1');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Hogar Limpio <br><span class="text-brand-yellow">Familia Feliz</span>
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
-                            Detergentes, suavizantes y todo para el cuidado de tu hogar.
-                        </p>
-                    </div>
-                </div>
-                <!-- Slide 5 -->
-                 <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://d1ih8jugeo2m5m.cloudfront.net/2025/08/como_poner_una_tienda_de_abarrotes.webp');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Tu Tienda de <br><span class="text-brand-yellow">Confianza</span>
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
-                            Atención personalizada que nos caracteriza.
-                        </p>
-                    </div>
-                </div>
-                <!-- Slide 6 -->
-                <div class="carousel-slide h-full bg-cover bg-center" style="background-image: url('https://vilmanunez.com/wp-content/uploads/2018/06/tiendas-online.png');">
-                    <div class="absolute inset-0 slide-overlay flex flex-col justify-center items-center text-center text-white p-6">
-                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                            Visítanos Pronto
-                        </h1>
-                        <p class="text-lg md:text-2xl max-w-2xl font-medium text-gray-100">
-                            Te esperamos en Carretera Juquila, kilómetro 6.
-                        </p>
-                        <a href="#ubicacion" class="mt-8 px-8 py-3 bg-brand-yellow text-brand-dark font-bold rounded-full shadow-lg hover:bg-white transition-colors">
-                            Ver Ubicación
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Paginación -->
-            <div class="carousel-dots"></div>
-        </section>
-
-        <!-- =========== Características (Highlight) =========== -->
-        <section class="relative z-10 py-16 px-4">
-            <div class="container mx-auto max-w-7xl">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-green">
-                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-green">
-                            <i data-feather="shopping-cart" class="h-8 w-8"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Gran Variedad</h3>
-                        <p class="text-center text-gray-600">Encuentra todo lo esencial para tu canasta básica, limpieza e higiene en un mismo sitio.</p>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-yellow">
-                        <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-yellow-600">
-                            <i data-feather="dollar-sign" class="h-8 w-8"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Precios Justos</h3>
-                        <p class="text-center text-gray-600">Calidad y buen precio en todos nuestros productos, pensados para la economía familiar.</p>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 transform hover:-translate-y-2 transition-transform duration-300 border-b-4 border-brand-green">
-                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 mx-auto text-brand-green">
-                            <i data-feather="smile" class="h-8 w-8"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-center mb-3 text-gray-900">Atención y Confianza</h3>
-                        <p class="text-center text-gray-600">Te ofrecemos la atención y confianza que nos caracteriza, ¡somos parte de tu comunidad!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== Sección de Productos =========== -->
-        <section id="productos" class="py-20 bg-gray-50">
-            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <span class="text-brand-green font-bold uppercase tracking-wider text-sm">Nuestro Catálogo</span>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-2">Productos Destacados</h2>
-                    <div class="w-24 h-1 bg-brand-yellow mx-auto mt-4 rounded-full"></div>
-                </div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-                    <!-- Categoría 1: Canasta Básica -->
-                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
-                        <div class="h-64 overflow-hidden relative">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7w9BjrCogp3Kap-bUnxDJx2de_HgDQiy4RQ&s" alt="Productos de la canasta básica" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
-                            <div class="absolute top-4 right-4 bg-brand-green text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">Esenciales</div>
-                        </div>
-                        <div class="p-8 flex-1">
-                            <h3 class="text-2xl font-bold text-brand-green mb-4 flex items-center gap-2">
-                                <i data-feather="shopping-bag" class="h-6 w-6"></i> Canasta Básica
-                            </h3>
-                            <ul class="space-y-3">
-                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Azúcar y Cereales</li>
-                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Aceites y Especias</li>
-                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Sopas, Pastas y Enlatados</li>
-                                <li class="flex items-center text-gray-700 bg-green-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-brand-green mr-3"></i>Lácteos, Huevos y Bebidas</li>
-                                <li class="flex items-center text-gray-700 font-semibold p-2"><i data-feather="plus" class="h-4 w-4 text-brand-yellow mr-3"></i>¡Y mucho más!</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Categoría 2: Limpieza e Higiene -->
-                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
-                        <div class="h-64 overflow-hidden relative">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9UwCV70JsEZA6W9EskP1d3-zDlfa45nL3qA&s" alt="Productos de limpieza" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
-                            <div class="absolute top-4 right-4 bg-brand-yellow text-brand-dark px-4 py-1 rounded-full text-sm font-bold shadow-md">Hogar</div>
-                        </div>
-                        <div class="p-8 flex-1">
-                            <h3 class="text-2xl font-bold text-yellow-600 mb-4 flex items-center gap-2">
-                                <i data-feather="droplet" class="h-6 w-6"></i> Limpieza e Higiene
-                            </h3>
-                            <ul class="space-y-3">
-                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Detergentes líquidos y en polvo</li>
-                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Suavizantes y blanqueadores</li>
-                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Higiene personal completa</li>
-                                <li class="flex items-center text-gray-700 bg-yellow-50 p-2 rounded-lg"><i data-feather="check-circle" class="h-4 w-4 text-yellow-500 mr-3"></i>Artículos de limpieza doméstica</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== Sección Sobre Nosotros =========== -->
-        <section id="sobre-nosotros" class="py-20 bg-white">
-            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-                    <!-- Columna de Imagen -->
-                    <div class="w-full md:w-1/2 relative group">
-                        <!-- Ajuste para móviles: -inset-2 en vez de -inset-4 para evitar overflow -->
-                        <div class="absolute -inset-2 md:-inset-4 bg-brand-yellow rounded-2xl transform rotate-3 opacity-30 group-hover:rotate-6 transition-transform"></div>
-                        <div class="absolute -inset-2 md:-inset-4 bg-brand-green rounded-2xl transform -rotate-3 opacity-20 group-hover:-rotate-6 transition-transform"></div>
-                        <img src="https://i.blogs.es/c630d6/imprint-418593_640/450_1000.jpg" alt="Interior de la tienda Casa de Lima" class="relative rounded-2xl shadow-2xl w-full object-cover h-[400px]">
-                    </div>
-                    <!-- Columna de Texto -->
-                    <div class="w-full md:w-1/2">
-                        <span class="text-brand-green font-bold uppercase tracking-wider text-sm">Nuestra Historia</span>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Más que una tienda, <span class="text-brand-green">tu vecino de confianza</span></h2>
-                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-                            En <strong class="text-brand-green">Casa de Lima</strong>, somos parte de tu día a día. Nos enorgullece ofrecerte una amplia selección de productos esenciales para tu hogar, siempre con la garantía de precios justos y una atención personalizada que nos distingue.
-                        </p>
-                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                            Nuestra misión es llevar hasta tu mesa productos de calidad, facilitando tus compras en un ambiente familiar y de confianza.
-                        </p>
-                        <a href="#contacto" class="inline-flex items-center font-bold text-brand-green hover:text-brand-yellow transition-colors">
-                            Contáctanos para saber más <i data-feather="arrow-right" class="ml-2 h-5 w-5"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- =========== Sección de Ubicación =========== -->
-        <section id="ubicacion" class="py-20 bg-gray-50">
-            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <!-- Columna de Texto -->
-                        <div class="p-10 lg:p-14 flex flex-col justify-center bg-brand-green text-white relative overflow-hidden">
-                            <!-- Círculos decorativos -->
-                            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10"></div>
-                            <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-40 h-40 rounded-full bg-brand-yellow opacity-20"></div>
-
-                            <h2 class="text-3xl md:text-4xl font-extrabold mb-6 relative z-10">Ven a Conocernos</h2>
-                            <p class="text-lg text-green-100 mb-8 relative z-10">
-                                ¡Te esperamos! Ven y conoce la calidad y el buen servicio que Casa de Lima tiene para ti.
-                            </p>
-                            
-                            <div class="space-y-6 relative z-10">
-                                <!-- Dirección -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="bg-white/20 p-2 rounded-lg">
-                                        <i data-feather="map-pin" class="h-6 w-6 text-brand-yellow"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-xl font-bold text-white">Ubicación</h4>
-                                        <p class="text-green-100 mt-1">6RX7+F8 Santa María Yolotepec,<br>Oaxaca, Mexico</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Horario -->
-                                <div class="flex items-start space-x-4">
-                                    <div class="bg-white/20 p-2 rounded-lg">
-                                        <i data-feather="clock" class="h-6 w-6 text-brand-yellow"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-xl font-bold text-white">Horario de Atención</h4>
-                                        <ul class="text-green-100 mt-1 space-y-1">
-                                            <li>Lunes - Sábado: <span class="font-semibold text-white">8:00 AM - 9:00 PM</span></li>
-                                            <li>Domingo: <span class="font-semibold text-white">9:00 AM - 3:00 PM</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Columna de Mapa -->
-                        <div class="h-[400px] md:h-auto">
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1956.126438076615!2d-97.18664175109038!3d16.24869509653063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c0000000000000%3A0x8677c376161a0f8!2s6RX7%2BF8%20Santa%20Mar%C3%ADa%20Yolotepec%2C%20Oaxaca%2C%20Mexico!5e0!3m2!1ses-419!2sus!4v1729578294203!5m2!1ses-419!2sus" 
-                                width="100%" 
-                                height="100%" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade"
-                                class="w-full h-full grayscale hover:grayscale-0 transition-all duration-500">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== Sección de Contacto =========== -->
-        <section id="contacto" class="py-20 bg-white">
-            <div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Contáctanos</h2>
-                    <p class="text-lg text-gray-600">
-                        ¿Tienes alguna duda o sugerencia? ¡Nos encantaría escucharte!
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100">
-                    <form id="contact-form" class="space-y-6" action="https://formsubmit.co/smy42325@gmail.com" method="POST">
-                        
-                        <!-- Configuración de FormSubmit -->
-                        <input type="hidden" name="_subject" value="Nuevo Mensaje desde Casa de Lima">
-                        <input type="hidden" name="_next" value="https://tiendacasadelima.web.app/#contacto">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="text" name="_honey" style="display:none">
-                        <input type="hidden" name="_template" value="table">
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nombre Completo</label>
-                                <input type="text" id="name" name="name" required placeholder="Tu Nombre Completo"
-                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
-                            </div>
-                            
-                            <div>
-                                <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Correo Electrónico</label>
-                                <input type="email" id="email" name="email" required placeholder="nombre@correo.com"
-                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label for="subject" class="block text-sm font-bold text-gray-700 mb-2">Asunto</label>
-                            <input type="text" id="subject" name="subject" required placeholder="Consulta sobre productos..."
-                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all">
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-bold text-gray-700 mb-2">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" required placeholder="Escribe tu mensaje aquí..."
-                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all resize-none"></textarea>
-                        </div>
-                        
-                        <button type="submit"
-                                class="w-full py-4 px-6 bg-brand-green text-white font-bold text-lg rounded-xl shadow-lg hover:bg-brand-dark hover:shadow-xl transform active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2">
-                            <span>Enviar Mensaje</span>
-                            <i data-feather="send" class="h-5 w-5"></i>
-                        </button>
-                    </form> 
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== Sección de Portafolio Web =========== -->
-        <section class="py-20 bg-gradient-to-br from-brand-yellow/10 to-orange-50 border-t border-brand-yellow/30">
-            <div class="container mx-auto max-w-6xl px-4 text-center">
-                <div class="inline-block p-4 rounded-full bg-white shadow-md mb-6">
-                    <i data-feather="code" class="h-10 w-10 text-brand-green"></i>
-                </div>
-                <h2 class="text-3xl font-extrabold text-gray-900 mb-4">¿Te gusta esta página web?</h2>
-                <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-                    ¡Tú también puedes tener una! Servicios de diseño y desarrollo webs. Mira algunos ejemplos:
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="https://comidachinayolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="globe" class="h-4 w-4"></i> Comida China
-                    </a>
-                    <a href="https://tiendayolotepec.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="shopping-cart" class="h-4 w-4"></i> Tienda Yolo
-                    </a>
-                    <a href="https://eliteconstruction1.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="tool" class="h-4 w-4"></i> Construcción
-                    </a>
-                    <a href="https://fuegoyharina1.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="pie-chart" class="h-4 w-4"></i> Pizzería
-                    </a>
-                    <a href="https://pasteldeyolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="gift" class="h-4 w-4"></i> Pasteles/Donas
-                    </a>
-                    <a href="https://abarrotesyolo.web.app/" target="_blank" class="px-6 py-3 bg-white text-gray-800 font-semibold rounded-lg shadow-sm border border-gray-200 hover:border-brand-green hover:text-brand-green hover:shadow-md transition-all flex items-center gap-2">
-                        <i data-feather="shopping-bag" class="h-4 w-4"></i> Abarrotes Yolo
-                    </a>
-                    
-                    <a href="#contacto" class="px-8 py-3 bg-brand-green text-white font-bold rounded-lg shadow-lg hover:bg-brand-dark transition-all ml-2 flex items-center gap-2">
-                         Solicitar Cotización <i data-feather="chevron-right" class="h-4 w-4"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- =========== Footer =========== -->
-<footer class="bg-gray-900 text-gray-300 py-16 border-t-8 border-brand-yellow">
-    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col items-center text-center">
-            <!-- Logo Footer -->
-            <div class="mb-6 p-2 bg-white rounded-full">
-                <img src="https://i.ibb.co/W4Lf4btS/IMG-20250108-WA0063.jpg" alt="Casa de Lima Logo" class="h-16 w-auto rounded-full">
-            </div>
-            
-            <h3 class="text-3xl font-bold text-white mb-2 brand-text">Casa de Lima</h3>
-            <p class="text-gray-400 mb-8 max-w-md">Todos tus productos esenciales en un solo lugar, con la confianza y calidad que mereces.</p>
-            
-            <!-- Redes Sociales -->
-            <div class="flex space-x-6 mb-6">
-                <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" 
-                   class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#1877F2] hover:scale-110 transition-all duration-300" 
-                   aria-label="Facebook">
-                    <i data-feather="facebook" class="h-6 w-6"></i>
-                </a>
-                <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" 
-                   class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-[#25D366] hover:scale-110 transition-all duration-300" 
-                   aria-label="WhatsApp">
-                    <i data-feather="message-circle" class="h-6 w-6"></i>
-                </a>
-            </div>
-
-            <!-- Aviso de Privacidad -->
-            <a href="/aviso-de-privacidad.html" 
-               class="text-gray-400 hover:text-white transition-colors duration-300 mb-6 block"
-               target="_blank" rel="noopener noreferrer">
-               Aviso de Privacidad
-            </a>
-
-            <!-- Copyright -->
-            <div class="pt-8 border-t border-gray-800 w-full text-center">
-                <p class="text-sm text-gray-500">&copy; <span id="current-year"></span> Casa de Lima. Todos los derechos reservados.</p>
-            </div>
+        <h1 class="hero-h1">
+          Tu despensa,<br>
+          <em>tu comunidad,</em><br>
+          tu casa.
+        </h1>
+        <p class="hero-sub">Abarrotes, limpieza e higiene con los mejores precios en Santa María Yolotepec, Oaxaca.</p>
+        <a href="#productos" class="hero-cta">
+          Ver Productos
+          <i data-feather="arrow-right" style="width:16px;height:16px"></i>
+        </a>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat">
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">Productos de calidad</div>
         </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num serif-i">Diario</div>
+          <div class="hero-stat-label">Atención personalizada</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Lun–Dom</div>
+          <div class="hero-stat-label">8 AM · 9 PM / 3 PM domingos</div>
+        </div>
+      </div>
     </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <!-- duplicated for seamless loop -->
+    <span class="ticker-item"><span class="ticker-dot"></span>Canasta Básica</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Limpieza del Hogar</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Higiene Personal</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Aceites &amp; Especias</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Lácteos &amp; Huevos</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sopas &amp; Pastas</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cereales &amp; Azúcar</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Detergentes</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Bebidas</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Enlatados</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Canasta Básica</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Limpieza del Hogar</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Higiene Personal</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Aceites &amp; Especias</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Lácteos &amp; Huevos</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sopas &amp; Pastas</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cereales &amp; Azúcar</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Detergentes</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Bebidas</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Enlatados</span>
+  </div>
+</div>
+
+<!-- ═══ NOSOTROS ═══ -->
+<section id="nosotros" class="sec">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div class="nosotros-img-stack" data-r="l">
+        <img class="nosotros-img-main" src="https://i.blogs.es/c630d6/imprint-418593_640/450_1000.jpg" alt="Interior de Casa de Lima">
+        <img class="nosotros-img-accent" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7w9BjrCogp3Kap-bUnxDJx2de_HgDQiy4RQ&s" alt="Productos">
+        <div class="nosotros-badge">
+          <span>+10</span>
+          <span>Años<br>contigo</span>
+        </div>
+      </div>
+      <div class="nosotros-text" data-r="r">
+        <div class="sec-label">Nuestra historia</div>
+        <h2>Más que una tienda,<br><em>tu vecino de siempre</em></h2>
+        <p>En <strong>Casa de Lima</strong> somos parte de tu día a día. Llevamos años siendo el lugar de confianza donde las familias de Santa María Yolotepec encuentran todo lo que necesitan para su hogar.</p>
+        <p>Nos enorgullece ofrecer productos esenciales con precios justos y la atención cálida que nos caracteriza. Porque aquí no eres cliente, eres vecino.</p>
+        <div class="pill-list">
+          <span class="pill">Canasta Básica</span>
+          <span class="pill">Limpieza</span>
+          <span class="pill">Higiene</span>
+          <span class="pill">Precios Justos</span>
+          <span class="pill">Atención Personal</span>
+        </div>
+        <a href="#contacto" class="btn-dark">
+          Escríbenos <i data-feather="arrow-right" style="width:15px;height:15px"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTOS ═══ -->
+<section id="productos" class="sec">
+  <div class="container">
+    <div data-r>
+      <div class="sec-label">Nuestro catálogo</div>
+      <h2 class="prod-h2">Lo que <em>siempre</em><br>encuentras aquí</h2>
+      <p class="prod-sub">Todo para tu despensa y tu hogar, en un solo lugar.</p>
+    </div>
+    <div class="prod-grid" data-r>
+      <div class="prod-card">
+        <div class="prod-card-icon">
+          <i data-feather="shopping-bag" style="width:24px;height:24px"></i>
+        </div>
+        <h3><em>Canasta</em> Básica</h3>
+        <ul class="prod-items">
+          <li>Azúcar y Cereales</li>
+          <li>Aceites y Especias</li>
+          <li>Sopas, Pastas y Enlatados</li>
+          <li>Lácteos, Huevos y Bebidas</li>
+          <li style="color:rgba(240,180,41,.7);border:none">+ muchos productos más</li>
+        </ul>
+      </div>
+      <div class="prod-card">
+        <div class="prod-card-icon">
+          <i data-feather="droplet" style="width:24px;height:24px"></i>
+        </div>
+        <h3><em>Limpieza</em> e Higiene</h3>
+        <ul class="prod-items">
+          <li>Detergentes líquidos y en polvo</li>
+          <li>Suavizantes y blanqueadores</li>
+          <li>Higiene personal completa</li>
+          <li>Artículos de limpieza doméstica</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HORARIO / DATOS ═══ -->
+<section id="datos" class="sec">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem" data-r>
+      <div class="sec-label" style="justify-content:center">Encuéntranos</div>
+      <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(2rem,3.5vw,3rem);color:var(--ink);line-height:1.15">
+        Siempre <em style="font-style:italic;color:var(--moss)">aquí para ti</em>
+      </h2>
+    </div>
+    <div class="datos-grid">
+      <div class="dato-card" data-r>
+        <div class="dato-icon"><i data-feather="clock" style="width:20px;height:20px"></i></div>
+        <h4>Horario de Atención</h4>
+        <div>
+          <div class="horario-row"><span>Lunes – Sábado</span><span>8:00 AM – 9:00 PM</span></div>
+          <div class="horario-row"><span>Domingo</span><span>9:00 AM – 6:00 PM</span></div>
+        </div>
+      </div>
+      <div class="dato-card" data-r>
+        <div class="dato-icon"><i data-feather="map-pin" style="width:20px;height:20px"></i></div>
+        <h4>Dónde Estamos</h4>
+        <p>6RX7+F8 Santa María Yolotepec,<br>Oaxaca, México<br><br>Carretera Juquila, kilómetro 6</p>
+      </div>
+      <div class="dato-card" data-r>
+        <div class="dato-icon"><i data-feather="phone" style="width:20px;height:20px"></i></div>
+        <h4>Contáctanos</h4>
+        <p>
+          <a href="https://wa.me/17048349539" style="color:var(--moss);font-weight:600">WhatsApp: +1 (704) 834-9539</a><br><br>
+          También puedes escribirnos por nuestras redes sociales o usando el formulario de contacto.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAPA ═══ -->
+<section id="ubicacion">
+  <div class="mapa-wrap">
+    <div class="mapa-info">
+      <div class="sec-label">Ubicación</div>
+      <h2>Ven a<br>conocernos</h2>
+      <p>Te esperamos con los brazos abiertos. Ven y descubre la calidad y el buen trato que nos caracterizan.</p>
+      <div class="mapa-detail">
+        <div class="mapa-detail-icon"><i data-feather="map-pin" style="width:16px;height:16px"></i></div>
+        <div><h5>Dirección</h5><p>6RX7+F8 Santa María Yolotepec, Oaxaca</p></div>
+      </div>
+      <div class="mapa-detail">
+        <div class="mapa-detail-icon"><i data-feather="clock" style="width:16px;height:16px"></i></div>
+        <div><h5>Horario</h5><p>Lun–Sáb 8AM–9PM · Dom 9AM–3PM</p></div>
+      </div>
+      <div class="mapa-detail">
+        <div class="mapa-detail-icon"><i data-feather="message-circle" style="width:16px;height:16px"></i></div>
+        <div><h5>WhatsApp</h5><a href="https://wa.me/17048349539">+1 (704) 834-9539</a></div>
+      </div>
+    </div>
+    <div class="mapa-frame">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1956.126438076615!2d-97.18664175109038!3d16.24869509653063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c0000000000000%3A0x8677c376161a0f8!2s6RX7%2BF8%20Santa%20Mar%C3%ADa%20Yolotepec%2C%20Oaxaca%2C%20Mexico!5e0!3m2!1ses-419!2sus!4v1729578294203!5m2!1ses-419!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="contacto" class="sec">
+  <div class="container">
+    <div class="contacto-grid">
+      <div class="contacto-left" data-r="l">
+        <div class="sec-label">Contacto</div>
+        <h2>¿Tienes alguna<br><em>pregunta?</em></h2>
+        <p>Escríbenos y te respondemos a la brevedad. También puedes contactarnos directamente por WhatsApp o Facebook.</p>
+        <div class="contacto-methods">
+          <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" class="cmethod">
+            <div class="cmethod-icon" style="background:#dcfce7"><svg style="width:18px;height:18px;fill:#16a34a" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+            <div><p>Escríbenos ahora</p><strong>WhatsApp · +1 (704) 834-9539</strong></div>
+          </a>
+          <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" class="cmethod">
+            <div class="cmethod-icon" style="background:#dbeafe"><i data-feather="facebook" style="width:17px;height:17px;color:#1d4ed8"></i></div>
+            <div><p>Síguenos en</p><strong>Facebook · Casa de Lima</strong></div>
+          </a>
+        </div>
+      </div>
+      <div class="form-box" data-r="r">
+        <h3>Envíanos un mensaje</h3>
+        <form action="https://formsubmit.co/smy42325@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo Mensaje desde Casa de Lima">
+          <input type="hidden" name="_next" value="https://tiendacasadelima.web.app/#contacto">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="_template" value="table">
+          <div class="frow">
+            <div class="fgroup"><label class="flabel" for="cn">Nombre</label><input class="finput" type="text" id="cn" name="name" required placeholder="Tu nombre"></div>
+            <div class="fgroup"><label class="flabel" for="ce">Correo</label><input class="finput" type="email" id="ce" name="email" required placeholder="tu@correo.com"></div>
+          </div>
+          <div class="fgroup"><label class="flabel" for="cs">Asunto</label><input class="finput" type="text" id="cs" name="subject" required placeholder="¿En qué te ayudamos?"></div>
+          <div class="fgroup"><label class="flabel" for="cm">Mensaje</label><textarea class="finput" id="cm" name="message" rows="4" required placeholder="Escribe tu mensaje..."></textarea></div>
+          <button type="submit" class="btn-submit">
+            Enviar Mensaje <i data-feather="send" style="width:16px;height:16px"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTAFOLIO ═══ -->
+<section id="portafolio">
+  <div class="container">
+    <div class="port-head" data-r>
+      <h2>¿Te gusta esta página?</h2>
+      <p>Servicios de diseño y desarrollo web · Mira algunos ejemplos</p>
+    </div>
+    <div class="port-row" data-r>
+      <a href="https://comidachinayolo.web.app/"    target="_blank" class="port-chip"><i data-feather="globe"         style="width:13px;height:13px"></i> Comida China</a>
+      <a href="https://tiendayolotepec.web.app/"    target="_blank" class="port-chip"><i data-feather="shopping-cart" style="width:13px;height:13px"></i> Tienda Yolo</a>
+      <a href="https://eliteconstruction1.web.app/" target="_blank" class="port-chip"><i data-feather="tool"          style="width:13px;height:13px"></i> Construcción</a>
+      <a href="https://fuegoyharina1.web.app/"      target="_blank" class="port-chip"><i data-feather="pie-chart"     style="width:13px;height:13px"></i> Pizzería</a>
+      <a href="https://pasteldeyolo.web.app/"       target="_blank" class="port-chip"><i data-feather="gift"          style="width:13px;height:13px"></i> Pasteles/Donas</a>
+      <a href="https://andrezbarberia.web.app/"       target="_blank" class="port-chip"><i data-feather="scissors"      style="width:13px;height:13px"></i> Barbería</a>
+      <a href="https://abarrotesyolo.web.app/"      target="_blank" class="port-chip"><i data-feather="shopping-bag"  style="width:13px;height:13px"></i> Abarrotes Yolo</a>
+      <a href="#contacto" class="port-cta"><i data-feather="chevron-right" style="width:14px;height:14px"></i> Solicitar Cotización</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima"></div>
+    <p class="footer-tagline">Todos tus productos esenciales en un solo lugar, con la confianza y calidad que mereces.</p>
+    <div class="footer-links">
+      <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Facebook" onmouseover="this.style.background='#1877F2';this.style.color='#fff';this.style.borderColor='#1877F2'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.1)'">
+        <i data-feather="facebook" style="width:15px;height:15px"></i>
+      </a>
+      <a href="https://wa.me/17048349539" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="WhatsApp" onmouseover="this.style.background='#25D366';this.style.color='#fff';this.style.borderColor='#25D366'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.color='rgba(255,255,255,.5)';this.style.borderColor='rgba(255,255,255,.1)'">
+        <i data-feather="message-circle" style="width:15px;height:15px"></i>
+      </a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© <span class="yr"></span> Casa de Lima. Todos los derechos reservados.</p>
+      <a href="/aviso-de-privacidad.html" target="_blank" rel="noopener noreferrer" class="footer-privacy">Aviso de Privacidad</a>
+    </div>
+  </div>
 </footer>
 
-<!-- =========== JavaScript =========== -->
 <script>
-    // Inicializar iconos
-    feather.replace();
+feather.replace();
+document.querySelectorAll('.yr').forEach(e=>e.textContent=new Date().getFullYear());
 
-    // Año actual
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+// ── DRAWER ──
+const overlay=document.getElementById('overlay');
+const drawer=document.getElementById('drawer');
+const burger=document.getElementById('burger');
+const dclose=document.getElementById('drawer-close');
 
+const open=()=>{drawer.classList.add('on');overlay.classList.add('on');burger.classList.add('on');document.body.style.overflow='hidden'};
+const close=()=>{drawer.classList.remove('on');overlay.classList.remove('on');burger.classList.remove('on');document.body.style.overflow=''};
 
-        // Menú Móvil
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        let isMenuOpen = false;
+burger.onclick=()=>drawer.classList.contains('on')?close():open();
+dclose.onclick=close;
+overlay.onclick=close;
+drawer.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',close));
 
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('hidden');
-                menuBtn.querySelector('i').setAttribute('data-feather', 'x');
-                menuBtn.classList.add('bg-green-50');
-            } else {
-                mobileMenu.classList.add('hidden');
-                menuBtn.querySelector('i').setAttribute('data-feather', 'menu');
-                menuBtn.classList.remove('bg-green-50');
-            }
-            feather.replace();
-        });
+// ── HEADER ──
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>60),{passive:true});
 
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                isMenuOpen = false;
-                mobileMenu.classList.add('hidden');
-                menuBtn.querySelector('i').setAttribute('data-feather', 'menu');
-                menuBtn.classList.remove('bg-green-50');
-                feather.replace();
-            });
-        });
-        
-        // Scroll Suave
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+// ── HERO BG PARALLAX ──
+const heroBg=document.getElementById('heroBg');
+window.addEventListener('scroll',()=>{
+  heroBg.style.transform=`translateY(${scrollY*.3}px)`;
+},{passive:true});
 
-        // Carrusel Automático Robusto
-        const carouselSlides = document.querySelector('.carousel-slides');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        let currentSlide = 0;
-        const totalSlides = slides.length;
-        let slideInterval;
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
 
-        // Crear Dots
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('carousel-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                goToSlide(index);
-                resetInterval();
-            });
-            dotsContainer.appendChild(dot);
-        });
-        const dots = document.querySelectorAll('.carousel-dot');
-
-        function updateCarousel() {
-            carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach((dot, index) => {
-                if(index === currentSlide) dot.classList.add('active');
-                else dot.classList.remove('active');
-            });
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-
-        function startInterval() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function resetInterval() {
-            clearInterval(slideInterval);
-            startInterval();
-        }
-
-        // Pausar al pasar el mouse
-        const carouselContainer = document.querySelector('.carousel-container');
-        carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        carouselContainer.addEventListener('mouseleave', startInterval);
-
-        // Iniciar
-        startInterval();
-    </script>
-
+// ── REVEAL ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('[data-r]').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
