@@ -1,451 +1,867 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tienda de Abarrotes Casa de Lima</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            green: '#008000',  /* Tu verde protagonista */
-                            yellow: '#FFDE21', /* Tu amarillo secundario */
-                            dark: '#004d00',   /* Un verde más oscuro para contrastes */
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Poppins', 'sans-serif'],
-                        brand: ['Playfair Display', 'serif'], /* Fuente especial para el logo */
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tienda · Casa de Lima</title>
 
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* FUENTES Y SCROLLBAR PERSONALIZADO */
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #008000; border-radius: 10px; } /* brand-green */
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #004d00; } /* brand-dark */
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink:    '#0c0a08',
+        coal:   '#1a1612',
+        bark:   '#2c2318',
+        stone:  '#3d3228',
+        sand:   '#c8b89a',
+        parch:  '#f0e8d8',
+        warm:   '#faf6ef',
+        herb:   '#4a7c3f',
+        fern:   '#6aad5a',
+        lime:   '#9dd672',
+        gold:   '#e8a020',
+        amber:  '#f5c842',
+      }
+    }
+  }
+}
+</script>
 
-        /* CORRECCIÓN RESPONSIVE */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
-            margin: 0;
-            padding: 0;
-        }
-        #root {
-            width: 100%;
-            overflow-x: hidden;
-        }
-    </style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;width:100%;position:relative}
+body{font-family:'DM Sans',sans-serif;background:#faf6ef;color:#0c0a08}
+#root{width:100%;overflow-x:hidden}
+
+.font-head{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em}
+.font-serif{font-family:'Lora',serif}
+.font-body{font-family:'DM Sans',sans-serif}
+
+/* ── SCROLLBARS ── */
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+.custom-scrollbar::-webkit-scrollbar{width:4px}
+.custom-scrollbar::-webkit-scrollbar-track{background:#f0e8d8}
+.custom-scrollbar::-webkit-scrollbar-thumb{background:#4a7c3f;border-radius:4px}
+
+/* ── TICKER ── */
+.ticker-outer{
+  background:#0c0a08;
+  overflow:hidden;
+  padding:.55rem 0;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.ticker-belt{
+  display:flex;
+  width:max-content;
+  animation:belt 60s linear infinite;
+}
+.ticker-belt:hover{animation-play-state:paused}
+@keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.t-item{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:0 2rem;
+  white-space:nowrap;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.95rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.55);
+}
+.t-item b{color:#e8a020;font-family:'Bebas Neue',sans-serif;font-weight:400}
+.t-sep{width:3px;height:3px;background:#4a7c3f;border-radius:50%;flex-shrink:0}
+
+/* ── CATEGORY PILLS ── */
+.cat-pill{
+  padding:.45rem 1rem;
+  border-radius:99px;
+  font-size:.7rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  white-space:nowrap;
+  border:1.5px solid transparent;
+  transition:all .2s;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  background:#fff;
+  border-color:#e0d8cc;
+  color:#3d3228;
+}
+.cat-pill:hover{border-color:#4a7c3f;color:#4a7c3f}
+.cat-pill.active{background:#0c0a08;border-color:#0c0a08;color:#9dd672}
+
+/* ── PRODUCT DETAIL MODAL ── */
+.detail-modal-bg{
+  position:fixed;inset:0;z-index:60;
+  background:rgba(12,10,8,.82);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  animation:fadeIn .2s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.detail-box{
+  background:#fff;
+  border-radius:24px;
+  width:100%;max-width:400px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.35);
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.detail-img{
+  width:100%;aspect-ratio:1;
+  background:#faf6ef;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.detail-img img{
+  width:75%;height:75%;object-fit:contain;
+  transition:transform .4s ease;
+}
+.detail-img:hover img{transform:scale(1.06)}
+
+.detail-cat-badge{
+  position:absolute;top:12px;left:12px;
+  background:#0c0a08;color:#9dd672;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.75rem;letter-spacing:.1em;
+  padding:4px 12px;border-radius:99px;
+}
+
+.detail-body{padding:1.5rem}
+
+.detail-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:.04em;
+  color:#0c0a08;line-height:1.1;
+  margin-bottom:.35rem;
+}
+.detail-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:.04em;
+  color:#4a7c3f;margin-bottom:.75rem;
+}
+.detail-desc{
+  font-family:'DM Sans',sans-serif;
+  font-size:.88rem;color:#8a7a68;
+  line-height:1.6;margin-bottom:1.25rem;
+}
+
+/* ── PRODUCT CARD — add cursor pointer ── */
+.p-card{
+  background:#fff;
+  border-radius:16px;
+  border:1.5px solid #ede5d8;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+  position:relative;
+}
+.p-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(12,10,8,.1);
+  border-color:#c8b89a;
+}
+.p-card-img{
+  aspect-ratio:1;overflow:hidden;
+  background:#faf6ef;
+  display:flex;align-items:center;justify-content:center;
+}
+.p-card-img img{
+  width:100%;height:100%;object-fit:contain;padding:.5rem;
+  transition:transform .35s;
+}
+.p-card:hover .p-card-img img{transform:scale(1.08)}
+
+.p-card-body{padding:.75rem;flex:1;display:flex;flex-direction:column;gap:.4rem}
+.p-card-name{
+  font-family:'DM Sans',sans-serif;
+  font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.03em;
+  color:#2c2318;line-height:1.3;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  line-clamp:2;
+  min-height:2.2em;
+}
+.p-card-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;letter-spacing:.04em;
+  color:#4a7c3f;
+}
+.p-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;padding-top:.35rem;
+}
+.add-btn{
+  width:34px;height:34px;border-radius:10px;
+  background:#0c0a08;color:#9dd672;
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .15s;
+  flex-shrink:0;
+}
+.add-btn:hover{background:#2c2318}
+.add-btn:active{transform:scale(.9)}
+
+/* ── CART BADGE ── */
+.cart-badge{
+  position:absolute;top:-6px;right:-6px;
+  background:#e8a020;color:#0c0a08;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.75rem;letter-spacing:.04em;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #faf6ef;
+}
+
+/* ── MODAL (carrito y checkout — sube desde abajo en móvil) ── */
+.modal-bg{position:fixed;inset:0;z-index:50;background:rgba(12,10,8,.75);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:640px){.modal-bg{align-items:center}}
+.modal-box{background:#fff;width:100%;max-width:480px;border-radius:24px 24px 0 0;overflow:hidden;display:flex;flex-direction:column;max-height:92vh}
+@media(min-width:640px){.modal-box{border-radius:24px;max-height:88vh}}
+
+/* ── MODAL CENTRADO (variantes) ── */
+.modal-center{position:fixed;inset:0;z-index:50;background:rgba(12,10,8,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem}
+
+/* ── PROGRESS BAR ── */
+.prog-track{background:#ede5d8;border-radius:99px;height:6px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+
+/* ── TOAST ── */
+.toast{
+  background:#0c0a08;color:#9dd672;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.85rem;letter-spacing:.08em;
+  padding:.65rem 1.25rem;border-radius:12px;
+  border:1px solid rgba(106,173,90,.25);
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+
+/* ── SEARCH ── */
+.search-input{
+  width:100%;
+  padding:.75rem 1rem .75rem 2.75rem;
+  border-radius:12px;
+  border:1.5px solid #ede5d8;
+  background:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:.92rem;color:#2c2318;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.search-input:focus{border-color:#4a7c3f;box-shadow:0 0 0 3px rgba(74,124,63,.1)}
+.search-input::placeholder{color:#b0a090}
+
+/* ── FORM INPUTS ── */
+.f-input{
+  width:100%;padding:.7rem 1rem;
+  border:1.5px solid #ede5d8;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;color:#2c2318;
+  background:#faf6ef;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.f-input:focus{border-color:#4a7c3f;box-shadow:0 0 0 3px rgba(74,124,63,.1);background:#fff}
+.f-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8a7a68;margin-bottom:.35rem;display:block}
+
+/* ── VARIANT BTN ── */
+.v-btn{
+  width:100%;padding:.9rem 1rem;
+  border:1.5px solid #ede5d8;border-radius:14px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:#fff;cursor:pointer;
+  transition:border-color .2s,background .2s;
+  font-family:'DM Sans',sans-serif;
+}
+.v-btn:hover{border-color:#4a7c3f;background:#f5faf3}
+
+/* ── EMPTY STATE ── */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;gap:.75rem;color:#b0a090}
+</style>
 </head>
-<body class="text-slate-900">
-    <div id="root"></div>
+<body>
+<div id="root"></div>
 
-    <script type="text/babel">
-       const { useState, useMemo, useEffect } = React;
+<script type="text/babel">
+const { useState, useMemo, useEffect, useRef } = React;
 
-        // --- DATOS DEL PRODUCTO ---
-        const PRODUCTS = [
-            // --- PRODUCTOS ORIGINALES ---
-            { id: 1, name: 'Aceite Nutrioli', category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjo7ztVg4kUhpmLo1d0_Tp9rDuJQgvWWoIVw&s', variants: [{ label: '850ml', price: 42.00 }, { label: '1.9L', price: 89.00 }] },
-            { id: 2, name: 'Huevo Blanco 12pzas', price: 39.00, category: 'Abarrotes', image: 'https://hebmx.vtexassets.com/arquivos/ids/609441/seleccionado_huevo_12pz_47847.jpg?v=638521588295300000' },
-            { id: 3, name: 'Arroz Extra 1kg', price: 23.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-Msg1Us8z_mNCp_H1V51ODZryg2kij0asA&s' },
-            { id: 4, name: 'Frijol Negro 1kg', price: 36.00, category: 'Abarrotes', image: 'https://convy.mx/cdn/shop/files/FrijolNegro1200.png?v=1692036307' },
-            { id: 5, name: 'Pan Bimbo', price: 48.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ52BXl3QUr42UVXUY3yPAborNUboauxgBHCg&s' },
-            { id: 6, name: 'Mayonesa 390g', price: 35.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyw3qFc7FppVTf2XarYPYODGrCv9-XCFCcsA&s' },
-            { id: 7, name: 'pag de prueba okc', price: 4000.00, category: 'Abarrotes', description: '+17048349539', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-vwyc1CL6tFoTeYIahtHJZjbgDLhMUmZUA&s' },
-            { id: 21, name: 'Leche Entera LALA 1L', price: 26.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2l7C-xteC-LXvTtOWP2aILYqE8xhQMvKPGg&s' },
-            { id: 41, name: 'Sabritas Sal', category: 'Sabritas', image: 'https://i.pinimg.com/736x/3b/4b/cc/3b4bcc084f4e8997faf3c43f4409e674.jpg', variants: [{ label: 'Chica (42g)', price: 18.00 }, { label: 'Grande (170g)', price: 52.00 }] },
-            { id: 61, name: 'Coca-Cola', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-niA-K67btPKDp9SD8G4VaA_aRtdhIqXAw&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
-            { id: 62, name: 'pepsi', category: 'Refrescos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuyG69ScdWuHaqDQOEhddHPZZOcE1eHHhU2w&s', variants: [{ label: '600ml', price: 17.00 }, { label: '1.5L', price: 28.00 }, { label: '3L', price: 45.00 }] },
-            { id: 81, name: 'Detergente Polvo 2kg', price: 82.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJGnOAcO4VQ0tLychuIxtQqbSQX4yTYyoeWg&s' },
-            { id: 82, name: 'Jabón Zote Blanco', price: 19.50, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNm2K_yV2kj7ShJGSYiugA5N3ApzyCjulX1w&s' },
-            { id: 83, name: 'Papel Higiénico 4pzas', price: 32.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQRS0lPhJf9aWwB-1iqV7lNsQtaptC5xPVQ&s' },
+/* ════════════ PRODUCTOS ════════════ */
+const PRODUCTS = [
+  { id:1,   name:'Aceite Nutrioli',        category:'Abarrotes', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjo7ztVg4kUhpmLo1d0_Tp9rDuJQgvWWoIVw&s', variants:[{label:'850ml',price:42},{label:'1.9L',price:89}] },
+  { id:2,   name:'Huevo Blanco 12pzas',    category:'Abarrotes', price:39,  image:'https://hebmx.vtexassets.com/arquivos/ids/609441/seleccionado_huevo_12pz_47847.jpg?v=638521588295300000' },
+  { id:3,   name:'Arroz Extra 1kg',        category:'Abarrotes', price:23,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo-Msg1Us8z_mNCp_H1V51ODZryg2kij0asA&s' },
+  { id:4,   name:'Frijol Negro 1kg',       category:'Abarrotes', price:36,  image:'https://convy.mx/cdn/shop/files/FrijolNegro1200.png?v=1692036307' },
+  { id:5,   name:'Pan Bimbo',              category:'Abarrotes', price:48,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ52BXl3QUr42UVXUY3yPAborNUboauxgBHCg&s' },
+  { id:6,   name:'Mayonesa 390g',          category:'Abarrotes', price:35,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyw3qFc7FppVTf2XarYPYODGrCv9-XCFCcsA&s' },
+  { id:7,   name:'Pag de prueba okc',      category:'Abarrotes', price:4000,description:'+17048349539', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1-vwyc1CL6tFoTeYIahtHJZjbgDLhMUmZUA&s' },
+  { id:21,  name:'Leche Entera LALA 1L',   category:'Lácteos',   price:26,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2l7C-xteC-LXvTtOWP2aILYqE8xhQMvKPGg&s' },
+  { id:41,  name:'Sabritas Sal',           category:'Sabritas',  image:'https://i.pinimg.com/736x/3b/4b/cc/3b4bcc084f4e8997faf3c43f4409e674.jpg', variants:[{label:'Chica (42g)',price:18},{label:'Grande (170g)',price:52}] },
+  { id:61,  name:'Coca-Cola',              category:'Refrescos', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO-niA-K67btPKDp9SD8G4VaA_aRtdhIqXAw&s', variants:[{label:'600ml',price:17},{label:'1.5L',price:28},{label:'3L',price:45}] },
+  { id:62,  name:'Pepsi',                  category:'Refrescos', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuyG69ScdWuHaqDQOEhddHPZZOcE1eHHhU2w&s', variants:[{label:'600ml',price:17},{label:'1.5L',price:28},{label:'3L',price:45}] },
+  { id:81,  name:'Detergente Polvo 2kg',   category:'Limpieza',  price:82,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJGnOAcO4VQ0tLychuIxtQqbSQX4yTYyoeWg&s' },
+  { id:82,  name:'Jabón Zote Blanco',      category:'Limpieza',  price:19.5,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNm2K_yV2kj7ShJGSYiugA5N3ApzyCjulX1w&s' },
+  { id:83,  name:'Papel Higiénico 4pzas',  category:'Limpieza',  price:32,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQRS0lPhJf9aWwB-1iqV7lNsQtaptC5xPVQ&s' },
+  { id:100, name:'Azúcar',                 category:'Abarrotes', image:'https://th.bing.com/th/id/OIP.kkrGUM1MWLzlhdl6JB5giQHaHa?w=188&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3', variants:[{label:'1kg',price:18},{label:'2kg',price:52}] },
+  { id:101, name:'Sal La Fina 1kg',        category:'Abarrotes', price:18,  image:'https://i.ebayimg.com/images/g/PaUAAOSwDV1mVLTd/s-l1200.jpg' },
+  { id:102, name:'Atún Dolores Agua',      category:'Abarrotes', price:21.5,image:'https://garis.mayoreoenlinea.mx/cdn/shop/files/7501045403915.png?v=1768950050' },
+  { id:103, name:'Atún Dolores Aceite',    category:'Abarrotes', price:21.5,image:'https://farmaciasanjorge.com/cdn/shop/files/PLANOGRAM__8__36742c6c-1900-4a7f-962d-0961d08f4302.png?v=1734639324&width=2401' },
+  { id:104, name:'Café Nescafé 225g',      category:'Abarrotes', price:115, image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQoKJeDTEI1LX3QNFK67xkEuXSebhZ_FVG0Q&s' },
+  { id:105, name:'Galletas Marías 170g',   category:'Abarrotes', price:15,  image:'https://www.mexicomiamor.de/cdn/shop/products/Gamesa_Marias_Buttergebaeck_Kekse_Galletas_170g_front_frei_500x500_v2.png?v=1645825638&width=1214' },
+  { id:106, name:'Galletas Emperador',     category:'Abarrotes', price:22,  image:'https://www.azucardulcerias.com/cdn/shop/files/8b226125d4abdcdc275b0e51cb87c2f3_800x.png?v=1737146910' },
+  { id:107, name:'Harina de Trigo 1kg',    category:'Abarrotes', price:24,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SEqG244TK-sI1tYunsz_zPI5lOH_ECZXBQ&s' },
+  { id:108, name:'Harina Hotcakes 800g',   category:'Abarrotes', price:38,  image:'https://m.media-amazon.com/images/I/61YfiSz0obL._AC_UF350,350_QL80_.jpg' },
+  { id:109, name:'Puré de Tomate 210g',    category:'Abarrotes', price:9,   image:'https://chedrauimx.vtexassets.com/arquivos/ids/63429943/7501017005611_00.jpg?v=639065383796070000' },
+  { id:110, name:'Sopa Fideo',             category:'Abarrotes', price:8.5, image:'https://i5.walmartimages.com/asr/09aa5e04-9f02-440a-b06b-25f7931f629f.adff87039c39da6df8c617a5e6a8837b.jpeg?odnHeight=328&odnWidth=328&odnBg=FFFFFF' },
+  { id:111, name:'Sopa Codo',              category:'Abarrotes', price:8.5, image:'https://www.basicos.mx/images/thumbs/0002242_sopa-la-moderna-codo-n1-200-grs_450.jpg' },
+  { id:112, name:'Chiles Jalapeños Lata',  category:'Abarrotes', price:18,  image:'https://www.laranitadelapaz.com.mx/images/thumbs/0005404_chiles-jalapenos-la-costena-24-latas-de-380-g_625.jpeg' },
+  { id:113, name:'Salsa Catsup 340g',      category:'Abarrotes', price:19,  image:'https://i5.walmartimages.com.mx/mg/gm/3pp/asr/6c2edcd0-5056-43db-b3d4-6f33491a44c0.416a0bd7346b035ceeefb435a5d5b8d1.jpeg' },
+  { id:114, name:'Salsa Valentina',        category:'Abarrotes', price:16,  image:'https://i5.walmartimages.com/seo/Valentina-Salsa-Picante-Mexican-Sauce-12-5-Fluid-Ounce_299d3a67-10ca-43d5-af47-5cd424d06a46.6776616edcbdcafa18975fdde2a5c783.jpeg' },
+  { id:115, name:'Consomé Knorr 8 cubos',  category:'Abarrotes', price:14,  image:'https://basicos.mayoreoenlinea.mx/cdn/shop/products/7501005181365.jpg?v=1699395558' },
+  { id:116, name:'Lentejas 500g',          category:'Abarrotes', price:28,  image:'https://chedrauimx.vtexassets.com/arquivos/ids/62621035-800-auto?v=639052442480800000&width=800&height=auto&aspect=true' },
+  { id:117, name:'Cereal Corn Flakes',     category:'Abarrotes', price:45,  image:'https://bjs.scene7.com/is/image/bjs/3629?$bjs-Zoom$' },
+  { id:118, name:'Mole Doña María',        category:'Abarrotes', price:38,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtcF39x7Riug6HEvpiqFUS-mT6hD0A-C52VA&s' },
+  { id:119, name:'Media Crema Nestlé',     category:'Abarrotes', price:15,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2kYVGMZuIreMlmvCO9PMjlPkXQKt_QUHuzw&s' },
+  { id:120, name:'Leche Deslactosada 1L',  category:'Lácteos',   price:27,  image:'https://bodegagt.vtexassets.com/arquivos/ids/856352/99559_01.jpg?v=638895840257430000' },
+  { id:121, name:'Yogurt Fresa 1kg',       category:'Lácteos',   price:34,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzWB6A9mlcLLgqR4_-iM7QNM5NaTQdkyGAA&s' },
+  { id:122, name:'Yogurt Bebible Fresa',   category:'Lácteos',   price:14,  image:'https://walmartgt.vtexassets.com/arquivos/ids/773196/35588_01.jpg?v=638763966649430000' },
+  { id:123, name:'Queso Panela 400g',      category:'Lácteos',   price:55,  image:'https://www.kroger.com/product/images/large/front/0064523008712' },
+  { id:124, name:'Queso Manchego 200g',    category:'Lácteos',   price:60,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoLkzKi_l7yIZt0QQZazNkb9XwX3tMMXg48w&s' },
+  { id:125, name:'Margarina Primavera',    category:'Lácteos',   price:22,  image:'https://i5.walmartimages.com.mx/mg/gm/3pp/asr/158961b0-88f3-47ac-9b4f-81bb7f5099e9.d32ac55d25b286897330cdb833302249.jpeg' },
+  { id:126, name:'Mantequilla Barra',      category:'Lácteos',   price:25,  image:'https://chedrauimx.vtexassets.com/arquivos/ids/59515244-800-auto?v=639003801341830000' },
+  { id:127, name:'Crema Ácida 450ml',      category:'Lácteos',   price:32,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBxQhMIMX7FVePhTuRFRb9_gP-Vn804DW7Fg&s' },
+  { id:128, name:'Leche Evaporada',        category:'Lácteos',   price:20,  image:'https://www.nestleprofessional.com.mx/sites/default/files/styles/np_product_detail/public/2023-03/CRTN%20REGULAR%20RENDER%202020%20.png?itok=S_Htry0c' },
+  { id:129, name:'Leche Condensada',       category:'Lácteos',   price:26,  image:'https://www.boricuaproduce.com/wp-content/uploads/2017/04/LA-LECHERA-LECHE-CONDENSADA-14z.jpg' },
+  { id:130, name:'Doritos Nacho 58g',      category:'Sabritas',  price:18,  image:'https://i5.walmartimages.com/asr/e5f41929-fd15-43ec-bf70-fe0b4a554257.910461210dd12b19bad6d943cb5a8fac.jpeg' },
+  { id:131, name:'Cheetos Torciditos',     category:'Sabritas',  price:17,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSKl5ZzqlJJs_ytkNQfS5qh3KuLYVdeMvIsA&s' },
+  { id:132, name:'Ruffles Queso',          category:'Sabritas',  price:18,  image:'https://api.hy-vee.cloud/cdn-cgi/image/f=auto,w=640,q=60,dpr=1/https://e22d0640933e3c7f8c86-34aee0c49088be50e3ac6555f6c963fb.ssl.cf2.rackcdn.com/70ae044f-7d38-4723-abc7-b81746e0f67e_large.png' },
+  { id:133, name:'Tostitos Salsa Verde',   category:'Sabritas',  price:19,  image:'https://www.kroger.com/product/images/medium/front/0002840075088' },
+  { id:134, name:'Takis Fuego',            category:'Sabritas',  price:18,  image:'https://beneprice.com/cdn/shop/files/beneprice-Takis-Fuego-Hot-Chili-Pepper-Lime-Tortillas-Chips-9.9oz.jpg?v=1696935739' },
+  { id:135, name:'Churrumais',             category:'Sabritas',  price:14,  image:'https://elsabormarket.com/cdn/shop/files/Screenshot-20250322_112407_Chrome_1024x1024.jpg?v=1742667266' },
+  { id:136, name:'Rancheritos',            category:'Sabritas',  price:16,  image:'https://www.kroger.com/product/images/xlarge/front/0002840001970' },
+  { id:137, name:'Paketaxo Mezcladito',    category:'Sabritas',  price:48,  image:'https://www.superya.com.mx/imagenes/productos/producto_385.jpg' },
+  { id:138, name:'Sprite 600ml',           category:'Refrescos', price:17,  image:'https://fortatacadista.vteximg.com.br/arquivos/ids/293086-1000-1000/7894900681246_2.jpg?v=637584166359530000' },
+  { id:139, name:'Fanta Naranja 600ml',    category:'Refrescos', price:17,  image:'https://lagranbodega.vteximg.com.br/arquivos/ids/306431-600-600/7501055303779.jpg?v=639003890624700000' },
+  { id:140, name:'Manzanita Sol 600ml',    category:'Refrescos', price:17,  image:'https://i5.walmartimages.com/asr/719a2200-a817-4435-943c-f74d9f495ed2.42680866e288184d3dee1ce10433221e.jpeg' },
+  { id:141, name:'Agua Mineral Peñafiel',  category:'Refrescos', price:19,  image:'https://i5.walmartimages.com/seo/Pe-afiel-12-Pack-20-2-fl-oz-Made-In-Mexico-Agua-Mineral-Mineral-Water_1ab9d4f7-31ee-4573-aac6-03f01da1a014.9a74ff47f837b1f5b9601a65556b451b.jpeg' },
+  { id:142, name:'Jugo Valle Manzana',     category:'Refrescos', price:21,  image:'https://resources.coca-colaentuhogar.com/media/catalog/product/d/e/del-valle-manzana-946-ml-nr-tpk-12.png?quality=100&fit=bounds&height=550&width=550&format=webp' },
+  { id:143, name:'Agua Ciel 1L',           category:'Refrescos', price:14,  image:'https://resources.coca-colaentuhogar.com/media/catalog/product/1/4/14_ciel-exprim-limon-con-cascara-1-l-botella-pet_4.jpg' },
+  { id:144, name:'Squirt 600ml',           category:'Refrescos', price:17,  image:'https://247bits.com/wp-content/uploads/2023/11/squirt.jpg' },
+  { id:145, name:'Cloro 1L',              category:'Limpieza',  price:18,  image:'https://valca.com.pe/public/frontend/images/producto/1408202317021743.jpg' },
+  { id:146, name:'Suavitel 850ml',         category:'Limpieza',  price:28,  image:'https://i5.walmartimages.com/asr/1dc40a88-2cd0-44ca-9bec-e8fe13e9a59f.6ef141b3286c93b2d7a0dd960d972264.png' },
+  { id:147, name:'Jabón Palmolive',        category:'Limpieza',  price:16,  image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn_kd7anMiz5bpnAM7NNTmGfetHTLto9KaCw&s' },
+  { id:148, name:'Lavatrastes Axion',      category:'Limpieza',  price:32,  image:'https://hebmx.vtexassets.com/arquivos/ids/749026-800-800?v=638492131245000000&width=800&height=800&aspect=true' },
+  { id:149, name:'Servitoallas Rollo',     category:'Limpieza',  price:22,  image:'https://tradepoint.com.mx/3688-large_default/toallas-de-papel-elite-megaroll-1-rollo-con-180-hojas-dobles-1-1-33522.jpg' },
+  { id:150, name:'Dudas y preguntas',      category:'Limpieza',  price:0,   image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRNmCFhWinzc1YxVXrWk1V2XJWfEOPU22J9w&s' },
+];
 
-            // --- NUEVOS PRODUCTOS AGREGADOS (ABARROTES) ---
-            { id: 100, name: 'Azúcar ', price: 28.00, category: 'Abarrotes', image: 'https://th.bing.com/th/id/OIP.kkrGUM1MWLzlhdl6JB5giQHaHa?w=188&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3',  variants: [{ label: 'Chica (1Kg)', price: 18.00 }, { label: 'Grande (2Kg)', price: 52.00 }] },
-            { id: 101, name: 'Sal La Fina 1kg', price: 18.00, category: 'Abarrotes', image: 'https://i.ebayimg.com/images/g/PaUAAOSwDV1mVLTd/s-l1200.jpg' },
-            { id: 102, name: 'Atún Dolores Agua', price: 21.50, category: 'Abarrotes', image: 'https://garis.mayoreoenlinea.mx/cdn/shop/files/7501045403915.png?v=1768950050' },
-            { id: 103, name: 'Atún Dolores Aceite', price: 21.50, category: 'Abarrotes', image: 'https://farmaciasanjorge.com/cdn/shop/files/PLANOGRAM__8__36742c6c-1900-4a7f-962d-0961d08f4302.png?v=1734639324&width=2401' },
-            { id: 104, name: 'Café Nescafé 225g', price: 115.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQoKJeDTEI1LX3QNFK67xkEuXSebhZ_FVG0Q&s' },
-            { id: 105, name: 'Galletas Marías 170g', price: 15.00, category: 'Abarrotes', image: 'https://www.mexicomiamor.de/cdn/shop/products/Gamesa_Marias_Buttergebaeck_Kekse_Galletas_170g_front_frei_500x500_v2.png?v=1645825638&width=1214' },
-            { id: 106, name: 'Galletas Emperador', price: 22.00, category: 'Abarrotes', image: 'https://www.azucardulcerias.com/cdn/shop/files/8b226125d4abdcdc275b0e51cb87c2f3_800x.png?v=1737146910' },
-            { id: 107, name: 'Harina de Trigo 1kg', price: 24.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SEqG244TK-sI1tYunsz_zPI5lOH_ECZXBQ&s' },
-            { id: 108, name: 'Harina Hotcakes 800g', price: 38.00, category: 'Abarrotes', image: 'https://m.media-amazon.com/images/I/61YfiSz0obL._AC_UF350,350_QL80_.jpg' },
-            { id: 109, name: 'Puré de Tomate 210g', price: 9.00, category: 'Abarrotes', image: 'https://chedrauimx.vtexassets.com/arquivos/ids/63429943/7501017005611_00.jpg?v=639065383796070000' },
-            { id: 110, name: 'Sopa La Moderna Fideo', price: 8.50, category: 'Abarrotes', image: 'https://i5.walmartimages.com/asr/09aa5e04-9f02-440a-b06b-25f7931f629f.adff87039c39da6df8c617a5e6a8837b.jpeg?odnHeight=328&odnWidth=328&odnBg=FFFFFF' },
-            { id: 111, name: 'Sopa La Moderna Codo', price: 8.50, category: 'Abarrotes', image: 'https://www.basicos.mx/images/thumbs/0002242_sopa-la-moderna-codo-n1-200-grs_450.jpg' },
-            { id: 112, name: 'Chiles Jalapeños Lata', price: 18.00, category: 'Abarrotes', image: 'https://www.laranitadelapaz.com.mx/images/thumbs/0005404_chiles-jalapenos-la-costena-24-latas-de-380-g_625.jpeg' },
-            { id: 113, name: 'Salsa Catsup 340g', price: 19.00, category: 'Abarrotes', image: 'https://i5.walmartimages.com.mx/mg/gm/3pp/asr/6c2edcd0-5056-43db-b3d4-6f33491a44c0.416a0bd7346b035ceeefb435a5d5b8d1.jpeg?odnHeight=2000&odnWidth=2000&odnBg=ffffff' },
-            { id: 114, name: 'Salsa Valentina', price: 16.00, category: 'Abarrotes', image: 'https://i5.walmartimages.com/seo/Valentina-Salsa-Picante-Mexican-Sauce-12-5-Fluid-Ounce_299d3a67-10ca-43d5-af47-5cd424d06a46.6776616edcbdcafa18975fdde2a5c783.jpeg' },
-            { id: 115, name: 'Consomé Knorr 8 cubos', price: 14.00, category: 'Abarrotes', image: 'https://basicos.mayoreoenlinea.mx/cdn/shop/products/7501005181365.jpg?v=1699395558' },
-            { id: 116, name: 'Lentejas 500g', price: 28.00, category: 'Abarrotes', image: 'https://chedrauimx.vtexassets.com/arquivos/ids/62621035-800-auto?v=639052442480800000&width=800&height=auto&aspect=true' },
-            { id: 117, name: 'Cereal Corn Flakes', price: 45.00, category: 'Abarrotes', image: 'https://bjs.scene7.com/is/image/bjs/3629?$bjs-Zoom$' },
-            { id: 118, name: 'Mole Doña María', price: 38.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtcF39x7Riug6HEvpiqFUS-mT6hD0A-C52VA&s' },
-            { id: 119, name: 'Media Crema Nestle', price: 15.00, category: 'Abarrotes', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2kYVGMZuIreMlmvCO9PMjlPkXQKt_QUHuzw&s' },
+const CATEGORIES = ['Todos','Abarrotes','Lácteos','Sabritas','Refrescos','Limpieza'];
+const SHIPPING_THRESHOLD = 200;
+const SHIPPING_FEE = 10;
 
-            // --- NUEVOS LÁCTEOS ---
-            { id: 120, name: 'Leche Deslactosada 1L', price: 27.00, category: 'Lácteos', image: 'https://bodegagt.vtexassets.com/arquivos/ids/856352/99559_01.jpg?v=638895840257430000' },
-            { id: 121, name: 'Yogurt Fresa 1kg', price: 34.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCzWB6A9mlcLLgqR4_-iM7QNM5NaTQdkyGAA&s' },
-            { id: 122, name: 'Yogurt Bebible Fresa', price: 14.00, category: 'Lácteos', image: 'https://walmartgt.vtexassets.com/arquivos/ids/773196/35588_01.jpg?v=638763966649430000' },
-            { id: 123, name: 'Queso Panela 400g', price: 55.00, category: 'Lácteos', image: 'https://www.kroger.com/product/images/large/front/0064523008712' },
-            { id: 124, name: 'Queso Manchego 200g', price: 60.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoLkzKi_l7yIZt0QQZazNkb9XwX3tMMXg48w&s' },
-            { id: 125, name: 'Margarina Primavera', price: 22.00, category: 'Lácteos', image: 'https://i5.walmartimages.com.mx/mg/gm/3pp/asr/158961b0-88f3-47ac-9b4f-81bb7f5099e9.d32ac55d25b286897330cdb833302249.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF' },
-            { id: 126, name: 'Mantequilla Barra', price: 25.00, category: 'Lácteos', image: 'https://chedrauimx.vtexassets.com/arquivos/ids/59515244-800-auto?v=639003801341830000&width=800&height=auto&aspect=true' },
-            { id: 127, name: 'Crema Ácida 450ml', price: 32.00, category: 'Lácteos', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBxQhMIMX7FVePhTuRFRb9_gP-Vn804DW7Fg&s' },
-            { id: 128, name: 'Leche Evaporada', price: 20.00, category: 'Lácteos', image: 'https://www.nestleprofessional.com.mx/sites/default/files/styles/np_product_detail/public/2023-03/CRTN%20REGULAR%20RENDER%202020%20.png?itok=S_Htry0c' },
-            { id: 129, name: 'Leche Condensada', price: 26.00, category: 'Lácteos', image: 'https://www.boricuaproduce.com/wp-content/uploads/2017/04/LA-LECHERA-LECHE-CONDENSADA-14z.jpg' },
+/* ════════════ TICKER DATA ════════════ */
+const TICKER_ITEMS = [
+  {label:'Coca-Cola', cat:'Refrescos'},
+  {label:'Arroz Extra', cat:'Abarrotes'},
+  {label:'Frijol Negro', cat:'Abarrotes'},
+  {label:'Takis Fuego', cat:'Sabritas'},
+  {label:'Leche LALA', cat:'Lácteos'},
+  {label:'Detergente', cat:'Limpieza'},
+  {label:'Sabritas Sal', cat:'Sabritas'},
+  {label:'Café Nescafé', cat:'Abarrotes'},
+  {label:'Queso Panela', cat:'Lácteos'},
+  {label:'Pepsi', cat:'Refrescos'},
+  {label:'Mole Doña María', cat:'Abarrotes'},
+  {label:'Jabón Zote', cat:'Limpieza'},
+  {label:'Cheetos', cat:'Sabritas'},
+  {label:'Yogurt Fresa', cat:'Lácteos'},
+  {label:'Agua Ciel', cat:'Refrescos'},
+  {label:'Doritos Nacho', cat:'Sabritas'},
+  {label:'Suavitel', cat:'Limpieza'},
+  {label:'Salsa Valentina', cat:'Abarrotes'},
+];
 
-            // --- NUEVAS SABRITAS ---
-            { id: 130, name: 'Doritos Nacho 58g', price: 18.00, category: 'Sabritas', image: 'https://i5.walmartimages.com/asr/e5f41929-fd15-43ec-bf70-fe0b4a554257.910461210dd12b19bad6d943cb5a8fac.jpeg?odnHeight=328&odnWidth=328&odnBg=FFFFFF' },
-            { id: 131, name: 'Cheetos Torciditos', price: 17.00, category: 'Sabritas', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSKl5ZzqlJJs_ytkNQfS5qh3KuLYVdeMvIsA&s' },
-            { id: 132, name: 'Ruffles Queso', price: 18.00, category: 'Sabritas', image: 'https://api.hy-vee.cloud/cdn-cgi/image/f=auto,w=640,q=60,dpr=1/https://e22d0640933e3c7f8c86-34aee0c49088be50e3ac6555f6c963fb.ssl.cf2.rackcdn.com/70ae044f-7d38-4723-abc7-b81746e0f67e_large.png' },
-            { id: 133, name: 'Tostitos Salsa Verde', price: 19.00, category: 'Sabritas', image: 'https://www.kroger.com/product/images/medium/front/0002840075088' },
-            { id: 134, name: 'Takis Fuego', price: 18.00, category: 'Sabritas', image: 'https://beneprice.com/cdn/shop/files/beneprice-Takis-Fuego-Hot-Chili-Pepper-Lime-Tortillas-Chips-9.9oz.jpg?v=1696935739' },
-            { id: 135, name: 'Churrumais', price: 14.00, category: 'Sabritas', image: 'https://elsabormarket.com/cdn/shop/files/Screenshot-20250322_112407_Chrome_1024x1024.jpg?v=1742667266' },
-            { id: 136, name: 'Rancheritos', price: 16.00, category: 'Sabritas', image: 'https://www.kroger.com/product/images/xlarge/front/0002840001970' },
-            { id: 137, name: 'Paketaxo Mezcladito', price: 48.00, category: 'Sabritas', image: 'https://www.superya.com.mx/imagenes/productos/producto_385.jpg' },
+/* ════════════ APP ════════════ */
+function App() {
+  const [cart, setCart] = useState([]);
+  const [search, setSearch] = useState('');
+  const [cat, setCat] = useState('Todos');
+  const [modal, setModal] = useState(null);
+  const [varProd, setVarProd] = useState(null);
+  const [detailProd, setDetailProd] = useState(null);
+  const [toasts, setToasts] = useState([]);
+  const [form, setForm] = useState({name:'',address:''});
 
-            // --- NUEVOS REFRESCOS ---
-            { id: 138, name: 'Sprite 600ml', price: 17.00, category: 'Refrescos', image: 'https://fortatacadista.vteximg.com.br/arquivos/ids/293086-1000-1000/7894900681246_2.jpg?v=637584166359530000' },
-            { id: 139, name: 'Fanta Naranja 600ml', price: 17.00, category: 'Refrescos', image: 'https://lagranbodega.vteximg.com.br/arquivos/ids/306431-600-600/7501055303779.jpg?v=639003890624700000' },
-            { id: 140, name: 'Manzanita Sol 600ml', price: 17.00, category: 'Refrescos', image: 'https://i5.walmartimages.com/asr/719a2200-a817-4435-943c-f74d9f495ed2.42680866e288184d3dee1ce10433221e.jpeg' },
-            { id: 141, name: 'Agua Mineral Peñafiel', price: 19.00, category: 'Refrescos', image: 'https://i5.walmartimages.com/seo/Pe-afiel-12-Pack-20-2-fl-oz-Made-In-Mexico-Agua-Mineral-Mineral-Water_1ab9d4f7-31ee-4573-aac6-03f01da1a014.9a74ff47f837b1f5b9601a65556b451b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF' },
-            { id: 142, name: 'Jugo Valle Manzana', price: 21.00, category: 'Refrescos', image: 'https://resources.coca-colaentuhogar.com/media/catalog/product/d/e/del-valle-manzana-946-ml-nr-tpk-12.png?quality=100&fit=bounds&height=550&width=550&format=webp' },
-            { id: 143, name: 'Agua Ciel 1L', price: 14.00, category: 'Refrescos', image: 'https://resources.coca-colaentuhogar.com/media/catalog/product/1/4/14_ciel-exprim-limon-con-cascara-1-l-botella-pet_4.jpg' },
-            { id: 144, name: 'Squirt 600ml', price: 17.00, category: 'Refrescos', image: 'https://247bits.com/wp-content/uploads/2023/11/squirt.jpg' },
+  useEffect(()=>{ if(window.lucide) window.lucide.createIcons(); },[modal,cart,search,cat]);
 
-            // --- NUEVA LIMPIEZA ---
-            { id: 145, name: 'Cloro 1L', price: 18.00, category: 'Limpieza', image: 'https://valca.com.pe/public/frontend/images/producto/1408202317021743.jpg' },
-            { id: 146, name: 'Suavitel 850ml', price: 28.00, category: 'Limpieza', image: 'https://i5.walmartimages.com/asr/1dc40a88-2cd0-44ca-9bec-e8fe13e9a59f.6ef141b3286c93b2d7a0dd960d972264.png?odnHeight=768&odnWidth=768&odnBg=FFFFFF' },
-            { id: 147, name: 'Jabón Palmolive', price: 16.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn_kd7anMiz5bpnAM7NNTmGfetHTLto9KaCw&s' },
-            { id: 148, name: 'Lavatrastes Axion', price: 32.00, category: 'Limpieza', image: 'https://hebmx.vtexassets.com/arquivos/ids/749026-800-800?v=638492131245000000&width=800&height=800&aspect=true' },
-            { id: 149, name: 'Servitoallas Rollo', price: 22.00, category: 'Limpieza', image: 'https://tradepoint.com.mx/3688-large_default/toallas-de-papel-elite-megaroll-1-rollo-con-180-hojas-dobles-1-1-33522.jpg' },
-            { id: 149, name: 'Dudas y preguntas', price: 0.00, category: 'Limpieza', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRNmCFhWinzc1YxVXrWk1V2XJWfEOPU22J9w&s' }
-        ];
+  const filtered = useMemo(()=>PRODUCTS.filter(p=>{
+    const ms = p.name.toLowerCase().includes(search.toLowerCase());
+    const mc = cat==='Todos' || p.category===cat;
+    return ms && mc;
+  }),[search,cat]);
 
-        const CATEGORIES = ['Todos', 'Abarrotes', 'Lácteos', 'Sabritas', 'Refrescos', 'Limpieza'];
-        const SHIPPING_THRESHOLD = 200; 
-        const SHIPPING_FEE = 10;
+  const toast = msg => {
+    const id = Date.now();
+    setToasts(p=>[...p,{id,msg}]);
+    setTimeout(()=>setToasts(p=>p.filter(t=>t.id!==id)),2200);
+  };
 
-        function App() {
-            const [cart, setCart] = useState([]);
-            const [searchTerm, setSearchTerm] = useState('');
-            const [selectedCategory, setSelectedCategory] = useState('Todos');
-            const [activeModal, setActiveModal] = useState(null);
-            const [variantModalProduct, setVariantModalProduct] = useState(null);
-            const [toasts, setToasts] = useState([]);
-            const [formData, setFormData] = useState({ name: '', address: '' });
+  const addToCart = (prod, price, variant=null) => {
+    const cid = variant ? `${prod.id}-${variant}` : prod.id;
+    const name = variant ? `${prod.name} (${variant})` : prod.name;
+    setCart(p=>{
+      const ex = p.find(i=>i.cid===cid);
+      if(ex) return p.map(i=>i.cid===cid ? {...i,qty:i.qty+1} : i);
+      return [...p,{...prod,cid,name,price,qty:1}];
+    });
+    toast(`${name} agregado`);
+  };
 
-            useEffect(() => {
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
-            }, [activeModal, cart, searchTerm, selectedCategory]);
+  const sub  = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const ship = sub>=SHIPPING_THRESHOLD ? 0 : (cart.length>0 ? SHIPPING_FEE : 0);
+  const total= sub+ship;
+  const qty  = cart.reduce((s,i)=>s+i.qty,0);
 
-            const filteredProducts = useMemo(() => {
-                return PRODUCTS.filter(p => {
-                    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-                    const matchesCategory = selectedCategory === 'Todos' || p.category === selectedCategory;
-                    return matchesSearch && matchesCategory;
-                });
-            }, [searchTerm, selectedCategory]);
+  const sendWA = e => {
+    e.preventDefault();
+    let msg = `🛒 *CASA DE LIMA - PEDIDO*\n\n*CLIENTE:* ${form.name}\n*DIRECCIÓN:* ${form.address}\n\n*PRODUCTOS:*\n`;
+    cart.forEach(i=>msg+=`• ${i.qty}x ${i.name} ($${(i.price*i.qty).toFixed(2)})\n`);
+    msg+=`\n*TOTAL: $${total.toFixed(2)}*`;
+    window.open(`https://wa.me/17048349539?text=${encodeURIComponent(msg)}`,'_blank');
+  };
 
-            const addToast = (message) => {
-                const id = Date.now();
-                setToasts(prev => [...prev, { id, message }]);
-                setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 2500);
-            };
+  /* Ticker duplicado para loop seamless */
+  const tickerAll = [...TICKER_ITEMS,...TICKER_ITEMS];
 
-            const addToCart = (product, price, variantLabel = null) => {
-                const cartId = variantLabel ? `${product.id}-${variantLabel}` : product.id;
-                const finalName = variantLabel ? `${product.name} (${variantLabel})` : product.name;
-                setCart(prev => {
-                    const existing = prev.find(item => item.cartId === cartId);
-                    if (existing) return prev.map(item => item.cartId === cartId ? { ...item, quantity: item.quantity + 1 } : item);
-                    return [...prev, { ...product, cartId, name: finalName, price, quantity: 1 }];
-                });
-                addToast(`${finalName} agregado`);
-                setActiveModal(null);
-            };
+  return (
+    <div className="min-h-screen flex flex-col" style={{background:'#faf6ef'}}>
 
-            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const shippingCost = subtotal >= SHIPPING_THRESHOLD ? 0 : (cart.length > 0 ? SHIPPING_FEE : 0);
-            const total = subtotal + shippingCost;
+      {/* ── BACK BAR ── */}
+      <a href="index.html" style={{background:'#0c0a08',color:'rgba(255,255,255,.7)',display:'block',textDecoration:'none'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'.5rem 1rem',display:'flex',alignItems:'center',gap:8}}>
+          <i data-lucide="arrow-left" style={{width:14,height:14}}></i>
+          <span style={{fontSize:'.75rem',fontFamily:'DM Sans',fontWeight:600,letterSpacing:'.04em',textTransform:'uppercase'}}>Volver al inicio</span>
+        </div>
+      </a>
 
-            const sendWhatsApp = (e) => {
-                e.preventDefault();
-                const phoneNumber = "17048349539"; 
-                // ACTUALIZACIÓN DE NOMBRE EN EL MENSAJE
-                let message = `🛒 *CASA DE LIMA - PEDIDO*\n\n*CLIENTE:* ${formData.name}\n*DIRECCIÓN:* ${formData.address}\n\n*PRODUCTOS:*\n`;
-                cart.forEach(item => message += `• ${item.quantity}x ${item.name} ($${(item.price * item.quantity).toFixed(2)})\n`);
-                message += `\n*TOTAL A PAGAR: $${total.toFixed(2)}*`;
-                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-            };
+      {/* ── HEADER ── */}
+      <header style={{
+        position:'sticky',top:0,zIndex:40,
+        background:'#fff',
+        borderBottom:'3px solid #0c0a08',
+        boxShadow:'0 2px 20px rgba(12,10,8,.08)'
+      }}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'.6rem 1rem',display:'flex',alignItems:'center',gap:12}}>
+          {/* Logo */}
+          <a href="index.html" style={{display:'flex',alignItems:'center',textDecoration:'none',flexShrink:0}}>
+            <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima"
+              style={{height:48,width:'auto',filter:'drop-shadow(0 1px 3px rgba(0,0,0,.15))'}}/>
+          </a>
 
-            return (
-                <div className="min-h-screen flex flex-col w-full overflow-hidden bg-slate-50 font-sans">
-                    
-                    {/* BARRA SUPERIOR - Usando brand-dark */}
-                    <a href="/" className="block bg-brand-dark text-white w-full hover:bg-black transition-colors cursor-pointer text-decoration-none z-50">
-                        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex items-center gap-2">
-                            <i data-lucide="arrow-left" style={{width: 16, height: 16}}></i>
-                            <span className="text-xs sm:text-sm font-semibold font-sans">Volver al inicio</span>
-                        </div>
-                    </a>
+          {/* Search — único, siempre visible, ocupa todo el espacio disponible */}
+          <div style={{flex:1,position:'relative'}}>
+            <input className="search-input" placeholder="Buscar productos..."
+              value={search} onChange={e=>setSearch(e.target.value)}
+              style={{paddingLeft:'2.5rem'}}/>
+            <span style={{position:'absolute',left:'.75rem',top:'50%',transform:'translateY(-50%)',color:'#b0a090',pointerEvents:'none'}}>
+              <i data-lucide="search" style={{width:16,height:16}}></i>
+            </span>
+          </div>
 
-                    {/* HEADER PEGAJOSO (STICKY) */}
-                    {/* Se cambió h-14/h-16 por py-2 para que la altura se ajuste automáticamente al logo más grande */}
-                    <header className="sticky top-0 z-40 bg-white border-b-4 border-brand-yellow px-3 sm:px-4 py-2 flex justify-between items-center max-w-6xl mx-auto w-full shadow-sm">
-                        <div className="flex items-center gap-2 sm:gap-3">
-                            {/* --- SECCIÓN DEL LOGO (MODIFICADA) --- */}
-                            {/* Reemplaza el src de abajo con la URL de tu propio logo */}
-                            {/* CAMBIOS: 'object-contain' asegura que el logo se vea completo sin cortarse, ideal para logos sin fondo */}
-                            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-lg overflow-hidden bg-white flex items-center justify-center">
-                                <img 
-                                    src="https://i.ibb.co/SYd43f0/lgo-de-lima.jpg" 
-                                    alt="Logo Casa de Lima" 
-                                    className="w-full h-full object-contain"
-                                />
-                            </div>
-                            
-                            <div>
-                                {/* USANDO FUENTE 'BRAND' (Playfair Display) */}
-                                <h1 className="text-lg sm:text-xl font-bold font-brand text-brand-dark tracking-tight leading-none">Casa de Lima</h1>
-                                <p className="text-[9px] sm:text-[10px] font-bold font-display text-brand-green uppercase tracking-widest mt-0.5">Calidad • Frescura • Ahorro</p>
-                            </div>
-                        </div>
-                        {/* Botón de Carrito con Colores de Marca */}
-                        <button onClick={() => setActiveModal('cart')} className="relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-green text-white rounded-xl shadow-md hover:bg-brand-dark hover:shadow-lg hover:translate-y-0.5 transition-all">
-                            <i data-lucide="shopping-cart" style={{width: 16, height: 16}} className="sm:w-[18px] sm:h-[18px]"></i>
-                            <span className="font-bold text-[10px] sm:text-xs uppercase hidden xs:inline font-display">Carrito</span>
-                            {cart.length > 0 && <span className="absolute -top-1 sm:-top-2 -right-1 sm:-right-2 bg-brand-yellow text-brand-dark text-[10px] sm:text-[11px] font-black h-5 w-5 sm:h-6 sm:w-6 rounded-full flex items-center justify-center border-2 border-white shadow-sm font-sans">{cart.reduce((s,i) => s+i.quantity, 0)}</span>}
-                        </button>
-                    </header>
+          {/* Cart button */}
+          <button onClick={()=>setModal('cart')}
+            style={{display:'flex',alignItems:'center',gap:6,padding:'.55rem 1.1rem',background:'#0c0a08',color:'#9dd672',border:'none',borderRadius:12,cursor:'pointer',position:'relative',flexShrink:0,fontFamily:'Bebas Neue',fontSize:'1rem',letterSpacing:'.06em',transition:'background .2s'}}
+            onMouseOver={e=>e.currentTarget.style.background='#2c2318'}
+            onMouseOut={e=>e.currentTarget.style.background='#0c0a08'}>
+            <i data-lucide="shopping-bag" style={{width:17,height:17}}></i>
+            <span style={{display:'none'}} className="sm:inline">Carrito</span>
+            {qty>0 && <span className="cart-badge">{qty}</span>}
+          </button>
+        </div>
+      </header>
 
-                    {/* BARRA DE BÚSQUEDA */}
-                    <div className="bg-white p-3 sm:p-4 border-b border-slate-100 shadow-sm">
-                        <div className="max-w-xl mx-auto relative">
-                            <input 
-                                type="text" 
-                                placeholder="¿Qué se te antoja hoy?..." 
-                                className="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-100 outline-none focus:ring-2 focus:ring-brand-green focus:bg-white transition-all font-medium text-sm sm:text-base text-slate-700 placeholder-slate-400 font-sans" 
-                                value={searchTerm} 
-                                onChange={e => setSearchTerm(e.target.value)} 
-                            />
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-green">
-                                <i data-lucide="search" style={{width: 20, height: 20}}></i>
-                            </div>
-                        </div>
-                    </div>
+      {/* ── TICKER ── */}
+      <div className="ticker-outer">
+        <div className="ticker-belt">
+          {tickerAll.map((it,i)=>(
+            <span key={i} className="t-item">
+              <span className="t-sep"></span>
+              <b>{it.cat}</b>
+              <span>·</span>
+              <span>{it.label}</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
-                    <main className="max-w-6xl mx-auto p-3 sm:p-4 flex-1 w-full">
-                        {/* FILTROS / CATEGORÍAS */}
-                        <div className="flex gap-2 overflow-x-auto pb-4 pt-2 no-scrollbar">
-                            {CATEGORIES.map(cat => (
-                                <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold font-display uppercase whitespace-nowrap border-2 transition-all ${selectedCategory === cat ? 'bg-brand-green border-brand-green text-white shadow-md transform scale-105' : 'bg-white border-slate-200 text-slate-400 hover:border-brand-green hover:text-brand-green'}`}>{cat}</button>
-                            ))}
-                        </div>
+      {/* ── CATEGORIES ── */}
+      <div style={{background:'#fff',borderBottom:'1px solid #ede5d8',padding:'.6rem 0'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'0 1rem'}}>
+          <div className="no-scrollbar" style={{display:'flex',gap:8,overflowX:'auto',paddingBottom:2}}>
+            {CATEGORIES.map(c=>(
+              <button key={c} className={`cat-pill${cat===c?' active':''}`}
+                onClick={()=>setCat(c)}>{c}</button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-                        {/* GRID DE PRODUCTOS */}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-                            {filteredProducts.map(p => (
-                                <div key={p.id} className="bg-white rounded-2xl border border-slate-100 p-2.5 flex flex-col hover:border-brand-yellow hover:shadow-lg transition-all group duration-300">
-                                    <div className="overflow-hidden rounded-xl mb-2 aspect-square relative bg-white">
-                                        <img src={p.image} className="w-full h-full object-contain p-1 group-hover:scale-110 transition-transform duration-300" />
-                                    </div>
-                                    <h3 className="font-bold text-[11px] sm:text-[12px] uppercase h-9 line-clamp-2 text-slate-800 leading-tight font-display">{p.name}</h3>
-                                    <div className="mt-auto flex justify-between items-end pt-2">
-                                        <div className="flex flex-col">
-                                            <span className="text-[9px] text-slate-400 font-bold uppercase font-sans">Precio</span>
-                                            <span className="font-bold text-brand-green text-sm sm:text-base font-display">${(p.variants ? p.variants[0].price : p.price).toFixed(2)}</span>
-                                        </div>
-                                        <button onClick={() => { if(p.variants){ setVariantModalProduct(p); setActiveModal('variants'); } else { addToCart(p, p.price); } }} className="bg-brand-yellow text-brand-dark p-1.5 sm:p-2 rounded-lg hover:bg-yellow-300 shadow-sm active:scale-95 transition-transform">
-                                            <i data-lucide="plus" style={{width: 16, height: 16}}></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </main>
+      {/* ── MAIN ── */}
+      <main style={{flex:1,maxWidth:1200,margin:'0 auto',width:'100%',padding:'1.25rem 1rem 2rem'}}>
 
-                    {/* Footer - Usando brand-dark */}
-                    <footer className="bg-brand-dark text-slate-200 py-10 px-4 mt-12 border-t-8 border-brand-green w-full">
-                        <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center text-center gap-8">
-                            
-                            {/* Info Tienda Centrada */}
-                            <div className="max-w-md text-center">
-                                <div className="flex items-center justify-center gap-2 mb-3">
-                                    <i data-lucide="map-pin" className="text-brand-yellow" style={{width: 24, height: 24}}></i>
-                                    <h4 className="text-white font-bold font-brand uppercase italic text-2xl">Casa de Lima</h4>
-                                </div>
-                                <p className="text-sm leading-relaxed text-slate-300 font-sans">
-                                    Llevando lo mejor del mandado a la puerta de tu hogar con rapidez y confianza aquí en <strong>Yolotepec</strong>.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-brand-green/30 text-center">
-                            <p className="text-[10px] uppercase font-bold tracking-widest text-brand-yellow font-display">
-                                &copy; {new Date().getFullYear()} Casa de Lima. okc
-                            </p>
-                        </div>
-                    </footer>
+        {/* Heading */}
+        <div style={{display:'flex',alignItems:'baseline',justifyContent:'space-between',marginBottom:'1rem',flexWrap:'wrap',gap:8}}>
+          <h2 className="font-head" style={{fontSize:'clamp(1.6rem,4vw,2.2rem)',color:'#0c0a08'}}>
+            {cat==='Todos' ? 'Todos los Productos' : cat}
+            <span style={{fontSize:'.85rem',fontFamily:'DM Sans',fontWeight:400,color:'#b0a090',marginLeft:10,letterSpacing:0}}>{filtered.length} items</span>
+          </h2>
+          {search && <button onClick={()=>setSearch('')}
+            style={{fontSize:'.75rem',color:'#8a7a68',fontFamily:'DM Sans',background:'none',border:'none',cursor:'pointer',textDecoration:'underline'}}>
+            Limpiar búsqueda
+          </button>}
+        </div>
 
-                    {/* Modal Carrito */}
-                    {activeModal === 'cart' && (
-                        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-brand-dark/80 backdrop-blur-sm">
-                            <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh] shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-300">
-                                <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-white">
-                                    <div className="flex items-center gap-2">
-                                        <div className="bg-brand-yellow p-1.5 rounded-lg text-brand-dark">
-                                            <i data-lucide="shopping-bag" style={{width: 18, height: 18}}></i>
-                                        </div>
-                                        <h2 className="font-bold font-display uppercase tracking-tight text-slate-800">Tu Carrito</h2>
-                                    </div>
-                                    <button onClick={() => setActiveModal(null)} className="p-2 bg-slate-100 rounded-full hover:bg-red-100 hover:text-red-600 transition-colors"><i data-lucide="x" style={{width: 18, height: 18}}></i></button>
-                                </div>
-                                <div className="p-4 overflow-y-auto flex-1 custom-scrollbar bg-slate-50">
-                                    {cart.length === 0 ? (
-                                        <div className="flex flex-col items-center justify-center py-12 text-slate-400 gap-4">
-                                            <i data-lucide="shopping-cart" style={{width: 48, height: 48}} className="opacity-20"></i>
-                                            <p className="font-bold font-display">Tu carrito está vacío</p>
-                                        </div>
-                                    ) : (
-                                        <div className="space-y-4">
-                                            <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                                                <div className="flex justify-between items-end mb-2">
-                                                     <p className={`text-[10px] font-bold font-display uppercase ${subtotal >= SHIPPING_THRESHOLD ? 'text-brand-green' : 'text-slate-500'}`}>
-                                                        {subtotal >= SHIPPING_THRESHOLD ? '¡Envío GRATIS conseguido! 🎉' : 'Meta para envío gratis'}
-                                                    </p>
-                                                    {subtotal < SHIPPING_THRESHOLD && <span className="text-[10px] font-bold font-display text-brand-green">Faltan ${ (SHIPPING_THRESHOLD - subtotal).toFixed(2) }</span>}
-                                                </div>
-                                                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                                                    <div className={`h-full transition-all duration-500 ${subtotal >= SHIPPING_THRESHOLD ? 'bg-brand-green' : 'bg-brand-yellow'}`} style={{ width: `${Math.min(100, (subtotal/SHIPPING_THRESHOLD)*100)}%` }}></div>
-                                                </div>
-                                            </div>
-
-                                            {cart.map(item => (
-                                                <div key={item.cartId} className="flex gap-3 items-center bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
-                                                    <img src={item.image} className="w-14 h-14 rounded-lg object-cover bg-slate-50" />
-                                                    <div className="flex-1 min-w-0">
-                                                        <h4 className="text-[11px] font-bold font-display uppercase leading-tight truncate text-slate-800">{item.name}</h4>
-                                                        <p className="text-brand-green font-bold text-sm font-display">${(item.price * item.quantity).toFixed(2)}</p>
-                                                    </div>
-                                                    <div className="flex items-center gap-2 bg-slate-100 rounded-lg px-2 py-1">
-                                                        <button onClick={() => setCart(prev => prev.map(i => i.cartId === item.cartId ? {...i, quantity: Math.max(1, i.quantity - 1)} : i))} className="hover:text-red-600 w-6 h-6 flex items-center justify-center"><i data-lucide="minus" style={{width: 12, height: 12}}></i></button>
-                                                        <span className="font-bold text-xs w-4 text-center font-sans">{item.quantity}</span>
-                                                        <button onClick={() => setCart(prev => prev.map(i => i.cartId === item.cartId ? {...i, quantity: i.quantity + 1} : i))} className="hover:text-brand-green w-6 h-6 flex items-center justify-center"><i data-lucide="plus" style={{width: 12, height: 12}}></i></button>
-                                                    </div>
-                                                    <button onClick={() => setCart(prev => prev.filter(i => i.cartId !== item.cartId))} className="text-slate-300 hover:text-red-500 p-2"><i data-lucide="trash-2" style={{width: 16, height: 16}}></i></button>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                                {cart.length > 0 && (
-                                    <div className="p-5 bg-white border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-10">
-                                        <div className="flex justify-between text-xs mb-2 font-medium text-slate-500 font-sans"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
-                                        <div className="flex justify-between text-xs mb-4 font-medium text-slate-500 font-sans">
-                                            <span>Envío</span>
-                                            <span className={shippingCost === 0 ? 'text-brand-green font-bold' : ''}>{shippingCost === 0 ? 'GRATIS' : `$${shippingCost.toFixed(2)}`}</span>
-                                        </div>
-                                        <div className="flex justify-between font-bold text-2xl mb-4 text-brand-dark font-display"><span>Total</span><span>${total.toFixed(2)}</span></div>
-                                        <button onClick={() => setActiveModal('checkout')} className="w-full bg-brand-green text-white py-4 rounded-xl font-bold font-display uppercase text-base shadow-lg shadow-green-200 hover:bg-brand-dark hover:shadow-xl transition-all active:translate-y-0.5 flex justify-center gap-2 items-center">
-                                            <span>Confirmar Pedido</span>
-                                            <i data-lucide="arrow-right" style={{width: 18, height: 18}}></i>
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Modal Variantes */}
-                    {activeModal === 'variants' && (
-                        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
-                            <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-                                <h3 className="font-bold font-display uppercase mb-6 text-center text-slate-800 text-lg">Selecciona Presentación</h3>
-                                <div className="grid gap-3">
-                                    {variantModalProduct.variants.map((v, i) => (
-                                        <button key={i} onClick={() => addToCart(variantModalProduct, v.price, v.label)} className="w-full p-4 border-2 border-slate-100 rounded-2xl flex justify-between items-center font-bold hover:border-brand-green hover:bg-green-50 transition-all group text-sm">
-                                            <span className="group-hover:text-brand-dark uppercase tracking-wide font-display">{v.label}</span>
-                                            <span className="text-brand-green bg-green-100 px-3 py-1 rounded-full text-xs font-display">${v.price.toFixed(2)}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                                <button onClick={() => setActiveModal(null)} className="w-full mt-6 text-slate-400 font-bold uppercase text-xs tracking-widest hover:text-slate-600 font-display">Cancelar</button>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Modal Checkout (Formulario) */}
-                    {activeModal === 'checkout' && (
-                        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-brand-dark/80 backdrop-blur-sm">
-                            <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="bg-brand-yellow p-2 rounded-full text-brand-dark">
-                                        <i data-lucide="truck" style={{width: 20, height: 20}}></i>
-                                    </div>
-                                    <h3 className="font-bold font-display uppercase italic text-brand-dark text-lg">Datos de Entrega</h3>
-                                </div>
-                                <form onSubmit={sendWhatsApp} className="space-y-4">
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-bold font-display uppercase text-slate-400 ml-1 tracking-wider">Nombre del cliente</label>
-                                        <input required className="w-full p-3 bg-slate-50 rounded-xl outline-none border-2 border-slate-100 focus:border-brand-green focus:bg-white transition-colors font-medium text-slate-800 font-sans" placeholder="Nombre completo del quien recibe" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-bold font-display uppercase text-slate-400 ml-1 tracking-wider">Dirección de entrega</label>
-                                        <textarea required className="w-full p-3 bg-slate-50 rounded-xl outline-none border-2 border-slate-100 focus:border-brand-green focus:bg-white transition-colors font-medium text-slate-800 resize-none font-sans" placeholder="Calle, número, referencias..." rows="3" value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} />
-                                    </div>
-                                    <button className="w-full bg-brand-green text-white py-4 rounded-xl font-bold font-display uppercase shadow-lg shadow-green-200 hover:bg-brand-dark transition-all flex items-center justify-center gap-2 mt-2">
-                                        <i data-lucide="message-circle" style={{width: 18, height: 18}}></i>
-                                        Enviar Pedido
-                                    </button>
-                                    <button type="button" onClick={() => setActiveModal('cart')} className="w-full text-slate-400 font-bold uppercase text-[10px] tracking-widest mt-4 hover:text-slate-600 font-display">Regresar al carrito</button>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Toasts (Notificaciones) */}
-                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 space-y-2 z-[100] w-[90%] max-w-xs pointer-events-none">
-                        {toasts.map(t => (
-                            <div key={t.id} className="bg-brand-green/95 backdrop-blur text-white px-4 py-3 rounded-xl shadow-xl shadow-green-900/20 text-xs font-bold font-display uppercase border border-white/10 text-center animate-bounce pointer-events-auto flex items-center justify-center gap-2">
-                                <i data-lucide="check-circle" style={{width: 14, height: 14}}></i>
-                                {t.message}
-                            </div>
-                        ))}
-                    </div>
+        {/* Grid */}
+        {filtered.length===0 ? (
+          <div className="empty">
+            <i data-lucide="package-x" style={{width:48,height:48}}></i>
+            <p className="font-head" style={{fontSize:'1.2rem'}}>Sin resultados</p>
+          </div>
+        ) : (
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))',gap:'1rem'}}>
+            {filtered.map(p=>(
+              <div key={p.id} className="p-card">
+                {/* Image — click opens detail */}
+                <div className="p-card-img" style={{cursor:'pointer'}}
+                  onClick={()=>setDetailProd(p)}>
+                  <img src={p.image} alt={p.name} loading="lazy"/>
+                  {/* Hover hint */}
+                  <div style={{position:'absolute',inset:0,background:'rgba(12,10,8,.0)',display:'flex',alignItems:'center',justifyContent:'center',transition:'background .2s',borderRadius:'inherit'}}
+                    onMouseOver={e=>{e.currentTarget.style.background='rgba(12,10,8,.18)';e.currentTarget.querySelector('span').style.opacity='1'}}
+                    onMouseOut={e=>{e.currentTarget.style.background='rgba(12,10,8,.0)';e.currentTarget.querySelector('span').style.opacity='0'}}>
+                    <span style={{opacity:0,transition:'opacity .2s',background:'rgba(12,10,8,.75)',color:'#9dd672',fontFamily:'Bebas Neue',fontSize:'.75rem',letterSpacing:'.1em',padding:'5px 12px',borderRadius:99}}>VER</span>
+                  </div>
                 </div>
-            );
-        }
+                <div className="p-card-body">
+                  <div className="p-card-name">{p.name}</div>
+                  <div className="p-card-footer">
+                    <div>
+                      <div style={{fontSize:'.6rem',fontFamily:'DM Sans',fontWeight:700,textTransform:'uppercase',letterSpacing:'.06em',color:'#b0a090',marginBottom:1}}>Precio</div>
+                      <div className="p-card-price">${(p.variants ? p.variants[0].price : p.price).toFixed(2)}</div>
+                    </div>
+                    <button className="add-btn"
+                      onClick={e=>{ e.stopPropagation(); if(p.variants){setVarProd(p);setModal('var')} else addToCart(p,p.price) }}>
+                      <i data-lucide="plus" style={{width:16,height:16}}></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+      {/* ── FOOTER ── */}
+      <footer style={{background:'#0c0a08',borderTop:'3px solid #e8a020',padding:'2.5rem 1rem 2rem'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
+          <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima"
+            style={{height:52,width:'auto',filter:'drop-shadow(0 2px 8px rgba(0,0,0,.5))'}}/>
+          <p style={{fontFamily:'DM Sans',fontSize:'.85rem',color:'rgba(255,255,255,.35)',maxWidth:320}}>
+            Llevando lo mejor del mandado a tu hogar en Yolotepec, Oaxaca.
+          </p>
+          <div style={{borderTop:'1px solid rgba(255,255,255,.08)',width:'100%',paddingTop:'1rem',marginTop:4}}>
+            <p className="font-head" style={{fontSize:'.8rem',letterSpacing:'.1em',color:'#e8a020'}}>
+              © {new Date().getFullYear()} Casa de Lima
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* ════════ MODAL CARRITO ════════ */}
+      {modal==='cart' && (
+        <div className="modal-bg" onClick={e=>{if(e.target===e.currentTarget)setModal(null)}}>
+          <div className="modal-box">
+            {/* Header */}
+            <div style={{padding:'1rem 1.25rem',borderBottom:'1px solid #ede5d8',display:'flex',justifyContent:'space-between',alignItems:'center',flexShrink:0}}>
+              <div style={{display:'flex',alignItems:'center',gap:10}}>
+                <span style={{background:'#e8a020',padding:'6px 8px',borderRadius:10,display:'flex',color:'#0c0a08'}}>
+                  <i data-lucide="shopping-bag" style={{width:17,height:17}}></i>
+                </span>
+                <span className="font-head" style={{fontSize:'1.25rem',color:'#0c0a08',letterSpacing:'.06em'}}>Tu Carrito</span>
+              </div>
+              <button onClick={()=>setModal(null)}
+                style={{background:'#f0e8d8',border:'none',borderRadius:'50%',width:32,height:32,display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',color:'#3d3228'}}>
+                <i data-lucide="x" style={{width:16,height:16}}></i>
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="custom-scrollbar" style={{flex:1,overflowY:'auto',padding:'1rem 1.25rem',background:'#faf6ef'}}>
+              {cart.length===0 ? (
+                <div className="empty">
+                  <i data-lucide="shopping-cart" style={{width:44,height:44}}></i>
+                  <p className="font-head" style={{fontSize:'1.1rem'}}>Carrito vacío</p>
+                  <p style={{fontSize:'.82rem',color:'#b0a090',fontFamily:'DM Sans'}}>Agrega productos para comenzar</p>
+                </div>
+              ):(
+                <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                  {/* Progress */}
+                  <div style={{background:'#fff',borderRadius:12,padding:'12px 14px',border:'1px solid #ede5d8'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
+                      <span style={{fontSize:'.7rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.05em',color: sub>=SHIPPING_THRESHOLD ? '#4a7c3f' : '#8a7a68',fontFamily:'DM Sans'}}>
+                        {sub>=SHIPPING_THRESHOLD ? '¡Envío gratis! 🎉' : 'Envío gratis al llegar a $200'}
+                      </span>
+                      {sub<SHIPPING_THRESHOLD && <span style={{fontSize:'.7rem',fontWeight:700,color:'#4a7c3f',fontFamily:'DM Sans'}}>Faltan ${(SHIPPING_THRESHOLD-sub).toFixed(2)}</span>}
+                    </div>
+                    <div className="prog-track">
+                      <div className="prog-fill" style={{width:`${Math.min(100,(sub/SHIPPING_THRESHOLD)*100)}%`,background: sub>=SHIPPING_THRESHOLD ? '#6aad5a' : '#e8a020'}}></div>
+                    </div>
+                  </div>
+
+                  {/* Items */}
+                  {cart.map(item=>(
+                    <div key={item.cid} style={{background:'#fff',borderRadius:12,padding:'10px 12px',border:'1px solid #ede5d8',display:'flex',alignItems:'center',gap:10}}>
+                      <img src={item.image} style={{width:48,height:48,objectFit:'contain',borderRadius:8,background:'#faf6ef',flexShrink:0}}/>
+                      <div style={{flex:1,minWidth:0}}>
+                        <p style={{fontSize:'.68rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.03em',color:'#2c2318',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',fontFamily:'DM Sans'}}>{item.name}</p>
+                        <p className="font-head" style={{fontSize:'1rem',color:'#4a7c3f',letterSpacing:'.04em'}}>${(item.price*item.qty).toFixed(2)}</p>
+                      </div>
+                      <div style={{display:'flex',alignItems:'center',gap:4,background:'#f0e8d8',borderRadius:8,padding:'4px 6px'}}>
+                        <button onClick={()=>setCart(p=>p.map(i=>i.cid===item.cid?{...i,qty:Math.max(1,i.qty-1)}:i))}
+                          style={{width:24,height:24,border:'none',background:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',color:'#3d3228'}}>
+                          <i data-lucide="minus" style={{width:11,height:11}}></i>
+                        </button>
+                        <span style={{fontFamily:'Bebas Neue',fontSize:'1rem',width:16,textAlign:'center',letterSpacing:'.04em'}}>{item.qty}</span>
+                        <button onClick={()=>setCart(p=>p.map(i=>i.cid===item.cid?{...i,qty:i.qty+1}:i))}
+                          style={{width:24,height:24,border:'none',background:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',color:'#4a7c3f'}}>
+                          <i data-lucide="plus" style={{width:11,height:11}}></i>
+                        </button>
+                      </div>
+                      <button onClick={()=>setCart(p=>p.filter(i=>i.cid!==item.cid))}
+                        style={{background:'none',border:'none',cursor:'pointer',color:'#c8b89a',padding:4,display:'flex'}}>
+                        <i data-lucide="trash-2" style={{width:15,height:15}}></i>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            {cart.length>0 && (
+              <div style={{padding:'1rem 1.25rem',borderTop:'1px solid #ede5d8',background:'#fff',flexShrink:0}}>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+                  <span style={{fontSize:'.8rem',color:'#8a7a68',fontFamily:'DM Sans'}}>Subtotal</span>
+                  <span style={{fontSize:'.8rem',fontWeight:600,fontFamily:'DM Sans'}}>${sub.toFixed(2)}</span>
+                </div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:12}}>
+                  <span style={{fontSize:'.8rem',color:'#8a7a68',fontFamily:'DM Sans'}}>Envío</span>
+                  <span style={{fontSize:'.8rem',fontWeight:700,color: ship===0?'#4a7c3f':'#0c0a08',fontFamily:'DM Sans'}}>{ship===0?'GRATIS':`$${ship.toFixed(2)}`}</span>
+                </div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:14}}>
+                  <span className="font-head" style={{fontSize:'1.4rem',letterSpacing:'.04em'}}>TOTAL</span>
+                  <span className="font-head" style={{fontSize:'1.4rem',color:'#4a7c3f',letterSpacing:'.04em'}}>${total.toFixed(2)}</span>
+                </div>
+                <button onClick={()=>setModal('checkout')}
+                  style={{width:'100%',background:'#0c0a08',color:'#9dd672',border:'none',borderRadius:12,padding:'14px',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8,fontFamily:'Bebas Neue',fontSize:'1.05rem',letterSpacing:'.08em',transition:'background .2s'}}
+                  onMouseOver={e=>e.currentTarget.style.background='#2c2318'}
+                  onMouseOut={e=>e.currentTarget.style.background='#0c0a08'}>
+                  <i data-lucide="arrow-right" style={{width:17,height:17}}></i>
+                  CONFIRMAR PEDIDO
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ════════ MODAL VARIANTES ════════ */}
+      {modal==='var' && varProd && (
+        <div className="modal-center" onClick={e=>{if(e.target===e.currentTarget)setModal(null)}}>
+          <div style={{
+            background:'#fff',
+            width:'100%',maxWidth:380,
+            borderRadius:20,
+            overflow:'hidden',
+            boxShadow:'0 24px 60px rgba(0,0,0,.3)',
+            display:'flex',flexDirection:'column',
+            maxHeight:'min(420px, 85vh)',
+            margin:'1rem',
+          }}>
+            {/* Header fijo */}
+            <div style={{padding:'1rem 1.25rem',borderBottom:'1px solid #ede5d8',display:'flex',justifyContent:'space-between',alignItems:'center',flexShrink:0}}>
+              <div>
+                <p style={{fontSize:'.62rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.08em',color:'#8a7a68',fontFamily:'DM Sans',marginBottom:2}}>Selecciona presentación</p>
+                <p className="font-head" style={{fontSize:'1.15rem',color:'#0c0a08',letterSpacing:'.04em'}}>{varProd.name}</p>
+              </div>
+              <button onClick={()=>setModal(null)}
+                style={{background:'#f0e8d8',border:'none',borderRadius:'50%',width:30,height:30,display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',flexShrink:0}}>
+                <i data-lucide="x" style={{width:14,height:14}}></i>
+              </button>
+            </div>
+            {/* Opciones — scrollable si hay muchas */}
+            <div style={{padding:'1rem',display:'flex',flexDirection:'column',gap:8,overflowY:'auto',flex:1}}>
+              {varProd.variants.map((v,i)=>(
+                <button key={i} className="v-btn" onClick={()=>{addToCart(varProd,v.price,v.label);setModal(null)}}>
+                  <span style={{fontWeight:700,fontSize:'.88rem',textTransform:'uppercase',letterSpacing:'.04em',color:'#2c2318'}}>{v.label}</span>
+                  <span className="font-head" style={{fontSize:'1.2rem',color:'#4a7c3f',letterSpacing:'.04em'}}>${v.price.toFixed(2)}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════ MODAL CHECKOUT ════════ */}
+      {modal==='checkout' && (
+        <div className="modal-bg" onClick={e=>{if(e.target===e.currentTarget)setModal(null)}}>
+          <div className="modal-box" style={{maxHeight:'80vh'}}>
+            <div style={{padding:'1.25rem',borderBottom:'1px solid #ede5d8',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div style={{display:'flex',alignItems:'center',gap:10}}>
+                <span style={{background:'#e8a020',padding:'7px 8px',borderRadius:10,display:'flex',color:'#0c0a08'}}>
+                  <i data-lucide="truck" style={{width:17,height:17}}></i>
+                </span>
+                <span className="font-head" style={{fontSize:'1.2rem',letterSpacing:'.06em'}}>Datos de Entrega</span>
+              </div>
+              <button onClick={()=>setModal('cart')}
+                style={{background:'#f0e8d8',border:'none',borderRadius:'50%',width:32,height:32,display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
+                <i data-lucide="arrow-left" style={{width:15,height:15}}></i>
+              </button>
+            </div>
+            <div style={{padding:'1.25rem',overflowY:'auto',flex:1}}>
+              <form onSubmit={sendWA} style={{display:'flex',flexDirection:'column',gap:14}}>
+                <div>
+                  <label className="f-label">Nombre del cliente</label>
+                  <input className="f-input" placeholder="Nombre completo" required
+                    value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/>
+                </div>
+                <div>
+                  <label className="f-label">Dirección de entrega</label>
+                  <textarea className="f-input" placeholder="Calle, número, referencias..." required rows={3}
+                    style={{resize:'none'}}
+                    value={form.address} onChange={e=>setForm({...form,address:e.target.value})}/>
+                </div>
+                <div style={{background:'#faf6ef',borderRadius:12,padding:'12px 14px',border:'1px solid #ede5d8'}}>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
+                    <span style={{fontSize:'.8rem',color:'#8a7a68',fontFamily:'DM Sans'}}>Subtotal</span>
+                    <span style={{fontWeight:600,fontSize:'.8rem',fontFamily:'DM Sans'}}>${sub.toFixed(2)}</span>
+                  </div>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}>
+                    <span style={{fontSize:'.8rem',color:'#8a7a68',fontFamily:'DM Sans'}}>Envío</span>
+                    <span style={{fontWeight:700,fontSize:'.8rem',color:ship===0?'#4a7c3f':'#0c0a08',fontFamily:'DM Sans'}}>{ship===0?'GRATIS':`$${ship.toFixed(2)}`}</span>
+                  </div>
+                  <div style={{display:'flex',justifyContent:'space-between',borderTop:'1px dashed #ede5d8',paddingTop:8}}>
+                    <span className="font-head" style={{fontSize:'1.1rem',letterSpacing:'.04em'}}>TOTAL</span>
+                    <span className="font-head" style={{fontSize:'1.1rem',color:'#4a7c3f',letterSpacing:'.04em'}}>${total.toFixed(2)}</span>
+                  </div>
+                </div>
+                <button type="submit"
+                  style={{width:'100%',background:'#25D366',color:'#fff',border:'none',borderRadius:12,padding:'14px',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:10,fontFamily:'Bebas Neue',fontSize:'1.05rem',letterSpacing:'.08em',boxShadow:'0 4px 16px rgba(37,211,102,.3)'}}>
+                  <i data-lucide="message-circle" style={{width:18,height:18}}></i>
+                  ENVIAR POR WHATSAPP
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════ MODAL DETALLE DE PRODUCTO ════════ */}
+      {detailProd && (
+        <div className="detail-modal-bg" onClick={e=>{if(e.target===e.currentTarget)setDetailProd(null)}}>
+          <div className="detail-box">
+            {/* Close btn */}
+            <div style={{position:'relative'}}>
+              <button onClick={()=>setDetailProd(null)}
+                style={{position:'absolute',top:12,right:12,zIndex:10,background:'rgba(12,10,8,.55)',border:'none',borderRadius:'50%',width:32,height:32,display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',color:'#fff',backdropFilter:'blur(4px)'}}>
+                <i data-lucide="x" style={{width:15,height:15}}></i>
+              </button>
+            </div>
+
+            {/* Image */}
+            <div className="detail-img">
+              <span className="detail-cat-badge">{detailProd.category}</span>
+              <img src={detailProd.image} alt={detailProd.name}/>
+            </div>
+
+            {/* Info */}
+            <div className="detail-body">
+              <div className="detail-name">{detailProd.name}</div>
+
+              {/* Price — single or variants */}
+              {detailProd.variants ? (
+                <div style={{marginBottom:'1rem'}}>
+                  {detailProd.variants.map((v,i)=>(
+                    <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 0',borderBottom:'1px dashed #ede5d8'}}>
+                      <span style={{fontFamily:'DM Sans',fontWeight:600,fontSize:'.9rem',color:'#3d3228'}}>{v.label}</span>
+                      <span className="font-head" style={{fontSize:'1.3rem',color:'#4a7c3f',letterSpacing:'.04em'}}>${v.price.toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="detail-price">${detailProd.price.toFixed(2)}</div>
+              )}
+
+              {detailProd.description && (
+                <p className="detail-desc">{detailProd.description}</p>
+              )}
+
+              {/* CTA */}
+              {detailProd.variants ? (
+                <button
+                  onClick={()=>{setVarProd(detailProd);setDetailProd(null);setModal('var')}}
+                  style={{width:'100%',background:'#0c0a08',color:'#9dd672',border:'none',borderRadius:12,padding:'13px',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8,fontFamily:'Bebas Neue',fontSize:'1rem',letterSpacing:'.08em',transition:'background .2s'}}
+                  onMouseOver={e=>e.currentTarget.style.background='#2c2318'}
+                  onMouseOut={e=>e.currentTarget.style.background='#0c0a08'}>
+                  <i data-lucide="shopping-bag" style={{width:16,height:16}}></i>
+                  ELEGIR PRESENTACIÓN
+                </button>
+              ) : (
+                <button
+                  onClick={()=>{addToCart(detailProd,detailProd.price);setDetailProd(null)}}
+                  style={{width:'100%',background:'#0c0a08',color:'#9dd672',border:'none',borderRadius:12,padding:'13px',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:8,fontFamily:'Bebas Neue',fontSize:'1rem',letterSpacing:'.08em',transition:'background .2s'}}
+                  onMouseOver={e=>e.currentTarget.style.background='#2c2318'}
+                  onMouseOut={e=>e.currentTarget.style.background='#0c0a08'}>
+                  <i data-lucide="plus" style={{width:16,height:16}}></i>
+                  AGREGAR AL CARRITO
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ════════ TOASTS ════════ */}
+      <div style={{position:'fixed',bottom:20,left:'50%',transform:'translateX(-50%)',zIndex:100,display:'flex',flexDirection:'column',gap:8,alignItems:'center',pointerEvents:'none',width:'90%',maxWidth:300}}>
+        {toasts.map(t=>(
+          <div key={t.id} className="toast">
+            <i data-lucide="check" style={{width:14,height:14,color:'#9dd672',flexShrink:0}}></i>
+            {t.msg}
+          </div>
+        ))}
+      </div>
+
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+</script>
 </body>
 </html>
