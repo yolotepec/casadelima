@@ -21,7 +21,7 @@ html{scroll-behavior:smooth;overflow-x:hidden}
   --bark:   #2e2418;
   --moss:   #2d5a1b;
   --fern:   #3d7a25;
-  --lime:   #7ec94a;
+  --lime:   #5fa832;
   --honey:  #d4820a;
   --gold:   #f0b429;
   --cream:  #f7f2e8;
@@ -136,9 +136,10 @@ body::after{
 
 .hero-bg{
   position:absolute;inset:0;
-  background-image:url('https://img.freepik.com/fotos-premium/lima-limon-limas-verdes-arbol-citricos-lima-fresca-granja-jardin-agricola-naturaleza-verde-fondo-borroso-verano_73523-8384.jpg');
+  z-index:0;
+  background-image:url('tienda-hero.jpg');
   background-size:cover;background-position:center;
-  opacity:.18;
+  opacity:.12;
   transition:opacity 1s;
 }
 
@@ -283,7 +284,7 @@ body::after{
   align-items:center;
 }
 
-.nosotros-img-stack{position:relative;height:520px}
+.nosotros-img-stack{position:relative;height:520px;overflow:hidden;border-radius:4px 20px 4px 20px}
 .nosotros-img-main{
   position:absolute;
   top:0;left:0;right:4rem;bottom:4rem;
@@ -589,6 +590,26 @@ textarea.finput{resize:vertical;min-height:100px}
 }
 .btn-submit:hover{background:var(--fern);transform:translateY(-1px);box-shadow:0 8px 28px rgba(45,90,27,.4)}
 
+/* ── TAQUERÍA ── */
+#taqueria{background:var(--bark);overflow:hidden;padding:.7rem 0;position:relative}
+#taqueria::before,#taqueria::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+}
+#taqueria::before{left:0;background:linear-gradient(to right,var(--bark),transparent)}
+#taqueria::after{right:0;background:linear-gradient(to left,var(--bark),transparent)}
+.taq-track{display:flex;gap:0;animation:taqticker 18s linear infinite;width:max-content}
+.taq-track:hover{animation-play-state:paused}
+@keyframes taqticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.taq-item{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:0 2rem;
+  font-size:.8rem;font-weight:600;
+  color:var(--gold);
+  letter-spacing:.06em;text-transform:uppercase;
+  white-space:nowrap;
+}
+.taq-dot{width:5px;height:5px;background:rgba(240,180,41,.4);border-radius:50%;flex-shrink:0}
+
 /* ── PORTAFOLIO ── */
 #portafolio{
   background:var(--cream);
@@ -600,21 +621,15 @@ textarea.finput{resize:vertical;min-height:100px}
 .port-head h2{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--ink);margin-bottom:.4rem}
 .port-head p{color:#8a7860;font-size:.9rem}
 
-.port-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-
-.port-chip{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:9px 18px;
-  background:#fff;
-  border:1.5px solid var(--fog);
-  border-radius:99px;
-  color:var(--bark);
-  font-size:.84rem;font-weight:600;
-  text-decoration:none;
-  transition:all .2s;
-}
-.port-chip:hover{background:var(--moss);color:#fff;border-color:var(--moss);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,90,27,.2)}
-.port-chip svg{width:13px;height:13px}
+.port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem;margin-bottom:1.75rem}
+.port-card{background:#fff;border:1.5px solid var(--fog);border-radius:16px;padding:1.25rem;text-decoration:none;display:flex;flex-direction:column;gap:.6rem;transition:all .25s;position:relative;overflow:hidden}
+.port-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--moss);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.port-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1);border-color:var(--moss)}
+.port-card:hover::after{transform:scaleX(1)}
+.port-card-icon{width:44px;height:44px;border-radius:12px;background:var(--fog);display:flex;align-items:center;justify-content:center;color:var(--moss)}
+.port-card-body h4{font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:2px}
+.port-card-body p{font-size:.78rem;color:#8a7860}
+.port-card-link{font-size:.75rem;font-weight:600;color:var(--moss);display:flex;align-items:center;gap:4px;margin-top:auto;padding-top:.5rem}
 
 .port-cta{
   display:inline-flex;align-items:center;gap:8px;
@@ -703,6 +718,9 @@ textarea.finput{resize:vertical;min-height:100px}
   .nosotros-img-stack{height:380px}
   .sec{padding:4rem 0}
   .frow{grid-template-columns:1fr}
+  p{line-height:1.9}
+  .port-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .taq-divider{display:none}
 }
 @media(max-width:600px){
   .hero-left{padding:6rem 1.5rem 3rem}
@@ -829,8 +847,8 @@ textarea.finput{resize:vertical;min-height:100px}
   <div class="container">
     <div class="nosotros-grid">
       <div class="nosotros-img-stack" data-r="l">
-        <img class="nosotros-img-main" src="https://i.blogs.es/c630d6/imprint-418593_640/450_1000.jpg" alt="Interior de Casa de Lima">
-        <img class="nosotros-img-accent" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7w9BjrCogp3Kap-bUnxDJx2de_HgDQiy4RQ&s" alt="Productos">
+        <img class="nosotros-img-main" src="tienda-principal.jpg" alt="Interior de Casa de Lima">
+        <img class="nosotros-img-accent" src="tienda-letrero.jpg" alt="Letrero Casa de Lima">
         <div class="nosotros-badge">
           <span>+10</span>
           <span>Años<br>contigo</span>
@@ -891,6 +909,28 @@ textarea.finput{resize:vertical;min-height:100px}
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ TAQUERÍA ═══ -->
+<section id="taqueria">
+  <div class="taq-track">
+    <span class="taq-item"><span class="taq-dot"></span>Taquería &amp; Miscelánea</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Res</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Pollo</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Cecina</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tlayudas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tortas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tostadas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Quesadillas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Taquería &amp; Miscelánea</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Res</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Pollo</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tacos de Cecina</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tlayudas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tortas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Tostadas</span>
+    <span class="taq-item"><span class="taq-dot"></span>Quesadillas</span>
   </div>
 </section>
 
@@ -1004,14 +1044,49 @@ textarea.finput{resize:vertical;min-height:100px}
       <h2>¿Te gusta esta página?</h2>
       <p>Servicios de diseño y desarrollo web · Mira algunos ejemplos</p>
     </div>
-    <div class="port-row" data-r>
-      <a href="https://comidachinayolo.web.app/"    target="_blank" class="port-chip"><i data-feather="globe"         style="width:13px;height:13px"></i> Comida China</a>
-      <a href="https://tiendayolotepec.web.app/"    target="_blank" class="port-chip"><i data-feather="shopping-cart" style="width:13px;height:13px"></i> Tienda Yolo</a>
-      <a href="https://eliteconstruction1.web.app/" target="_blank" class="port-chip"><i data-feather="tool"          style="width:13px;height:13px"></i> Construcción</a>
-      <a href="https://fuegoyharina1.web.app/"      target="_blank" class="port-chip"><i data-feather="pie-chart"     style="width:13px;height:13px"></i> Pizzería</a>
-      <a href="https://pasteldeyolo.web.app/"       target="_blank" class="port-chip"><i data-feather="gift"          style="width:13px;height:13px"></i> Pasteleria</a>
-      <a href="https://andrezbarberia.web.app/"       target="_blank" class="port-chip"><i data-feather="scissors"      style="width:13px;height:13px"></i> Barbería</a>
-      <a href="https://abarrotesyolo.web.app/"      target="_blank" class="port-chip"><i data-feather="shopping-bag"  style="width:13px;height:13px"></i> Abarrotes</a>
+    <div class="port-grid" data-r>
+      <a href="https://comidachinayolo.web.app/"    target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="coffee"        style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Comida China</h4><p>Restaurante</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://tiendayolotepec.web.app/"    target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="shopping-cart" style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Tienda Yolo</h4><p>Tienda en línea</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://eliteconstruction1.web.app/" target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="tool"          style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Construcción</h4><p>Constructora</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://fuegoyharina1.web.app/"      target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="pie-chart"     style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Pizzería</h4><p>Restaurante</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://pasteldeyolo.web.app/"       target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="gift"          style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Pastelería</h4><p>Pastelería</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://andrezbarberia.web.app/"     target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="scissors"      style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Barbería</h4><p>Barbería</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://abarrotesyolo.web.app/"      target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="shopping-bag"  style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Abarrotes</h4><p>Abarrotes</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+      <a href="https://tiendareal.web.app/"         target="_blank" class="port-card">
+        <div class="port-card-icon"><i data-feather="tag"           style="width:20px;height:20px"></i></div>
+        <div class="port-card-body"><h4>Tienda Real</h4><p>Tienda en línea</p></div>
+        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
+      </a>
+    </div>
+    <div style="text-align:center">
       <a href="#contacto" class="port-cta"><i data-feather="chevron-right" style="width:14px;height:14px"></i> Solicitar Cotización</a>
     </div>
   </div>
@@ -1053,7 +1128,7 @@ textarea.finput{resize:vertical;min-height:100px}
     </div>
 
     <!-- LINEA -->
-    <div style="height:1px; background:rgba(255, 0, 0, 0.1); margin:20px 0;"></div>
+    <div style="height:1px; background:rgba(255,255,255,.07); margin:20px 0;"></div>
 
     <!-- PARTE FINAL -->
     <div class="footer-bottom">
