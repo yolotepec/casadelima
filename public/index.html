@@ -106,7 +106,43 @@ body::after{
   box-shadow:0 1px 0 rgba(255,255,255,.06);
 }
 
-.hdr-logo img{height:46px;width:auto;filter:drop-shadow(0 2px 8px rgb(30, 255, 0, 0.89))}
+.hdr-logo{
+    position:relative;
+    display:inline-block;
+}
+
+.hdr-logo::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100%;
+    height:100%;
+    transform:translate(-50%, -50%);
+    border-radius:50%;
+    border:2px solid rgba(30,255,0,.6);
+    opacity:0;
+    animation:wave 2.5s infinite;
+}
+
+@keyframes wave{
+    0%{
+        transform:translate(-50%, -50%) scale(1);
+        opacity:.6;
+    }
+    100%{
+        transform:translate(-50%, -50%) scale(2.5);
+        opacity:0;
+    }
+}
+
+.hdr-logo img{
+    height:46px;
+    width:auto;
+    position:relative;
+    z-index:2;
+    filter:drop-shadow(0 2px 8px rgb(30, 255, 0));
+}
 
 #burger{
   width:42px;height:42px;
@@ -252,12 +288,25 @@ body::after{
 .ticker-track:hover{animation-play-state:paused}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ticker-item{
-  display:flex;align-items:center;gap:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
   padding:0 2.5rem;
-  font-size:.78rem;font-weight:600;
+  font-size:.78rem;
+  font-weight:600;
   color:rgba(255,255,255,.75);
   letter-spacing:.04em;
   white-space:nowrap;
+text-transform:uppercase;
+  transition:all .3s ease;
+}
+.ticker-item:hover{
+  transform:translateY(-4px) scale(1.06);
+  color:#fff;
+  text-shadow:
+    0 0 8px rgba(255,255,255,.7),
+    0 0 18px rgba(240,180,41,.6);
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));
 }
 .ticker-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
 
@@ -601,14 +650,33 @@ textarea.finput{resize:vertical;min-height:100px}
 .taq-track:hover{animation-play-state:paused}
 @keyframes taqticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .taq-item{
-  display:inline-flex;align-items:center;gap:9px;
-  padding:0 2rem;
-  font-size:.8rem;font-weight:600;
-  color:var(--gold);
-  letter-spacing:.06em;text-transform:uppercase;
-  white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:0 2rem;
+    font-size:.8rem;
+    font-weight:600;
+    color:var(--gold);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    white-space:nowrap;
+
+    transition:all .3s ease;
+    border-radius:8px;
 }
-.taq-dot{width:5px;height:5px;background:rgba(240,180,41,.4);border-radius:50%;flex-shrink:0}
+
+.taq-track:hover .taq-item{
+    opacity:.45;
+}
+
+.taq-track:hover .taq-item:hover{
+    opacity:1;
+    transform:scale(1.08);
+    color:#fff;
+    background:rgba(255,255,255,.06);
+    text-shadow:0 0 8px rgba(240,180,41,.6);
+}
+.taq-dot{width:5px;height:5px;background:rgba(48, 240, 41, 0.4);border-radius:50%;flex-shrink:0}
 
 /* ── PORTAFOLIO ── */
 #portafolio{
@@ -631,6 +699,15 @@ textarea.finput{resize:vertical;min-height:100px}
 .port-card-body p{font-size:.78rem;color:#8a7860}
 .port-card-link{font-size:.75rem;font-weight:600;color:var(--moss);display:flex;align-items:center;gap:4px;margin-top:auto;padding-top:.5rem}
 
+.port-card{
+    transition:all .3s ease;
+}
+
+.port-card:hover{
+    box-shadow:
+        0 10px 30px rgba(2, 255, 44, 0.678),
+        0 0 20px rgba(240,180,41,.35);
+}
 .port-cta{
   display:inline-flex;align-items:center;gap:8px;
   padding:10px 22px;
@@ -652,9 +729,34 @@ textarea.finput{resize:vertical;min-height:100px}
   text-align:center;gap:1.25rem;
 }
 
-.footer-logo img{height:56px;width:auto;filter:drop-shadow(0 2px 10px rgba(30, 255, 0, 0.89))}
 
-.footer-tagline{color:rgba(255,255,255,.35);font-size:.85rem;max-width:320px;line-height:1.6}
+.footer-logo img{
+    height:56px;
+    width:auto;
+    transition:.4s ease;
+    filter:drop-shadow(0 2px 10px rgba(30,255,0,.5));
+    animation:floatLogo 3.5s ease-in-out infinite;
+}
+
+/* Hover: crece + gira + más brillo */
+.footer-logo img:hover{
+    transform:translateY(-4px) scale(1.12) rotate(-3deg);
+    filter:drop-shadow(0 0 18px rgba(30,255,0,.9))
+           drop-shadow(0 0 35px rgba(30,255,0,.6));
+}
+
+/* Movimiento suave constante */
+@keyframes floatLogo{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-3px) rotate(2deg);
+    }
+}
+
+
+.footer-tagline{color:rgba(255, 255, 255, 0.35);font-size:.85rem;max-width:320px;line-height:1.6}
 
 .footer-links{display:flex;gap:8px}
 .footer-social{
@@ -669,7 +771,7 @@ textarea.finput{resize:vertical;min-height:100px}
 }
 .footer-social:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)}
 
-.footer-divider{width:100%;height:1px;background:rgba(255,255,255,.07)}
+.footer-divider{width:100%;height:1px;background:rgba(255, 255, 255, 0.07)}
 
 .footer-bottom{
   width:100%;
@@ -736,7 +838,7 @@ textarea.finput{resize:vertical;min-height:100px}
 <div id="overlay"></div>
 <div id="drawer">
   <div class="drawer-top">
-    <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima" style="height:38px;width:auto;filter:drop-shadow(0 1px 6px rgba(0,0,0,.4))">
+    <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima" style="height:38px;width:auto;filter:drop-shadow(0 1px 6px rgba(0, 245, 53, 0.671))">
     <button id="drawer-close" style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);border:none;cursor:pointer;color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.14)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.6)'">
       <i data-feather="x" style="width:16px;height:16px"></i>
     </button>
@@ -1098,11 +1200,11 @@ textarea.finput{resize:vertical;min-height:100px}
 </section>
 
 <!-- ═══ FOOTER ═══ -->
-<footer id="footer" style="background:#111; color:white; padding:30px 15px; text-align:center;">
+<footer id="footer" style="background:#111111; color:white; padding:30px 15px; text-align:center;">
   <div class="footer-inner" style="max-width:900px; margin:auto;">
 
     <!-- LOGO -->
-    <div class="footer-logo" style="margin-bottom:15px;">
+    <div class="footer-logo" style="margin-bottom:5px;">
       <img src="lgo_de_lima_no_fondo.PNG" alt="Casa de Lima" style="width:150px; height:auto;">
     </div>
 
@@ -1112,11 +1214,11 @@ textarea.finput{resize:vertical;min-height:100px}
     </p>
 
     <!-- ICONOS -->
-    <div class="footer-links" style="margin-bottom:20px;">
+    <div class="footer-links" style="margin-bottom:10px;">
       
       <!-- FACEBOOK -->
       <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank"
-         style="display:inline-block; margin:5px; padding:10px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); color:white;"
+         style="display:inline-block; margin:5px; padding:10px; border-radius:50%; border:.5px solid rgba(0, 204, 255, 0.637); color:white;"
          onmouseover="this.style.background='#1877F2'"
          onmouseout="this.style.background='transparent'">
         <i data-feather="facebook" style="width:20px;height:20px"></i>
@@ -1124,7 +1226,7 @@ textarea.finput{resize:vertical;min-height:100px}
 
       <!-- WHATSAPP -->
       <a href="https://wa.me/17048349539" target="_blank"
-         style="display:inline-block; margin:5px; padding:10px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); color:white;"
+         style="display:inline-block; margin:5px; padding:10px; border-radius:50%; border:.5px solid rgba(0, 255, 42, 0.582); color:white;"
          onmouseover="this.style.background='#25D366'"
          onmouseout="this.style.background='transparent'">
         <i data-feather="message-circle" style="width:20px;height:20px"></i>
@@ -1137,13 +1239,13 @@ textarea.finput{resize:vertical;min-height:100px}
 
     <!-- PARTE FINAL -->
     <div class="footer-bottom">
-      <p style="color:rgba(255,255,255,0.7); margin-bottom:5px;">
+      <p style="color:rgba(255, 255, 255, 0.993); margin-bottom:5px;">
         © <span class="yr"></span> Casa de Lima. Todos los derechos reservados.
       </p>
 
       <a href="/aviso-de-privacidad.html" target="_blank"
          style="color:white; text-decoration:none;">
-         Aviso de Privacidad
+         Privacidad
       </a>
     </div>
 
