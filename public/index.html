@@ -18,13 +18,13 @@ html{scroll-behavior:smooth;overflow-x:hidden}
 :root{
   --ink:    #0f0e0b;
   --soil:   #1e1a14;
-  --bark:   #2e2418;
-  --moss:   #31661c;
+  --bark:   #000000d7;
+  --moss:   #35701d;
   --fern:   #3d7a25;
   --lime:   #65d121;
   --honey:  #d4820a;
   --gold:   #f0b429;
-  --cream:  #f7f2e8;
+  --cream:  #fcfcfc;
   --paper:  #faf7f0;
   --fog:    #e8e0d0;
   --white:  #ffffff;
@@ -119,10 +119,10 @@ body::after{
     width:100%;
     height:100%;
     transform:translate(-50%, -50%);
-    border-radius:50%;
-    border:2px solid rgba(30,255,0,.6);
+    border-radius:10%;
+    border:2px solid rgba(9, 255, 0, 0.76);
     opacity:0;
-    animation:wave 2.5s infinite;
+    animation:wave 7s infinite;
 }
 
 @keyframes wave{
@@ -131,7 +131,7 @@ body::after{
         opacity:.6;
     }
     100%{
-        transform:translate(-50%, -50%) scale(2.5);
+        transform:translate(-50%, -50%) scale(1.6);
         opacity:0;
     }
 }
@@ -148,7 +148,7 @@ body::after{
   width:42px;height:42px;
   border:1.5px solid rgba(255,255,255,.18);
   border-radius:10px;
-  background:rgba(238, 4, 4, 0.05);
+  background:rgba(0, 0, 0, 0.63);
   cursor:pointer;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:5px;
@@ -372,19 +372,19 @@ text-transform:uppercase;
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  background:var(--moss);
-  color:#fff;
-  width:90px;height:90px;
-  border-radius:50%;
+  background:rgb(13, 143, 13);
+  color:#ffffff;
+  width:100px;height:100px;
+  border-radius:40%;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
-  box-shadow:0 8px 30px rgba(45,90,27,.5);
+  box-shadow:0 8px 30px rgba(238, 255, 0, 0.685);
   border:3px solid var(--paper);
   z-index:2;
 }
-.nosotros-badge span:first-child{font-family:'Instrument Serif',serif;font-size:1.6rem;color:var(--gold);line-height:1}
-.nosotros-badge span:last-child{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.nosotros-badge span:first-child{font-family:'Instrument Serif',serif;font-size:1.9rem;color:yellow;line-height:1}
+.nosotros-badge span:last-child{font-size:.6rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgb(255, 255, 255);margin-top:1px}
 
 .nosotros-text h2{
   font-family:'Instrument Serif',serif;
@@ -394,7 +394,7 @@ text-transform:uppercase;
   margin-bottom:1.5rem;
 }
 .nosotros-text h2 em{font-style:italic;color:var(--moss)}
-.nosotros-text p{color:#5a5040;font-size:1.02rem;line-height:1.8;margin-bottom:1rem}
+.nosotros-text p{color:#000000;font-size:1.02rem;line-height:1.8;margin-bottom:1rem}
 
 
 .btn-dark{
@@ -455,12 +455,12 @@ text-transform:uppercase;
 
 .prod-card-icon{
   width:56px;height:56px;
-  border-radius:14px;
+  border-radius:50px;
   display:flex;align-items:center;justify-content:center;
   margin-bottom:1.5rem;
 }
-.prod-card:nth-child(1) .prod-card-icon{background:rgba(126,201,74,.12);color:var(--lime)}
-.prod-card:nth-child(2) .prod-card-icon{background:rgba(240,180,41,.12);color:var(--gold)}
+.prod-card:nth-child(1) .prod-card-icon{background:rgba(106, 255, 0, 0.032);color:var(--lime)}
+.prod-card:nth-child(2) .prod-card-icon{background:rgba(240, 180, 41, 0.032);color:var(--gold)}
 
 .prod-card h3{
   font-family:'Instrument Serif',serif;
@@ -483,7 +483,7 @@ text-transform:uppercase;
   align-items:center;
   gap:10px;
   font-size:.9rem;
-  color:rgba(255,255,255,.6);
+  color:rgba(255, 255, 255, 0.74);
   padding:10px 0;
   border-bottom:1px solid rgba(255,255,255,.06);
   transition:.25s ease;
@@ -837,26 +837,26 @@ textarea.finput{resize:vertical;min-height:100px}
 }
 .footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
 .footer-privacy{font-size:.75rem;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s}
-.footer-privacy:hover{color:rgba(255,255,255,.6)}
+.footer-privacy:hover{color:rgba(255, 255, 255, 0.6)}
 
 /* ── WA ── */
 .wa{
-  position:fixed;bottom:24px;right:24px;z-index:90;
-  width:54px;height:54px;
+  position:fixed;bottom:30px;right:24px;z-index:90;
+  width:50px;height:50px;
   background:#25D366;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   text-decoration:none;
-  box-shadow:0 8px 24px rgba(37,211,102,.4);
+  box-shadow:0 8px 24px rgba(9, 255, 0, 0.151);
   animation:wapulse 3s ease-in-out infinite;
 }
 @keyframes wapulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 .wa::after{
   content:'';position:absolute;inset:-6px;
   border-radius:50%;
-  border:2px solid rgba(37,211,102,.35);
-  animation:waring 2s ease-out infinite;
+  border:2px solid rgb(0, 255, 34);
+  animation:waring 3s ease-out infinite;
 }
-@keyframes waring{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.4);opacity:0}}
+@keyframes waring{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.2);opacity:0}}
 
 /* ── REVEAL ── */
 [data-r]{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
@@ -1005,8 +1005,8 @@ textarea.finput{resize:vertical;min-height:100px}
         <img class="nosotros-img-main" src="tienda-principal.jpg" alt="Interior de Casa de Lima">
         <img class="nosotros-img-accent" src="tienda-letrero.jpg" alt="Letrero Casa de Lima">
         <div class="nosotros-badge">
-          <span>+10</span>
-          <span>Años<br>contigo</span>
+          <span>+16</span>
+          <span>Años de<br>experiencia</span>
         </div>
       </div>
       <div class="nosotros-text" data-r="r">
@@ -1089,7 +1089,7 @@ textarea.finput{resize:vertical;min-height:100px}
     <div style="text-align:center;margin-bottom:3rem" data-r>
       <div class="sec-label" style="justify-content:center">Encuéntranos</div>
       <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(2rem,3.5vw,3rem);color:var(--ink);line-height:1.15">
-        Siempre <em style="font-style:italic;color:var(--moss)">aquí para ti</em>
+        Siempre aquí,<em style="font-style:italic;color:var(--moss)"> para ti</em>
       </h2>
     </div>
     <div class="datos-grid">
@@ -1098,13 +1098,13 @@ textarea.finput{resize:vertical;min-height:100px}
         <h4>Horario de Atención</h4>
         <div>
           <div class="horario-row"><span>Lunes – Sábado</span><span>8:00 AM – 9:00 PM</span></div>
-          <div class="horario-row"><span>Domingo</span><span>9:00 AM – 6:00 PM</span></div>
+          <div class="horario-row"><span>Domingo</span><span>9:00 AM – 8:00 PM</span></div>
         </div>
       </div>
       <div class="dato-card" data-r>
         <div class="dato-icon"><i data-feather="map-pin" style="width:20px;height:20px"></i></div>
         <h4>Dónde Estamos</h4>
-        <p>6RX7+F8 Santa María Yolotepec,<br>Oaxaca, México<br><br>Carretera Juquila, kilómetro 6</p>
+        <p>6RX7+F8 Santa María Yolotepec,<br>Oaxaca<br><br>Carretera Juquila, kilómetro 6</p>
       </div>
       <div class="dato-card" data-r>
         <div class="dato-icon"><i data-feather="phone" style="width:20px;height:20px"></i></div>
@@ -1131,7 +1131,7 @@ textarea.finput{resize:vertical;min-height:100px}
       </div>
       <div class="mapa-detail">
         <div class="mapa-detail-icon"><i data-feather="clock" style="width:16px;height:16px"></i></div>
-        <div><h5>Horario</h5><p>Lun–Sáb 8AM–9PM · Dom 9AM–3PM</p></div>
+        <div><h5>Horario</h5><p>Lun–Sáb 8AM–9PM · Dom 9AM–8PM</p></div>
       </div>
       <div class="mapa-detail">
         <div class="mapa-detail-icon"><i data-feather="message-circle" style="width:16px;height:16px"></i></div>
@@ -1201,12 +1201,12 @@ textarea.finput{resize:vertical;min-height:100px}
       </a>
       <a href="https://tiendayolotepec.web.app/"    target="_blank" class="port-card">
         <div class="port-card-icon"><i data-feather="shopping-cart" style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Tienda Yolo</h4><p>Tienda en línea</p></div>
+        <div class="port-card-body"><h4>Tienda Yolotepec V.1</h4><p>Tienda en línea</p></div>
         <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
       </a>
       <a href="https://eliteconstruction1.web.app/" target="_blank" class="port-card">
         <div class="port-card-icon"><i data-feather="tool"          style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Construcción</h4><p>Constructora</p></div>
+        <div class="port-card-body"><h4>Construcción Web</h4><p>Constructora</p></div>
         <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
       </a>
       <a href="https://fuegoyharina1.web.app/"      target="_blank" class="port-card">
@@ -1221,7 +1221,7 @@ textarea.finput{resize:vertical;min-height:100px}
       </a>
       <a href="https://andrezbarberia.web.app/"     target="_blank" class="port-card">
         <div class="port-card-icon"><i data-feather="scissors"      style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Barbería</h4><p>Barbería</p></div>
+        <div class="port-card-body"><h4>Barbería</h4><p>Barbería Version.1</p></div>
         <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
       </a>
       <a href="https://abarrotesyolo.web.app/"      target="_blank" class="port-card">
@@ -1261,7 +1261,7 @@ textarea.finput{resize:vertical;min-height:100px}
     </p>
 
     <!-- ICONOS -->
-    <div class="footer-links" style="margin-bottom:10px;">
+    <div class="footer-links" style="margin-bottom:5px;">
       
       <!-- FACEBOOK -->
       <a href="https://www.facebook.com/omarkevin.cruzcruz/photos_by" target="_blank"
@@ -1280,20 +1280,17 @@ textarea.finput{resize:vertical;min-height:100px}
       </a>
 
     </div>
-
-    <!-- LINEA -->
-    <div style="height:1px; background:rgba(255,255,255,.07); margin:20px 0;"></div>
-
-    <!-- PARTE FINAL -->
-    <div class="footer-bottom">
-      <p style="color:rgba(255, 255, 255, 0.993); margin-bottom:5px;">
-        © <span class="yr"></span> Casa de Lima. Todos los derechos reservados.
-      </p>
-
-      <a href="/aviso-de-privacidad.html" target="_blank"
+<a href="/aviso-de-privacidad.html" target="_blank"
          style="color:white; text-decoration:none;">
          Privacidad
       </a>
+
+    <!-- PARTE FINAL -->
+    <div class="footer-bottom">
+      <p style="color:rgba(255, 255, 255, 0.993); margin-bottom:2px;">
+        © <span class="yr"></span> Casa de Lima. Todos los derechos reservados.
+      </p>
+
     </div>
 
   </div>
