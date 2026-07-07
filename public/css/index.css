@@ -159,7 +159,7 @@ body::after{
 .hero-bg{
   position:absolute;inset:0;
   z-index:0;
-  background-image:url('tienda-hero.jpg');
+  background-image:url('../tienda-hero.jpg');
   background-size:cover;background-position:center;
   opacity:.12;
   transition:opacity 1s;
