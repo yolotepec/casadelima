@@ -8,7 +8,7 @@
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/feather-icons"></script>
 
 <link rel="stylesheet" href="css/index.css">
@@ -314,6 +314,7 @@
 <section id="portafolio">
   <div class="container">
     <div class="port-head" data-r>
+      <div class="sec-label" style="justify-content:center">Nuestro trabajo</div>
       <h2>¿Te gusta esta página?</h2>
       <p>Servicios de diseño y desarrollo web · Mira algunos ejemplos</p>
     </div>
@@ -369,7 +370,19 @@
         <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
       </a>
       <a href="https://play.google.com/store/apps/details?id=com.appparameseras.meseras_app" target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="clipboard"     style="width:20px;height:20px"></i></div>
+        <div class="port-card-icon" style="background:#fff;box-shadow:0 8px 20px rgba(15,14,11,.12),inset 0 0 0 1px var(--fog)">
+          <svg width="22" height="22" viewBox="0 0 24 24">
+            <defs>
+              <linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d4ff"/>
+                <stop offset="30%" stop-color="#00f076"/>
+                <stop offset="65%" stop-color="#ffcf00"/>
+                <stop offset="100%" stop-color="#ff3a44"/>
+              </linearGradient>
+            </defs>
+            <polygon points="5,3 5,21 20,12" fill="url(#playGrad)"/>
+          </svg>
+        </div>
         <div class="port-card-body"><h4>App para Meseras</h4><p>Control de propinas, cuentas y estadísticas · App Android</p></div>
         <span class="port-card-link">Ver en Play Store <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
       </a>

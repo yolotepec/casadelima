@@ -38,3 +38,23 @@ const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});
 },{threshold:0.1});
 document.querySelectorAll('[data-r]').forEach(el=>io.observe(el));
+
+// ── PORTAFOLIO: barra de navegador simulada ──
+document.querySelectorAll('.port-card').forEach(card=>{
+  if(card.href.includes('play.google.com'))return;
+  let host;
+  try{host=new URL(card.href).hostname;}catch(e){return;}
+  const bar=document.createElement('div');
+  bar.className='port-browser';
+  bar.innerHTML=`<span class="port-dot" style="background:#ff5f56"></span><span class="port-dot" style="background:#ffbd2e"></span><span class="port-dot" style="background:#27c93f"></span><span class="port-url">🔒 ${host}</span>`;
+  card.prepend(bar);
+});
+
+// ── WHATSAPP FLOTANTE: solo visible desde contacto en adelante ──
+const waBtn=document.querySelector('.wa');
+const contacto=document.getElementById('contacto');
+if(waBtn&&contacto){
+  const toggleWa=()=>waBtn.classList.toggle('show',scrollY+innerHeight/2>=contacto.offsetTop);
+  window.addEventListener('scroll',toggleWa,{passive:true});
+  toggleWa();
+}

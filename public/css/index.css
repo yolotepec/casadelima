@@ -754,38 +754,63 @@ textarea.finput{resize:vertical;min-height:100px}
 .port-head h2{font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--ink);margin-bottom:.4rem}
 .port-head p{color:#8a7860;font-size:.9rem}
 
-.port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-bottom:1.75rem}
+.port-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}
 .port-card{
   background:#fff;
   border:1.5px solid var(--fog);
-  border-radius:20px;
-  padding:1.75rem 1.5rem;
+  border-radius:22px;
+  padding:2rem 1.6rem;
   text-decoration:none;
   display:flex;flex-direction:column;
-  gap:.9rem;
+  gap:1rem;
   position:relative;
   overflow:hidden;
   box-shadow:0 4px 20px rgba(15,14,11,.04);
-  transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s,border-color .3s;
+  transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s,border-color .35s;
+}
+.port-card::before{content:'';position:absolute;top:-40%;right:-30%;width:60%;height:60%;background:radial-gradient(circle,rgba(101,209,33,.10),transparent 70%);pointer-events:none}
+.port-browser{
+  display:flex;align-items:center;gap:6px;
+  margin:-2rem -1.6rem 1.2rem -1.6rem;
+  padding:10px 14px;
+  background:linear-gradient(90deg,#f2ede1,#e9e2d0);
+  border-bottom:1px solid var(--fog);
+  position:relative;
+}
+.port-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.port-url{
+  margin-left:6px;
+  font-size:.66rem;font-family:'Courier New',monospace;
+  color:#8a7860;
+  background:#fff;
+  padding:3px 10px;
+  border-radius:99px;
+  flex:1;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  box-shadow:inset 0 0 0 1px var(--fog);
 }
 .port-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lime),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .port-card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-8px) scale(1.015);
   border-color:var(--moss);
-  box-shadow:0 20px 45px rgba(15,14,11,.12),0 0 24px rgba(240,180,41,.18);
+  box-shadow:0 24px 50px rgba(15,14,11,.14),0 0 26px rgba(240,180,41,.18);
 }
 .port-card:hover::after{transform:scaleX(1)}
 .port-card-icon{
-  width:52px;height:52px;
-  border-radius:16px;
+  width:56px;height:56px;
+  border-radius:50%;
   background:linear-gradient(135deg,var(--lime),var(--moss));
   display:flex;align-items:center;justify-content:center;
   color:#fff;
   box-shadow:0 8px 20px rgba(53,112,29,.25);
   transition:transform .3s;
 }
-.port-card:hover .port-card-icon{transform:scale(1.08) rotate(-4deg)}
-.port-card-body h4{font-family:'Instrument Serif',serif;font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:.4rem;line-height:1.2}
+.port-card:hover .port-card-icon{transform:scale(1.1) rotate(-4deg)}
+.port-card-icon svg{animation:portIconDrift 2.6s ease-in-out infinite alternate}
+@keyframes portIconDrift{from{transform:translateX(-3px)}to{transform:translateX(3px)}}
+.port-card:nth-child(2n) .port-card-icon svg{animation-delay:.4s}
+.port-card:nth-child(3n) .port-card-icon svg{animation-delay:.8s}
+.port-card-body h4{font-family:'Space Grotesk',sans-serif;font-size:1.08rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);margin-bottom:.4rem;line-height:1.25}
 .port-card-body p{
   display:inline-block;
   font-size:.66rem;font-weight:700;
@@ -888,7 +913,10 @@ textarea.finput{resize:vertical;min-height:100px}
   text-decoration:none;
   box-shadow:0 8px 24px rgba(9, 255, 0, 0.151);
   animation:wapulse 3s ease-in-out infinite;
+  opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .3s ease,transform .3s ease;
 }
+.wa.show{opacity:1;pointer-events:auto;transform:none}
 @keyframes wapulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 .wa::after{
   content:'';position:absolute;inset:-6px;
