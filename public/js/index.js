@@ -39,6 +39,40 @@ const io=new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('[data-r]').forEach(el=>io.observe(el));
 
+// ── PROMO DEL DÍA: contador regresivo ──
+const promoBar=document.getElementById('promoBar');
+if(promoBar){
+  const setPromoH=()=>document.documentElement.style.setProperty('--promoH',promoBar.offsetHeight+'px');
+  setPromoH();
+  window.addEventListener('resize',setPromoH);
+
+  const pH=document.getElementById('pH'),pM=document.getElementById('pM'),pS=document.getElementById('pS');
+  const pad=n=>String(n).padStart(2,'0');
+  const PROMO_KEY='cdl_promoEnd';
+  const PROMO_DURATION=5*60*60*1000; // 5 horas desde la primera visita
+  let promoEnd=null;
+  try{
+    const saved=Number(localStorage.getItem(PROMO_KEY));
+    if(saved&&!isNaN(saved))promoEnd=saved;
+  }catch(e){}
+  if(!promoEnd){
+    promoEnd=Date.now()+PROMO_DURATION;
+    try{localStorage.setItem(PROMO_KEY,promoEnd);}catch(e){}
+  }
+  const promoTimer=setInterval(()=>{
+    const diff=promoEnd-Date.now();
+    if(diff<=0){
+      promoBar.style.display='none';
+      setPromoH();
+      clearInterval(promoTimer);
+      return;
+    }
+    pH.textContent=pad(Math.floor(diff/3600000));
+    pM.textContent=pad(Math.floor(diff%3600000/60000));
+    pS.textContent=pad(Math.floor(diff%60000/1000));
+  },1000);
+}
+
 // ── PORTAFOLIO: barra de navegador simulada ──
 document.querySelectorAll('.port-card').forEach(card=>{
   if(card.href.includes('play.google.com'))return;
