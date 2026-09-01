@@ -60,12 +60,11 @@ if(promoBar){
     try{localStorage.setItem(PROMO_KEY,promoEnd);}catch(e){}
   }
   const promoTimer=setInterval(()=>{
-    const diff=promoEnd-Date.now();
+    let diff=promoEnd-Date.now();
     if(diff<=0){
-      promoBar.style.display='none';
-      setPromoH();
-      clearInterval(promoTimer);
-      return;
+      promoEnd=Date.now()+PROMO_DURATION;
+      try{localStorage.setItem(PROMO_KEY,promoEnd);}catch(e){}
+      diff=promoEnd-Date.now();
     }
     pH.textContent=pad(Math.floor(diff/3600000));
     pM.textContent=pad(Math.floor(diff%3600000/60000));
