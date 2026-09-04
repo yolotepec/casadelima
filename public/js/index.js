@@ -1,6 +1,60 @@
 feather.replace();
 document.querySelectorAll('.yr').forEach(e=>e.textContent=new Date().getFullYear());
 
+// ── DATOS DEL NEGOCIO: whatsapp, facebook, horarios, dirección, mapa, nosotros ──
+fetch('content/site.json').then(r=>r.json()).then(site=>{
+  const setText=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null)el.textContent=val;};
+  const setHref=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null)el.href=val;};
+
+  const waUrl='https://wa.me/'+site.whatsappNumber;
+  ['waFloat','datosWaLink','mapaWaLink','contactoWaLink','footerWaLink'].forEach(id=>setHref(id,waUrl));
+  setText('mapaWaLink',site.whatsappDisplay);
+  setText('datosWaLink','WhatsApp: '+site.whatsappDisplay);
+  setText('contactoWaText','WhatsApp · '+site.whatsappDisplay);
+
+  setHref('contactoFbLink',site.facebookUrl);
+  setHref('footerFbLink',site.facebookUrl);
+
+  setText('horaWeekdayLabel',site.hoursWeekdaysLabel);
+  setText('horaWeekday',site.hoursWeekdays);
+  setText('horaSundayLabel',site.hoursSundayLabel);
+  setText('horaSunday',site.hoursSunday);
+  setText('mapaHorario',site.hoursShort);
+
+  setText('mapaAddress',site.address);
+  const datosAddress=document.getElementById('datosAddress');
+  if(datosAddress)datosAddress.innerHTML=`${site.address}<br><br>${site.addressExtra||''}`;
+  const mapaIframe=document.getElementById('mapaIframe');
+  if(mapaIframe&&site.mapEmbedUrl)mapaIframe.src=site.mapEmbedUrl;
+
+  setText('aboutYears','+'+site.aboutYears);
+  const aboutTitle=document.getElementById('aboutTitle');
+  if(aboutTitle)aboutTitle.innerHTML=`${site.aboutTitleMain}<br><em>${site.aboutTitleEm}</em>`;
+  const about1=document.getElementById('aboutText1');
+  if(about1)about1.innerHTML=(site.aboutText1||'').replace('Casa de Lima','<strong>Casa de Lima</strong>');
+  setText('aboutText2',site.aboutText2);
+}).catch(()=>{});
+
+// ── CATÁLOGO: categorías de productos desde content/catalog.json ──
+const catalogGrid=document.getElementById('catalogGrid');
+if(catalogGrid){
+  fetch('content/catalog.json').then(r=>r.json()).then(data=>{
+    (data.items||[]).forEach(cat=>{
+      const card=document.createElement('div');
+      card.className='prod-card';
+      const words=cat.title.split(' ');
+      const titleHtml=`<em>${words[0]}</em> ${words.slice(1).join(' ')}`;
+      const productsHtml=(cat.products||[]).map(p=>`<li>${p}</li>`).join('');
+      const moreHtml=cat.showMore?'<li style="color:rgba(240,180,41,.7);border:none">+ muchos productos más</li>':'';
+      card.innerHTML=`<div class="prod-card-icon"><i data-feather="${cat.icon}" style="width:24px;height:24px"></i></div>
+        <h3>${titleHtml}</h3>
+        <ul class="prod-items">${productsHtml}${moreHtml}</ul>`;
+      catalogGrid.appendChild(card);
+    });
+    feather.replace();
+  }).catch(()=>{});
+}
+
 // ── DRAWER ──
 const overlay=document.getElementById('overlay');
 const drawer=document.getElementById('drawer');

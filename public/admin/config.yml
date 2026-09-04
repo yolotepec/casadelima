@@ -44,3 +44,49 @@ collections:
               - { label: "Ícono (si no hay imagen)", name: "icon", widget: "string", required: false, hint: "Nombre de ícono, ej. shopping-cart, coffee, tag, smartphone" }
               - { label: "Texto del botón", name: "linkText", widget: "string", default: "Ver sitio" }
               - { label: "Descuento % (deja vacío si no aplica)", name: "discount", widget: "number", required: false, value_type: "int" }
+
+  - name: "negocio"
+    label: "Información del negocio"
+    delete: false
+    files:
+      - name: "site"
+        label: "Contacto, horarios, ubicación y nosotros"
+        file: "public/content/site.json"
+        fields:
+          - { label: "Número de WhatsApp (solo números, con código de país, sin +)", name: "whatsappNumber", widget: "string", hint: "Ejemplo: 17048349539" }
+          - { label: "WhatsApp (texto a mostrar)", name: "whatsappDisplay", widget: "string", hint: "Ejemplo: +1 (704) 834-9539" }
+          - { label: "Link de Facebook", name: "facebookUrl", widget: "string" }
+          - { label: "Dirección", name: "address", widget: "string" }
+          - { label: "Dirección (línea extra, opcional)", name: "addressExtra", widget: "string", required: false }
+          - { label: "Link para incrustar el mapa de Google Maps", name: "mapEmbedUrl", widget: "text", hint: "En Google Maps: Compartir → Insertar un mapa → copia solo lo que está entre comillas de src=\"...\"" }
+          - { label: "Horario (etiqueta días entre semana)", name: "hoursWeekdaysLabel", widget: "string" }
+          - { label: "Horario entre semana", name: "hoursWeekdays", widget: "string" }
+          - { label: "Horario (etiqueta domingo)", name: "hoursSundayLabel", widget: "string" }
+          - { label: "Horario domingo", name: "hoursSunday", widget: "string" }
+          - { label: "Horario resumido (para el mapa)", name: "hoursShort", widget: "string", hint: "Ejemplo: Lun–Sáb 8AM–9PM · Dom 9AM–8PM" }
+          - { label: "Años de experiencia", name: "aboutYears", widget: "number", value_type: "int" }
+          - { label: "Nosotros — título (primera línea)", name: "aboutTitleMain", widget: "string" }
+          - { label: "Nosotros — título (segunda línea, resaltada)", name: "aboutTitleEm", widget: "string" }
+          - { label: "Nosotros — primer párrafo", name: "aboutText1", widget: "text" }
+          - { label: "Nosotros — segundo párrafo", name: "aboutText2", widget: "text" }
+
+  - name: "catalogo"
+    label: "Catálogo"
+    delete: false
+    files:
+      - name: "catalog"
+        label: "Categorías del catálogo"
+        file: "public/content/catalog.json"
+        fields:
+          - name: "items"
+            label: "Categorías"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Título de la categoría", name: "title", widget: "string" }
+              - { label: "Ícono", name: "icon", widget: "string", hint: "Nombre de ícono, ej. shopping-bag, droplet" }
+              - { label: "Mostrar \"+ muchos productos más\" al final", name: "showMore", widget: "boolean", default: false }
+              - name: "products"
+                label: "Productos"
+                widget: "list"
+                field: { label: "Producto", name: "product", widget: "string" }

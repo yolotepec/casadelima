@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "title": "Canasta Básica", "icon": "shopping-bag", "showMore": true, "products": ["Azúcar y Cereales", "Aceites y Especias", "Sopas, Pastas y Enlatados", "Lácteos, Huevos y Bebidas"] },
+    { "title": "Limpieza e Higiene", "icon": "droplet", "showMore": false, "products": ["Detergentes líquidos y en polvo", "Suavizantes y blanqueadores", "Higiene personal completa", "Artículos de limpieza doméstica"] }
+  ]
+}
