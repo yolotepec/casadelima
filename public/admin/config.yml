@@ -53,6 +53,15 @@ collections:
         label: "Contacto, horarios, ubicación y nosotros"
         file: "public/content/site.json"
         fields:
+          - { label: "Color principal (verde)", name: "colorPrimary", widget: "color", hint: "Se usa en botones, íconos y acentos por toda la página" }
+          - { label: "Color de acento (dorado)", name: "colorAccent", widget: "color", hint: "Se usa en precios, resaltados y detalles" }
+          - { label: "Imagen de fondo de la portada (hero)", name: "heroImage", widget: "image" }
+          - { label: "Portada — línea 1", name: "heroTitleMain", widget: "string" }
+          - { label: "Portada — línea 2 (resaltada)", name: "heroTitleEm", widget: "string" }
+          - { label: "Portada — línea 3", name: "heroTitleEnd", widget: "string" }
+          - { label: "Portada — texto debajo del título", name: "heroSubtitle", widget: "text" }
+          - { label: "Nosotros — foto principal", name: "aboutImageMain", widget: "image" }
+          - { label: "Nosotros — foto pequeña", name: "aboutImageAccent", widget: "image" }
           - { label: "Número de WhatsApp (solo números, con código de país, sin +)", name: "whatsappNumber", widget: "string", hint: "Ejemplo: 17048349539" }
           - { label: "WhatsApp (texto a mostrar)", name: "whatsappDisplay", widget: "string", hint: "Ejemplo: +1 (704) 834-9539" }
           - { label: "Link de Facebook", name: "facebookUrl", widget: "string" }

@@ -33,6 +33,20 @@ fetch('content/site.json').then(r=>r.json()).then(site=>{
   const about1=document.getElementById('aboutText1');
   if(about1)about1.innerHTML=(site.aboutText1||'').replace('Casa de Lima','<strong>Casa de Lima</strong>');
   setText('aboutText2',site.aboutText2);
+
+  if(site.colorPrimary)document.documentElement.style.setProperty('--lime',site.colorPrimary);
+  if(site.colorAccent)document.documentElement.style.setProperty('--gold',site.colorAccent);
+
+  const heroBg=document.getElementById('heroBg');
+  if(heroBg&&site.heroImage)heroBg.style.backgroundImage=`url('${site.heroImage}')`;
+  const heroTitle=document.getElementById('heroTitle');
+  if(heroTitle)heroTitle.innerHTML=`${site.heroTitleMain}<br><em>${site.heroTitleEm}</em><br>${site.heroTitleEnd}`;
+  setText('heroSubtitle',site.heroSubtitle);
+
+  const aboutImgMain=document.getElementById('aboutImgMain');
+  if(aboutImgMain&&site.aboutImageMain)aboutImgMain.src=site.aboutImageMain;
+  const aboutImgAccent=document.getElementById('aboutImgAccent');
+  if(aboutImgAccent&&site.aboutImageAccent)aboutImgAccent.src=site.aboutImageAccent;
 }).catch(()=>{});
 
 // ── CATÁLOGO: categorías de productos desde content/catalog.json ──
@@ -216,11 +230,14 @@ if(nameField){
 if(window.netlifyIdentity){
   netlifyIdentity.on('init',user=>{
     if(user){
-      const badge=document.createElement('a');
-      badge.href='/admin/';
-      badge.textContent='⚙ Modo admin';
-      badge.style.cssText='position:fixed;bottom:12px;left:12px;z-index:300;background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:99px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)';
-      document.body.appendChild(badge);
+      const wrap=document.createElement('div');
+      wrap.style.cssText='position:fixed;bottom:12px;left:12px;z-index:300;display:flex;gap:6px';
+      wrap.innerHTML=`
+        <a href="/admin/" style="background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:99px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">⚙ Editar contenido</a>
+        <button id="adminAccountBtn" style="background:#fff;color:var(--ink);font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:99px;border:1.5px solid var(--ink);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)">Mi cuenta</button>
+      `;
+      document.body.appendChild(wrap);
+      document.getElementById('adminAccountBtn').onclick=()=>netlifyIdentity.open('user');
     }else{
       netlifyIdentity.on('login',()=>{location.href='/admin/';});
     }

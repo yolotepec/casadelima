@@ -1,4 +1,13 @@
 {
+  "colorPrimary": "#65d121",
+  "colorAccent": "#f0b429",
+  "heroImage": "/tienda-hero.jpg",
+  "heroTitleMain": "Bienvenido a",
+  "heroTitleEm": "Casa de Lima,",
+  "heroTitleEnd": "tu tienda online.",
+  "heroSubtitle": "Productos esenciales para tu hogar con calidad, confianza y entrega rápida en Santa María Yolotepec, Oaxaca.",
+  "aboutImageMain": "/tienda-principal.jpg",
+  "aboutImageAccent": "/tienda-letrero.jpg",
   "whatsappNumber": "17048349539",
   "whatsappDisplay": "+1 (704) 834-9539",
   "facebookUrl": "https://www.facebook.com/omarkevin.cruzcruz/photos_by",
