@@ -14,7 +14,6 @@ html{scroll-behavior:smooth;overflow-x:hidden}
   --paper:  #faf7f0;
   --fog:    #e8e0d0;
   --white:  #ffffff;
-  --promoH: 0px;
 }
 
 body{
@@ -82,15 +81,16 @@ body::after{
 
 /* ── HEADER ── */
 #hdr{
-  position:fixed;top:var(--promoH,0px);left:0;right:0;z-index:100;
+  position:sticky;top:0;left:0;right:0;z-index:100;
+  background:rgba(15,14,11,.92);backdrop-filter:blur(16px);
   padding:.9rem 1.75rem;
   display:flex;align-items:center;justify-content:space-between;
-  transition:background .4s,backdrop-filter .4s,box-shadow .4s,top .3s;
+  transition:background .4s,backdrop-filter .4s,box-shadow .4s;
 }
 
 /* ── PROMO DEL DÍA ── */
 .promo-bar{
-  position:fixed;top:0;left:0;right:0;z-index:110;
+  position:relative;z-index:90;
   background:linear-gradient(90deg,var(--gold),var(--lime));
   color:var(--ink);
   padding:.55rem 1rem;
@@ -137,8 +137,8 @@ body::after{
 }
 .promo-cta:hover{transform:scale(1.05)}
 @media(max-width:640px){
-  .promo-inner{font-size:.72rem;gap:.4rem .6rem}
-  .promo-msg{white-space:normal;text-align:center;width:100%;order:1}
+  .promo-inner{flex-direction:column;font-size:.72rem;gap:.45rem;padding:.25rem 0}
+  .promo-msg{white-space:normal;text-align:center;max-width:100%}
 }
 #hdr.solid{
   background:rgba(15,14,11,.92);
@@ -229,7 +229,7 @@ body::after{
 .hero-left{
   display:flex;flex-direction:column;
   justify-content:flex-end;
-  padding:7rem 3rem 5rem 3.5rem;
+  padding:3.5rem 3rem 5rem 3.5rem;
   border-right:1px solid rgba(255,255,255,.07);
 }
 
@@ -1001,7 +1001,7 @@ textarea.finput{resize:vertical;min-height:100px}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr}
-  .hero-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:7rem 2rem 3rem}
+  .hero-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:3rem 2rem 3rem}
   .hero-right{padding:2rem;flex-direction:row;flex-wrap:wrap;gap:1rem}
   .hero-stat{flex:1;min-width:140px}
   .nosotros-grid,.prod-grid,.datos-grid,.contacto-grid{grid-template-columns:1fr}
@@ -1015,7 +1015,7 @@ textarea.finput{resize:vertical;min-height:100px}
   .taq-divider{display:none}
 }
 @media(max-width:600px){
-  .hero-left{padding:6rem 1.5rem 3rem}
+  .hero-left{padding:2.5rem 1.5rem 3rem}
   .container{padding:0 1.25rem}
   .prod-grid{grid-template-columns:1fr}
   .hero-stat{min-width:calc(50% - .5rem)}

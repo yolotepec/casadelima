@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "badge": "🔥 Oferta de hoy",
+  "message": "Chatino POS — vende más rápido y controla tu inventario y reportes en un solo lugar.",
+  "priceBefore": "$1,500",
+  "priceAfter": "$1,275",
+  "discountPercent": 15,
+  "durationHours": 5,
+  "ctaText": "Ver oferta",
+  "ctaUrl": "https://chatino-pos-descarga.netlify.app/"
+}

@@ -1,0 +1,46 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "promocion"
+    label: "Promoción del día"
+    delete: false
+    files:
+      - name: "promo"
+        label: "Barra de promoción"
+        file: "public/content/promo.json"
+        fields:
+          - { label: "Activada", name: "enabled", widget: "boolean", default: true, hint: "Apaga esto para ocultar la barra de promoción sin borrar el contenido" }
+          - { label: "Etiqueta (ej. 🔥 Oferta de hoy)", name: "badge", widget: "string" }
+          - { label: "Mensaje", name: "message", widget: "text" }
+          - { label: "Precio anterior", name: "priceBefore", widget: "string" }
+          - { label: "Precio con descuento", name: "priceAfter", widget: "string" }
+          - { label: "Porcentaje de descuento (deja vacío para ocultar la estrella)", name: "discountPercent", widget: "number", required: false, value_type: "int" }
+          - { label: "Duración del contador (horas)", name: "durationHours", widget: "number", value_type: "int" }
+          - { label: "Texto del botón", name: "ctaText", widget: "string" }
+          - { label: "Link del botón", name: "ctaUrl", widget: "string" }
+
+  - name: "portafolio"
+    label: "Portafolio"
+    delete: false
+    files:
+      - name: "portfolio"
+        label: "Tarjetas del portafolio"
+        file: "public/content/portfolio.json"
+        fields:
+          - name: "items"
+            label: "Proyectos"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descripción corta", name: "description", widget: "text" }
+              - { label: "Link del sitio", name: "url", widget: "string" }
+              - { label: "Imagen (opcional, reemplaza el ícono)", name: "image", widget: "image", required: false }
+              - { label: "Ícono (si no hay imagen)", name: "icon", widget: "string", required: false, hint: "Nombre de ícono, ej. shopping-cart, coffee, tag, smartphone" }
+              - { label: "Texto del botón", name: "linkText", widget: "string", default: "Ver sitio" }
+              - { label: "Descuento % (deja vacío si no aplica)", name: "discount", widget: "number", required: false, value_type: "int" }

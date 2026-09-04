@@ -43,13 +43,16 @@
   </div>
 </div>
 
-<!-- PROMO DEL DÍA -->
-<div id="promoBar" class="promo-bar">
+<!-- PROMO DEL DÍA (contenido cargado desde content/promo.json) -->
+<div id="promoBar" class="promo-bar" hidden>
   <div class="promo-inner">
-    <span class="promo-badge">🔥 Oferta de hoy</span>
-    <span class="promo-msg">Chatino POS — vende más rápido y controla tu inventario y reportes en un solo lugar.</span>
-
-    <span class="promo-price"><s>$1,500</s> <b>$1,275</b> MXN</span>
+    <span class="promo-badge" id="promoBadge"></span>
+    <span class="promo-msg" id="promoMsg"></span>
+    <span class="promo-discount" id="promoDiscount" hidden aria-hidden="true">
+      <svg viewBox="0 0 100 100"><polygon points="50,2 61,20 79,10 82,30 100,35 90,50 100,65 82,70 79,90 61,80 50,98 39,80 21,90 18,70 0,65 10,50 0,35 18,30 21,10 39,20" fill="#e53935"/></svg>
+      <b id="promoDiscountText"></b>
+    </span>
+    <span class="promo-price"><s id="promoPriceBefore"></s> <b id="promoPriceAfter"></b> MXN</span>
     <div class="promo-countdown" aria-label="Tiempo restante de la promoción">
       <span class="promo-unit"><b id="pH">00</b>h</span>
       <span class="promo-sep">:</span>
@@ -57,7 +60,7 @@
       <span class="promo-sep">:</span>
       <span class="promo-unit"><b id="pS">00</b>s</span>
     </div>
-    <a href="https://chatino-pos-descarga.netlify.app/" target="_blank" rel="noopener noreferrer" class="promo-cta">Ver oferta</a>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="promo-cta" id="promoCta"></a>
   </div>
 </div>
 
@@ -336,89 +339,7 @@
       <h2>¿Te gusta esta página?</h2>
       <p>Servicios de diseño y desarrollo web · Mira algunos ejemplos</p>
     </div>
-    <div class="port-grid" data-r>
-      <a href="https://comidachinayolo.web.app/"    target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="coffee"        style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Comida China</h4><p>Restaurante</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://tiendayolotepec.web.app/"    target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="shopping-cart" style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Tienda Yolotepec V.1</h4><p>Tienda en línea</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://eliteconstruction1.web.app/" target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="tool"          style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Construcción Web</h4><p>Constructora</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://fuegoyharina1.web.app/"      target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="pie-chart"     style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Pizzería</h4><p>Restaurante</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://pasteldeyolo.web.app/"       target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="gift"          style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Pastelería</h4><p>Pastelería</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://andrezbarberia.web.app/"     target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="scissors"      style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Barbería</h4><p>Barbería Version.1</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://abarrotesyolo.web.app/"      target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="shopping-bag"  style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Abarrotes</h4><p>Tienda de Abarrotes Version 2</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://tiendareal.web.app/"         target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="tag"           style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Tienda Real</h4><p>Tienda en línea con panel de administrador y panel de delivery.</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-         <a href="https://smyfacturar.web.app/"         target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="tag"           style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Tiket, cotizacion, fac</h4><p>Crea nota de ventas y tikets. GRATIS</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://restaurantechino.web.app/"   target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="smartphone"    style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Restaurante Chino V.2</h4><p>Pedidos online, panel Admin/Cocina y app Android</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://play.google.com/store/apps/details?id=com.appparameseras.meseras_app" target="_blank" class="port-card">
-        <div class="port-card-icon" style="background:#fff;box-shadow:0 8px 20px rgba(15,14,11,.12),inset 0 0 0 1px var(--fog)">
-          <svg width="22" height="22" viewBox="0 0 24 24">
-            <defs>
-              <linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#00d4ff"/>
-                <stop offset="30%" stop-color="#00f076"/>
-                <stop offset="65%" stop-color="#ffcf00"/>
-                <stop offset="100%" stop-color="#ff3a44"/>
-              </linearGradient>
-            </defs>
-            <polygon points="5,3 5,21 20,12" fill="url(#playGrad)"/>
-          </svg>
-        </div>
-        <div class="port-card-body"><h4>App para Meseras</h4><p>Control de propinas, cuentas y estadísticas · App Android</p></div>
-        <span class="port-card-link">Ver en Play Store <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://tiendasistemapos.web.app/"   target="_blank" class="port-card">
-        <div class="port-card-icon"><i data-feather="credit-card"   style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Sistema POS V.1</h4><p>Control básico de ventas para tiendas</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-      <a href="https://chatino-pos-descarga.netlify.app/" target="_blank" class="port-card">
-        <span class="port-discount" aria-label="13% de descuento">
-          <svg viewBox="0 0 100 100"><polygon points="50,2 61,20 79,10 82,30 100,35 90,50 100,65 82,70 79,90 61,80 50,98 39,80 21,90 18,70 0,65 10,50 0,35 18,30 21,10 39,20" fill="#e53935"/></svg>
-          <b>-15%</b>
-        </span>
-        <div class="port-card-icon"><i data-feather="smartphone"    style="width:20px;height:20px"></i></div>
-        <div class="port-card-body"><h4>Sistema POS V.2</h4><p>Ventas, inventario y reportes desde tu celular</p></div>
-        <span class="port-card-link">Ver sitio <i data-feather="arrow-up-right" style="width:12px;height:12px"></i></span>
-      </a>
-    </div>
+    <div class="port-grid" id="portGrid" data-r></div>
     <div style="text-align:center">
       <a href="#contacto" class="port-cta"><i data-feather="chevron-right" style="width:14px;height:14px"></i> Solicitar Cotización</a>
     </div>
@@ -475,6 +396,7 @@
   </div>
 </footer>
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="js/index.js"></script>
 </body>
 </html>
