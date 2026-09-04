@@ -1,17 +1,128 @@
 {
   "items": [
-    { "title": "Comida China", "description": "Restaurante", "url": "https://comidachinayolo.web.app/", "icon": "coffee", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Tienda Yolotepec V.1", "description": "Tienda en línea", "url": "https://tiendayolotepec.web.app/", "icon": "shopping-cart", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Construcción Web", "description": "Constructora", "url": "https://eliteconstruction1.web.app/", "icon": "tool", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Pizzería", "description": "Restaurante", "url": "https://fuegoyharina1.web.app/", "icon": "pie-chart", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Pastelería", "description": "Pastelería", "url": "https://pasteldeyolo.web.app/", "icon": "gift", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Barbería", "description": "Barbería Version.1", "url": "https://andrezbarberia.web.app/", "icon": "scissors", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Abarrotes", "description": "Tienda de Abarrotes Version 2", "url": "https://abarrotesyolo.web.app/", "icon": "shopping-bag", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Tienda Real", "description": "Tienda en línea con panel de administrador y panel de delivery.", "url": "https://tiendareal.web.app/", "icon": "tag", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Tiket, cotizacion, fac", "description": "Crea nota de ventas y tikets. GRATIS", "url": "https://smyfacturar.web.app/", "icon": "tag", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Restaurante Chino V.2", "description": "Pedidos online, panel Admin/Cocina y app Android", "url": "https://restaurantechino.web.app/", "icon": "smartphone", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "App para Meseras", "description": "Control de propinas, cuentas y estadísticas · App Android", "url": "https://play.google.com/store/apps/details?id=com.appparameseras.meseras_app", "icon": "playstore", "image": null, "linkText": "Ver en Play Store", "discount": null },
-    { "title": "Sistema POS V.1", "description": "Control básico de ventas para tiendas", "url": "https://tiendasistemapos.web.app/", "icon": "credit-card", "image": null, "linkText": "Ver sitio", "discount": null },
-    { "title": "Sistema POS V.2", "description": "Ventas, inventario y reportes desde tu celular", "url": "https://chatino-pos-descarga.netlify.app/", "icon": "smartphone", "image": null, "linkText": "Ver sitio", "discount": 15 }
+    {
+      "title": "Comida China",
+      "description": "Restaurante",
+      "url": "https://comidachinayolo.web.app/",
+      "icon": "coffee",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Tienda Yolotepec V.1",
+      "description": "Tienda en línea",
+      "url": "https://tiendayolotepec.web.app/",
+      "icon": "shopping-cart",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Construcción Web",
+      "description": "Constructora",
+      "url": "https://eliteconstruction1.web.app/",
+      "icon": "tool",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Pizzería",
+      "description": "Restaurante",
+      "url": "https://fuegoyharina1.web.app/",
+      "icon": "pie-chart",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Pastelería",
+      "description": "Pastelería",
+      "url": "https://pasteldeyolo.web.app/",
+      "icon": "gift",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Barbería",
+      "description": "Barbería Version.1",
+      "url": "https://andrezbarberia.web.app/",
+      "icon": "scissors",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Abarrotes",
+      "description": "Tienda de Abarrotes Version 2",
+      "url": "https://abarrotesyolo.web.app/",
+      "icon": "shopping-bag",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Tienda Real",
+      "description": "Tienda en línea con panel de administrador y panel de delivery.",
+      "url": "https://tiendareal.web.app/",
+      "icon": "tag",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Tiket, cotizacion, fac",
+      "description": "Crea nota de ventas y tikets. GRATIS",
+      "url": "https://smyfacturar.web.app/",
+      "icon": "tag",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Restaurante Chino V.2",
+      "description": "Pedidos online, panel Admin/Cocina y app Android",
+      "url": "https://restaurantechino.web.app/",
+      "icon": "smartphone",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "App para Meseras",
+      "description": "Control de propinas, cuentas y estadísticas · App Android",
+      "url": "https://play.google.com/store/apps/details?id=com.appparameseras.meseras_app",
+      "icon": "playstore",
+      "image": null,
+      "linkText": "Ver en Play Store",
+      "discount": null
+    },
+    {
+      "title": "Sistema POS V.1",
+      "description": "Control básico de ventas para tiendas",
+      "url": "https://tiendasistemapos.web.app/",
+      "icon": "credit-card",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": null
+    },
+    {
+      "title": "Sistema POS V.2",
+      "description": "Ventas, inventario y reportes desde tu celular",
+      "url": "https://chatino-pos-descarga.netlify.app/",
+      "icon": "smartphone",
+      "image": null,
+      "linkText": "Ver sitio",
+      "discount": 15
+    },
+    {
+      "linkText": "Ver sitio",
+      "title": "admin",
+      "description": "adm",
+      "url": "https://tiendadelima.com/",
+      "discount": 0
+    }
   ]
 }
