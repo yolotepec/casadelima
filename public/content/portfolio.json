@@ -121,7 +121,8 @@
       "linkText": "Ver sitio",
       "title": "admin",
       "description": "adm",
-      "url": "https://tiendadelima.com/"
+      "url": "https://tiendadelima.com/",
+      "discount": 0
     }
   ]
 }
